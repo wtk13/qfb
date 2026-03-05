@@ -6,9 +6,10 @@ use App\Infrastructure\Persistence\Eloquent\BusinessProfileModel;
 use App\Infrastructure\Persistence\Eloquent\FeedbackModel;
 use App\Models\User;
 use Domain\Feedback\Event\NegativeFeedbackReceived;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class NotifyOwnerOnNegativeFeedback
+class NotifyOwnerOnNegativeFeedback implements ShouldQueue
 {
     public function handle(NegativeFeedbackReceived $event): void
     {

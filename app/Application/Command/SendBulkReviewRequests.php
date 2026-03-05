@@ -2,6 +2,8 @@
 
 namespace App\Application\Command;
 
+use Domain\Shared\ValueObject\Email;
+
 class SendBulkReviewRequests
 {
     public function __construct(
@@ -36,9 +38,10 @@ class SendBulkReviewRequests
         foreach ($lines as $line) {
             $columns = str_getcsv($line);
             foreach ($columns as $col) {
-                $col = trim($col);
-                if (filter_var($col, FILTER_VALIDATE_EMAIL)) {
-                    $emails[] = $col;
+                try {
+                    $emails[] = (new Email(trim($col)))->value;
+                } catch (\InvalidArgumentException) {
+                    // Not a valid email, skip
                 }
             }
         }

@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 
 class BusinessProfileController extends Controller
 {
+    private const VALIDATION_RULES = [
+        'name' => 'required|string|max:255',
+        'address' => 'nullable|string|max:500',
+        'google_review_link' => 'nullable|url|max:500',
+        'locale' => 'nullable|string|in:en,pl',
+        'logo' => 'nullable|image|max:2048',
+    ];
+
     public function __construct(
         private GetBusinessProfiles $getBusinessProfiles,
         private GetBusinessProfile $getBusinessProfile,
@@ -36,25 +44,14 @@ class BusinessProfileController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'nullable|string|max:500',
-            'google_review_link' => 'nullable|url|max:500',
-            'locale' => 'nullable|string|in:en,pl',
-            'logo' => 'nullable|image|max:2048',
-        ]);
-
-        $logoPath = null;
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
-        }
+        $validated = $request->validate(self::VALIDATION_RULES);
 
         $this->createBusinessProfile->execute(
             tenantId: $request->get('tenant_id'),
             name: $validated['name'],
             address: $validated['address'] ?? null,
             googleReviewLink: $validated['google_review_link'] ?? null,
-            logoPath: $logoPath,
+            logoPath: $this->uploadLogo($request),
             locale: $validated['locale'] ?? 'en',
         );
 
@@ -77,46 +74,23 @@ class BusinessProfileController extends Controller
 
     public function edit(Request $request, string $id)
     {
-        $profile = $this->repository->findById($id);
-
-        if (!$profile) {
-            abort(404);
-        }
-
-        $this->authorizeProfile($request, $profile);
+        $profile = $this->findAndAuthorize($request, $id);
 
         return view('business-profiles.edit', compact('profile'));
     }
 
     public function update(Request $request, string $id)
     {
-        $profile = $this->repository->findById($id);
+        $profile = $this->findAndAuthorize($request, $id);
 
-        if (!$profile) {
-            abort(404);
-        }
-
-        $this->authorizeProfile($request, $profile);
-
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'nullable|string|max:500',
-            'google_review_link' => 'nullable|url|max:500',
-            'locale' => 'nullable|string|in:en,pl',
-            'logo' => 'nullable|image|max:2048',
-        ]);
-
-        $logoPath = $profile->logoPath;
-        if ($request->hasFile('logo')) {
-            $logoPath = $request->file('logo')->store('logos', 'public');
-        }
+        $validated = $request->validate(self::VALIDATION_RULES);
 
         $this->updateBusinessProfile->execute(
             id: $id,
             name: $validated['name'],
             address: $validated['address'] ?? null,
             googleReviewLink: $validated['google_review_link'] ?? null,
-            logoPath: $logoPath,
+            logoPath: $this->uploadLogo($request) ?? $profile->logoPath,
             locale: $validated['locale'] ?? 'en',
         );
 
@@ -126,6 +100,16 @@ class BusinessProfileController extends Controller
 
     public function destroy(Request $request, string $id)
     {
+        $this->findAndAuthorize($request, $id);
+
+        $this->deleteBusinessProfile->execute($id);
+
+        return redirect()->route('business-profiles.index')
+            ->with('success', __('business.deleted'));
+    }
+
+    private function findAndAuthorize(Request $request, string $id)
+    {
         $profile = $this->repository->findById($id);
 
         if (!$profile) {
@@ -134,10 +118,7 @@ class BusinessProfileController extends Controller
 
         $this->authorizeProfile($request, $profile);
 
-        $this->deleteBusinessProfile->execute($id);
-
-        return redirect()->route('business-profiles.index')
-            ->with('success', __('business.deleted'));
+        return $profile;
     }
 
     private function authorizeProfile(Request $request, $profile): void
@@ -145,5 +126,14 @@ class BusinessProfileController extends Controller
         if (!$profile->tenantId->equals($request->get('tenant_id'))) {
             abort(403);
         }
+    }
+
+    private function uploadLogo(Request $request): ?string
+    {
+        if ($request->hasFile('logo')) {
+            return $request->file('logo')->store('logos', 'public');
+        }
+
+        return null;
     }
 }

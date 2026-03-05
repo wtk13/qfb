@@ -6,6 +6,8 @@ namespace Domain\Feedback\ValueObject;
 
 final readonly class Score
 {
+    public const int POSITIVE_THRESHOLD = 4;
+
     public function __construct(public int $value)
     {
         if ($value < 1 || $value > 5) {
@@ -15,11 +17,11 @@ final readonly class Score
 
     public function isPositive(): bool
     {
-        return $this->value >= 4;
+        return $this->value >= self::POSITIVE_THRESHOLD;
     }
 
     public function isNegative(): bool
     {
-        return $this->value <= 3;
+        return $this->value < self::POSITIVE_THRESHOLD;
     }
 }

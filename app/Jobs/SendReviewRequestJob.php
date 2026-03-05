@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Infrastructure\Mail\ReviewRequestMail;
 use App\Infrastructure\Persistence\Eloquent\BusinessProfileModel;
 use App\Infrastructure\Persistence\Eloquent\ReviewRequestModel;
+use Domain\Campaign\ValueObject\ReviewRequestStatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -25,7 +26,7 @@ class SendReviewRequestJob implements ShouldQueue
         $model = ReviewRequestModel::findOrFail($this->reviewRequestId);
         $business = BusinessProfileModel::findOrFail($model->business_profile_id);
 
-        $ratingUrl = url("/rate/{$business->slug}/{$model->token}");
+        $ratingUrl = route('rate.show', ['slug' => $business->slug, 'token' => $model->token]);
 
         Mail::to($model->recipient_email)->send(
             new ReviewRequestMail(
@@ -36,7 +37,7 @@ class SendReviewRequestJob implements ShouldQueue
         );
 
         $model->update([
-            'status' => 'sent',
+            'status' => ReviewRequestStatus::Sent->value,
             'sent_at' => now(),
         ]);
     }
