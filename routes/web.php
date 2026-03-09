@@ -14,6 +14,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/locale/{locale}', function (string $locale) {
+    if (in_array($locale, ['en', 'pl'])) {
+        session()->put('locale', $locale);
+    }
+    return back();
+})->name('locale.switch');
+
 // Public routes (no auth)
 Route::get('/rate/{slug}/{token}', [RatingController::class, 'show'])->name('rate.show');
 Route::post('/rate/{slug}/{token}', [RatingController::class, 'store'])->name('rate.store');

@@ -21,8 +21,20 @@
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <!-- Language Switcher & Settings -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6 sm:space-x-4">
+                <div class="flex items-center space-x-1 text-sm">
+                    @foreach(['en' => 'EN', 'pl' => 'PL'] as $code => $label)
+                        @if(app()->getLocale() === $code)
+                            <span class="px-2 py-1 font-medium text-indigo-600">{{ $label }}</span>
+                        @else
+                            <form method="POST" action="{{ route('locale.switch', $code) }}" class="inline">
+                                @csrf
+                                <button type="submit" class="px-2 py-1 text-gray-400 hover:text-gray-700">{{ $label }}</button>
+                            </form>
+                        @endif
+                    @endforeach
+                </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -76,6 +88,19 @@
             <x-responsive-nav-link :href="route('business-profiles.index')" :active="request()->routeIs('business-profiles.*')">
                 {{ __('business.title') }}
             </x-responsive-nav-link>
+
+            <div class="flex items-center space-x-2 px-4 pt-2">
+                @foreach(['en' => 'EN', 'pl' => 'PL'] as $code => $label)
+                    @if(app()->getLocale() === $code)
+                        <span class="px-3 py-1 text-sm font-medium text-indigo-600 bg-indigo-50 rounded">{{ $label }}</span>
+                    @else
+                        <form method="POST" action="{{ route('locale.switch', $code) }}" class="inline">
+                            @csrf
+                            <button type="submit" class="px-3 py-1 text-sm text-gray-400 hover:text-gray-700">{{ $label }}</button>
+                        </form>
+                    @endif
+                @endforeach
+            </div>
         </div>
 
         <!-- Responsive Settings Options -->
