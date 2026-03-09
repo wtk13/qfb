@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 Route::post('/locale/{locale}', function (string $locale) {
-    if (in_array($locale, ['en', 'pl'])) {
+    if (in_array($locale, config('locales.supported'))) {
         session()->put('locale', $locale);
     }
     return back();

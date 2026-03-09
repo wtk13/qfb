@@ -15,13 +15,16 @@ use Illuminate\Support\Facades\Cache;
 
 class BusinessProfileController extends Controller
 {
-    private const VALIDATION_RULES = [
-        'name' => 'required|string|max:255',
-        'address' => 'nullable|string|max:500',
-        'google_review_link' => 'nullable|url|max:500',
-        'locale' => 'nullable|string|in:en,pl',
-        'logo' => 'nullable|image|max:2048',
-    ];
+    private function validationRules(): array
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'address' => 'nullable|string|max:500',
+            'google_review_link' => 'nullable|url|max:500',
+            'locale' => 'nullable|string|in:' . implode(',', config('locales.supported')),
+            'logo' => 'nullable|image|max:2048',
+        ];
+    }
 
     public function __construct(
         private GetBusinessProfiles $getBusinessProfiles,
@@ -47,7 +50,7 @@ class BusinessProfileController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate(self::VALIDATION_RULES);
+        $validated = $request->validate($this->validationRules());
 
         $this->createBusinessProfile->execute(
             tenantId: $request->get('tenant_id'),
@@ -94,7 +97,7 @@ class BusinessProfileController extends Controller
     {
         $profile = $this->findAndAuthorize($request, $id);
 
-        $validated = $request->validate(self::VALIDATION_RULES);
+        $validated = $request->validate($this->validationRules());
 
         $this->updateBusinessProfile->execute(
             id: $id,
