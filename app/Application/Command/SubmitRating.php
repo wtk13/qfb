@@ -42,8 +42,12 @@ class SubmitRating
         if ($reviewRequestId) {
             $reviewRequest = $this->reviewRequestRepository->findById($reviewRequestId);
             if ($reviewRequest) {
-                $reviewRequest->markAsRated();
-                $this->reviewRequestRepository->save($reviewRequest);
+                try {
+                    $reviewRequest->markAsRated();
+                    $this->reviewRequestRepository->save($reviewRequest);
+                } catch (\DomainException) {
+                    // Already rated
+                }
             }
         }
 
