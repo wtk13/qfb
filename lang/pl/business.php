@@ -8,6 +8,7 @@ return [
     'name' => 'Nazwa firmy',
     'address' => 'Adres',
     'google_review_link' => 'Link do opinii Google',
+    'google_review_link_help' => 'Wklej bezpośredni link do strony z opiniami Google. Aby go znaleźć: otwórz Mapy Google, wyszukaj swoją firmę, kliknij "Poproś o opinie" i skopiuj link.',
     'locale' => 'Język klienta',
     'logo' => 'Logo',
     'created' => 'Profil firmy został utworzony.',

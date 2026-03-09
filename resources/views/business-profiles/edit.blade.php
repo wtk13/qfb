@@ -31,7 +31,8 @@
 
                     <div class="mb-4">
                         <x-input-label for="google_review_link" :value="__('business.google_review_link')" />
-                        <x-text-input id="google_review_link" name="google_review_link" type="url" class="mt-1 block w-full" :value="old('google_review_link', $profile->googleReviewLink?->value)" />
+                        <x-text-input id="google_review_link" name="google_review_link" type="url" class="mt-1 block w-full" :value="old('google_review_link', $profile->googleReviewLink?->value)" placeholder="https://g.page/r/..." />
+                        <p class="text-xs text-gray-500 mt-1">{{ __('business.google_review_link_help') }}</p>
                         <x-input-error :messages="$errors->get('google_review_link')" class="mt-2" />
                     </div>
 
