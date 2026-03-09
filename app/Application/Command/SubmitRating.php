@@ -3,6 +3,7 @@
 namespace App\Application\Command;
 
 use Domain\Campaign\Port\ReviewRequestRepositoryInterface;
+use Domain\Campaign\ValueObject\ReviewRequestStatus;
 use Domain\Feedback\Entity\Rating;
 use Domain\Feedback\Event\RatingSubmitted;
 use Domain\Feedback\Port\RatingRepositoryInterface;
@@ -41,13 +42,9 @@ class SubmitRating
 
         if ($reviewRequestId) {
             $reviewRequest = $this->reviewRequestRepository->findById($reviewRequestId);
-            if ($reviewRequest) {
-                try {
-                    $reviewRequest->markAsRated();
-                    $this->reviewRequestRepository->save($reviewRequest);
-                } catch (\DomainException) {
-                    // Already rated
-                }
+            if ($reviewRequest && $reviewRequest->status->canTransitionTo(ReviewRequestStatus::Rated)) {
+                $reviewRequest->markAsRated();
+                $this->reviewRequestRepository->save($reviewRequest);
             }
         }
 

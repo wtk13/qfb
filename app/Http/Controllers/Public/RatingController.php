@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Application\Command\SubmitRating;
 use Domain\Business\Port\BusinessProfileRepositoryInterface;
 use Domain\Campaign\Port\ReviewRequestRepositoryInterface;
+use Domain\Campaign\ValueObject\ReviewRequestStatus;
 use Domain\Feedback\Service\RatingRoutingService;
 use Domain\Feedback\ValueObject\Source;
 use Illuminate\Http\Request;
@@ -31,12 +32,9 @@ class RatingController
             if ($reviewRequest->businessProfileId !== $profile->id) {
                 abort(404);
             }
-            // Mark as clicked if it hasn't been
-            try {
+            if ($reviewRequest->status->canTransitionTo(ReviewRequestStatus::Clicked)) {
                 $reviewRequest->markAsClicked();
                 $this->reviewRequestRepository->save($reviewRequest);
-            } catch (\DomainException) {
-                // Already clicked or rated
             }
         }
 
@@ -68,10 +66,10 @@ class RatingController
             source: $source,
         );
 
-        if ($result['route'] === RatingRoutingService::ROUTE_GOOGLE && $profile->googleReviewLink) {
+        if ($result['route'] === RatingRoutingService::ROUTE_GOOGLE) {
             return view('rate.thank-you', [
                 'profile' => $profile,
-                'googleRedirect' => $profile->googleReviewLink->value,
+                'googleRedirect' => $profile->googleReviewLink?->value,
             ]);
         }
 
