@@ -65,6 +65,21 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    queue:
+        image: 'sail-8.5/app'
+        entrypoint: start-container
+        command: php artisan queue:work --sleep=3 --tries=3
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            SUPERVISOR_PHP_USER: 'root'
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - pgsql
+            - redis
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
