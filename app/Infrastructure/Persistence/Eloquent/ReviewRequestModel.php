@@ -13,6 +13,7 @@ class ReviewRequestModel extends Model
     protected $table = 'review_requests';
 
     protected $fillable = [
+        'id',
         'business_profile_id',
         'recipient_email',
         'status',

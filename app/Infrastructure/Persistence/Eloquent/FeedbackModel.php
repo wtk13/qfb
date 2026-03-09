@@ -13,6 +13,7 @@ class FeedbackModel extends Model
     protected $table = 'feedback';
 
     protected $fillable = [
+        'id',
         'rating_id',
         'comment',
         'contact_email',

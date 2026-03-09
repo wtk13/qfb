@@ -12,7 +12,7 @@ class TenantModel extends Model
 
     protected $table = 'tenants';
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['id', 'name', 'slug'];
 
     public function users(): HasMany
     {

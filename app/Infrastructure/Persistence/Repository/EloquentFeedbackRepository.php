@@ -41,6 +41,7 @@ class EloquentFeedbackRepository implements FeedbackRepositoryInterface
         FeedbackModel::updateOrCreate(
             ['id' => $feedback->id],
             [
+                'id' => $feedback->id,
                 'rating_id' => $feedback->ratingId,
                 'comment' => $feedback->comment,
                 'contact_email' => $feedback->contactEmail?->value,
@@ -62,6 +63,7 @@ class EloquentFeedbackRepository implements FeedbackRepositoryInterface
             ratingId: $model->rating_id,
             comment: $model->comment,
             contactEmail: $model->contact_email ? new Email($model->contact_email) : null,
+            score: $model->relationLoaded('rating') ? (int) $model->rating?->score : null,
         );
     }
 }

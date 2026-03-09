@@ -9,4 +9,6 @@ return [
     'positive_ratings' => 'Pozytywne oceny (4-5)',
     'negative_ratings' => 'Negatywne oceny (1-3)',
     'total_feedback' => 'Otrzymane opinie',
+    'score_distribution' => 'Rozkład ocen',
+    'ratings_over_time' => 'Oceny (ostatnie 30 dni)',
 ];

@@ -39,6 +39,7 @@ class EloquentReviewRequestRepository implements ReviewRequestRepositoryInterfac
         ReviewRequestModel::updateOrCreate(
             ['id' => $reviewRequest->id],
             [
+                'id' => $reviewRequest->id,
                 'business_profile_id' => $reviewRequest->businessProfileId,
                 'recipient_email' => $reviewRequest->recipientEmail->value,
                 'status' => $reviewRequest->status->value,

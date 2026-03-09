@@ -6,7 +6,6 @@ use App\Infrastructure\Persistence\Eloquent\BusinessProfileModel;
 use App\Infrastructure\Persistence\Eloquent\FeedbackModel;
 use App\Infrastructure\Persistence\Eloquent\RatingModel;
 use App\Infrastructure\Persistence\Eloquent\ReviewRequestModel;
-use Domain\Feedback\ValueObject\Score;
 use Domain\Shared\ValueObject\TenantId;
 
 class GetDashboardStats
@@ -16,23 +15,44 @@ class GetDashboardStats
         $profileIds = BusinessProfileModel::where('tenant_id', $tenantId->value)
             ->pluck('id');
 
-        $ratingStats = RatingModel::whereIn('business_profile_id', $profileIds)
-            ->selectRaw('COUNT(*) as total')
-            ->selectRaw('AVG(score) as avg_score')
-            ->selectRaw('SUM(CASE WHEN score >= ? THEN 1 ELSE 0 END) as positive', [Score::POSITIVE_THRESHOLD])
-            ->selectRaw('SUM(CASE WHEN score < ? THEN 1 ELSE 0 END) as negative', [Score::POSITIVE_THRESHOLD])
-            ->first();
+        $scoreDistributionRaw = RatingModel::whereIn('business_profile_id', $profileIds)
+            ->selectRaw('score, COUNT(*) as count')
+            ->groupBy('score')
+            ->orderBy('score')
+            ->pluck('count', 'score');
+
+        $scoreDistribution = collect(range(1, 5))->mapWithKeys(fn ($s) => [$s => (int) ($scoreDistributionRaw[$s] ?? 0)])->all();
+        $totalRatings = array_sum($scoreDistribution);
+        $positive = $scoreDistribution[4] + $scoreDistribution[5];
+        $negative = $totalRatings - $positive;
+        $averageScore = $totalRatings > 0
+            ? collect($scoreDistribution)->reduce(fn ($sum, $count, $score) => $sum + $score * $count, 0) / $totalRatings
+            : null;
+
+        $ratingsOverTime = RatingModel::whereIn('business_profile_id', $profileIds)
+            ->where('created_at', '>=', now()->subDays(30))
+            ->selectRaw("DATE(created_at) as date, COUNT(*) as count")
+            ->groupBy('date')
+            ->orderBy('date')
+            ->pluck('count', 'date')
+            ->all();
+
+        $ratingIds = $totalRatings > 0
+            ? RatingModel::whereIn('business_profile_id', $profileIds)->pluck('id')
+            : collect();
 
         return [
             'total_businesses' => $profileIds->count(),
             'total_review_requests' => ReviewRequestModel::whereIn('business_profile_id', $profileIds)->count(),
-            'total_ratings' => (int) $ratingStats->total,
-            'average_score' => $ratingStats->avg_score,
-            'total_feedback' => FeedbackModel::whereHas('rating', function ($q) use ($profileIds) {
-                $q->whereIn('business_profile_id', $profileIds);
-            })->count(),
-            'positive_ratings' => (int) $ratingStats->positive,
-            'negative_ratings' => (int) $ratingStats->negative,
+            'total_ratings' => $totalRatings,
+            'average_score' => $averageScore,
+            'total_feedback' => $ratingIds->isNotEmpty()
+                ? FeedbackModel::whereIn('rating_id', $ratingIds)->count()
+                : 0,
+            'positive_ratings' => $positive,
+            'negative_ratings' => $negative,
+            'score_distribution' => $scoreDistribution,
+            'ratings_over_time' => $ratingsOverTime,
         ];
     }
 }

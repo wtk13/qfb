@@ -38,6 +38,7 @@ class EloquentBusinessProfileRepository implements BusinessProfileRepositoryInte
         BusinessProfileModel::updateOrCreate(
             ['id' => $profile->id],
             [
+                'id' => $profile->id,
                 'tenant_id' => $profile->tenantId->value,
                 'name' => $profile->name,
                 'slug' => $profile->slug,

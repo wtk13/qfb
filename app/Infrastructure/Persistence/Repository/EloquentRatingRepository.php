@@ -31,6 +31,7 @@ class EloquentRatingRepository implements RatingRepositoryInterface
         RatingModel::updateOrCreate(
             ['id' => $rating->id],
             [
+                'id' => $rating->id,
                 'business_profile_id' => $rating->businessProfileId,
                 'review_request_id' => $rating->reviewRequestId,
                 'score' => $rating->score->value,

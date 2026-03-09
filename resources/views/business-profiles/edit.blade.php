@@ -1,5 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
+        <x-breadcrumbs :items="[
+            ['label' => __('business.title'), 'url' => route('business-profiles.index')],
+            ['label' => $profile->name, 'url' => route('business-profiles.show', $profile->id)],
+            ['label' => __('common.edit')],
+        ]" />
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('business.edit_title') }}
         </h2>

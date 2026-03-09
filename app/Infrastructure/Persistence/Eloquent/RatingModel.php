@@ -14,6 +14,7 @@ class RatingModel extends Model
     protected $table = 'ratings';
 
     protected $fillable = [
+        'id',
         'business_profile_id',
         'review_request_id',
         'score',

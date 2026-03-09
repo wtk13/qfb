@@ -8,8 +8,10 @@ use App\Application\Command\UpdateBusinessProfile;
 use App\Application\Query\GetBusinessProfile;
 use App\Application\Query\GetBusinessProfiles;
 use App\Http\Controllers\Controller;
+use App\Infrastructure\QrCode\SimpleQrCodeAdapter;
 use Domain\Business\Port\BusinessProfileRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class BusinessProfileController extends Controller
 {
@@ -28,6 +30,7 @@ class BusinessProfileController extends Controller
         private UpdateBusinessProfile $updateBusinessProfile,
         private DeleteBusinessProfile $deleteBusinessProfile,
         private BusinessProfileRepositoryInterface $repository,
+        private SimpleQrCodeAdapter $qrCodeAdapter,
     ) {}
 
     public function index(Request $request)
@@ -68,6 +71,14 @@ class BusinessProfileController extends Controller
         }
 
         $this->authorizeProfile($request, $data['profile']);
+
+        $profile = $data['profile'];
+        $data['qrUrl'] = route('rate.show', ['slug' => $profile->slug, 'token' => 'qr']);
+        $data['qrSvg'] = Cache::remember(
+            "qr_svg:{$profile->id}",
+            now()->addDay(),
+            fn () => $this->qrCodeAdapter->generateSvg($data['qrUrl']),
+        );
 
         return view('business-profiles.show', $data);
     }

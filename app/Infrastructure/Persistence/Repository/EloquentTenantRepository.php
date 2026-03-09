@@ -28,6 +28,7 @@ class EloquentTenantRepository implements TenantRepositoryInterface
         TenantModel::updateOrCreate(
             ['id' => $tenant->id->value],
             [
+                'id' => $tenant->id->value,
                 'name' => $tenant->name,
                 'slug' => $tenant->slug,
             ]

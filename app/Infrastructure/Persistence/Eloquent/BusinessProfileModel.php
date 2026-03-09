@@ -14,6 +14,7 @@ class BusinessProfileModel extends Model
     protected $table = 'business_profiles';
 
     protected $fillable = [
+        'id',
         'tenant_id',
         'name',
         'slug',

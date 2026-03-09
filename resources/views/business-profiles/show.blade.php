@@ -1,9 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ $profile->name }}
-            </h2>
+            <div>
+                <x-breadcrumbs :items="[
+                    ['label' => __('business.title'), 'url' => route('business-profiles.index')],
+                    ['label' => $profile->name],
+                ]" />
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ $profile->name }}
+                </h2>
+            </div>
             <div class="flex space-x-2">
                 <a href="{{ route('business-profiles.edit', $profile->id) }}" class="inline-flex items-center px-4 py-2 bg-yellow-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-yellow-400">
                     {{ __('common.edit') }}
@@ -77,13 +83,21 @@
                 </div>
             </div>
 
-            <!-- QR Code & Feedback Links -->
+            <!-- QR Code & Feedback -->
             <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                     <h3 class="text-lg font-semibold mb-4">{{ __('business.qr_code') }}</h3>
-                    <a href="{{ route('qr-code.show', $profile->id) }}" class="text-indigo-600 hover:text-indigo-900">{{ __('business.view_qr') }}</a>
-                    <span class="mx-2">|</span>
-                    <a href="{{ route('qr-code.download', $profile->id) }}" class="text-indigo-600 hover:text-indigo-900">{{ __('business.download_qr') }}</a>
+                    <div class="flex items-start space-x-6">
+                        <div class="w-32 h-32 shrink-0 [&>svg]:w-full [&>svg]:h-full">
+                            {!! $qrSvg !!}
+                        </div>
+                        <div class="min-w-0 pt-1">
+                            <p class="text-sm text-gray-500 mb-3 truncate">{{ $qrUrl }}</p>
+                            <a href="{{ route('qr-code.download', $profile->id) }}" class="inline-flex items-center px-3 py-1.5 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500">
+                                {{ __('business.download_qr') }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">

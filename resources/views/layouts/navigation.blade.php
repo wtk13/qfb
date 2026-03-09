@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('dashboard.title') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('business-profiles.index')" :active="request()->routeIs('business-profiles.*')">
+                        {{ __('business.title') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -69,6 +72,9 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('dashboard.title') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('business-profiles.index')" :active="request()->routeIs('business-profiles.*')">
+                {{ __('business.title') }}
             </x-responsive-nav-link>
         </div>
 
