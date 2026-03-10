@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('business-profiles.index')" :active="request()->routeIs('business-profiles.*')">
                         {{ __('business.title') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('billing.index')" :active="request()->routeIs('billing.*')">
+                        {{ __('billing.title') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -76,6 +79,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('business-profiles.index')" :active="request()->routeIs('business-profiles.*')">
                 {{ __('business.title') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('billing.index')" :active="request()->routeIs('billing.*')">
+                {{ __('billing.title') }}
             </x-responsive-nav-link>
 
             <x-language-switcher :mobile="true" />

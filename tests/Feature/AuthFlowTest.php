@@ -32,7 +32,7 @@ class AuthFlowTest extends TestCase
 
     public function test_login_and_access_dashboard(): void
     {
-        $tenant = TenantModel::create(['name' => 'Test', 'slug' => 'test-123']);
+        $tenant = TenantModel::create(['name' => 'Test', 'slug' => 'test-123', 'trial_ends_at' => now()->addDays(14)]);
         $user = User::factory()->create(['tenant_id' => $tenant->id]);
 
         $response = $this->actingAs($user)->get('/dashboard');

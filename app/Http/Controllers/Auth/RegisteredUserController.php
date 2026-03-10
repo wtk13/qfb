@@ -32,6 +32,7 @@ class RegisteredUserController extends Controller
         $tenant = TenantModel::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name) . '-' . Str::random(6),
+            'trial_ends_at' => now()->addDays(14),
         ]);
 
         $user = User::create([

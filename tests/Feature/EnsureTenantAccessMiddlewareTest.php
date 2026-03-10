@@ -29,7 +29,7 @@ class EnsureTenantAccessMiddlewareTest extends TestCase
 
     public function test_user_with_tenant_can_access_dashboard(): void
     {
-        $tenant = TenantModel::create(['name' => 'Test', 'slug' => 'test-t']);
+        $tenant = TenantModel::create(['name' => 'Test', 'slug' => 'test-t', 'trial_ends_at' => now()->addDays(14)]);
         $user = User::factory()->create(['tenant_id' => $tenant->id]);
 
         $response = $this->actingAs($user)->get('/dashboard');

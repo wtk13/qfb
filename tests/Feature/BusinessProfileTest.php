@@ -19,7 +19,7 @@ class BusinessProfileTest extends TestCase
     {
         parent::setUp();
 
-        $this->tenant = TenantModel::create(['name' => 'Test Tenant', 'slug' => 'test-tenant-123']);
+        $this->tenant = TenantModel::create(['name' => 'Test Tenant', 'slug' => 'test-tenant-123', 'trial_ends_at' => now()->addDays(14)]);
         $this->user = User::factory()->create(['tenant_id' => $this->tenant->id]);
     }
 
