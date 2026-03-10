@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot</title>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <meta name="description" content="Automatically collect 5-star Google reviews from happy customers. Send review requests via email or QR code, route feedback smartly, and grow your online reputation.">
     <meta name="keywords" content="Google reviews, review management, review requests, reputation management, QR code reviews, customer feedback">
     <link rel="canonical" href="{{ url('/') }}">
@@ -275,8 +276,8 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
             <span>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</span>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-gray-600">Privacy Policy</a>
-                <a href="#" class="hover:text-gray-600">Terms of Service</a>
+                <a href="{{ route('privacy') }}" class="hover:text-gray-600">Privacy Policy</a>
+                <a href="{{ route('terms') }}" class="hover:text-gray-600">Terms of Service</a>
             </div>
         </div>
     </footer>

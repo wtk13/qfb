@@ -14,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/privacy', fn () => view('legal.privacy'))->name('privacy');
+Route::get('/terms', fn () => view('legal.terms'))->name('terms');
+
 Route::post('/locale/{locale}', function (string $locale) {
     if (in_array($locale, config('locales.supported'))) {
         session()->put('locale', $locale);
