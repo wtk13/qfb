@@ -80,6 +80,13 @@ services:
         depends_on:
             - pgsql
             - redis
+    stripe-cli:
+        image: stripe/stripe-cli
+        command: listen --forward-to http://laravel.test/stripe/webhook --api-key ${STRIPE_SECRET}
+        networks:
+            - sail
+        depends_on:
+            - laravel.test
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
