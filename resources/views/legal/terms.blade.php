@@ -88,7 +88,7 @@
 
         <section>
             <h2 class="text-xl font-semibold mb-3">13. Contact Us</h2>
-            <p class="text-gray-600 leading-relaxed">If you have questions about these Terms, please contact us at <a href="mailto:legal@quickfeedback.io" class="text-indigo-600 hover:underline">legal@quickfeedback.io</a>.</p>
+            <p class="text-gray-600 leading-relaxed">If you have questions about these Terms, please contact us at <a href="mailto:legal@quickfeedback.app" class="text-indigo-600 hover:underline">legal@quickfeedback.app</a>.</p>
         </section>
     </div>
 </x-layouts.legal>

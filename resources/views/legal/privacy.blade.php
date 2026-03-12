@@ -79,7 +79,7 @@
 
         <section>
             <h2 class="text-xl font-semibold mb-3">10. Contact Us</h2>
-            <p class="text-gray-600 leading-relaxed">If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@quickfeedback.io" class="text-indigo-600 hover:underline">privacy@quickfeedback.io</a>.</p>
+            <p class="text-gray-600 leading-relaxed">If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@quickfeedback.app" class="text-indigo-600 hover:underline">privacy@quickfeedback.app</a>.</p>
         </section>
     </div>
 </x-layouts.legal>

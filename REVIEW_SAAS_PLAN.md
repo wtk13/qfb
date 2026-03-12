@@ -13,7 +13,7 @@ MVP bez LLC, bez Twilio, bez SMS. Email + QR code only.
 ### Krok 1: Domena
 - Wejdź na [Namecheap](https://namecheap.com) lub [Cloudflare Registrar](https://dash.cloudflare.com)
 - Kup domenę .com (~$10-12/rok)
-- Propozycje nazw: getreviewboost.com, reviewpilot.co, starreply.com, quickfeedback.io
+- Propozycje nazw: getreviewboost.com, reviewpilot.co, starreply.com, quickfeedback.app
 - **Nie trać na to więcej niż 30 minut** — nazwa nie ma znaczenia na etapie MVP
 
 ### Krok 2: Hosting
