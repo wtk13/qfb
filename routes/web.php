@@ -19,6 +19,14 @@ Route::get('/', function () {
 Route::get('/privacy', fn () => view('legal.privacy'))->name('privacy');
 Route::get('/terms', fn () => view('legal.terms'))->name('terms');
 
+Route::get('/blog', fn () => view('blog.index'))->name('blog.index');
+Route::get('/blog/{slug}', function (string $slug) {
+    if (!view()->exists("blog.{$slug}")) {
+        abort(404);
+    }
+    return view("blog.{$slug}");
+})->where('slug', '[a-z0-9\-]+')->name('blog.show');
+
 Route::post('/locale/{locale}', function (string $locale) {
     if (in_array($locale, config('locales.supported'))) {
         session()->put('locale', $locale);

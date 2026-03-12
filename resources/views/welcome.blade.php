@@ -280,6 +280,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
             <span>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</span>
             <div class="flex gap-6">
+                <a href="{{ route('blog.index') }}" class="hover:text-gray-600">Blog</a>
                 <a href="{{ route('privacy') }}" class="hover:text-gray-600">Privacy Policy</a>
                 <a href="{{ route('terms') }}" class="hover:text-gray-600">Terms of Service</a>
             </div>
