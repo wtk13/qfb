@@ -20,6 +20,14 @@
 
     <div class="space-y-10">
         <article>
+            <a href="{{ route('blog.show', 'how-to-ask-customers-for-reviews-after-service') }}" class="group block">
+                <time datetime="2026-03-13" class="text-sm text-gray-400">March 13, 2026</time>
+                <h2 class="text-xl font-bold mt-1 group-hover:text-indigo-600 transition">How to Ask Customers for Reviews After Service (With Examples)</h2>
+                <p class="text-gray-600 mt-2">Learn exactly when and how to ask customers for reviews after service. Includes email templates, SMS scripts, and proven timing strategies that get more 5-star reviews.</p>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'google-reviews-cleaning-business') }}" class="group block">
                 <time datetime="2026-03-12" class="text-sm text-gray-400">March 12, 2026</time>
                 <h2 class="text-xl font-bold mt-1 group-hover:text-indigo-600 transition">How to Get More Google Reviews for Your Cleaning Business: A Complete Guide</h2>
