@@ -20,6 +20,14 @@
 
     <div class="space-y-10">
         <article>
+            <a href="{{ route('blog.show', 'best-way-to-collect-google-reviews-for-dentists') }}" class="group block">
+                <time datetime="2026-03-17" class="text-sm text-gray-400">March 17, 2026</time>
+                <h2 class="text-xl font-bold mt-1 group-hover:text-indigo-600 transition">Best Way to Collect Google Reviews for Dentists (2026 Guide)</h2>
+                <p class="text-gray-600 mt-2">Discover the best strategies for dentists to collect more Google reviews. Learn how to ask patients for reviews, automate the process, and build a 5-star dental practice reputation.</p>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'how-to-ask-customers-for-reviews-after-service') }}" class="group block">
                 <time datetime="2026-03-13" class="text-sm text-gray-400">March 13, 2026</time>
                 <h2 class="text-xl font-bold mt-1 group-hover:text-indigo-600 transition">How to Ask Customers for Reviews After Service (With Examples)</h2>
