@@ -53,11 +53,11 @@
         }
     </style>
 </head>
-<body class="antialiased bg-white text-gray-900" style="font-family: 'Inter', system-ui, sans-serif;">
+<body class="antialiased bg-gray-50 text-gray-900" style="font-family: 'Inter', system-ui, sans-serif;">
 
     <div class="reading-progress" id="reading-progress"></div>
 
-    <nav class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm z-40">
+    <nav class="border-b border-gray-100 sticky top-0 bg-gray-50/95 backdrop-blur-sm z-40">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
             <a href="/" class="text-xl font-bold text-indigo-600">{{ config('app.name') }}</a>
             <div class="flex items-center gap-6 text-sm">
