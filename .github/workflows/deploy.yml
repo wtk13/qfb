@@ -19,6 +19,7 @@ jobs:
             set -e
             cd /var/www/quickfeedback
 
+            git checkout -- .
             git pull origin main
 
             composer install --no-dev --optimize-autoloader
