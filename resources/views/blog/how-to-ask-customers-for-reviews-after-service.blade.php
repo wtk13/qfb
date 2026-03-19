@@ -46,7 +46,7 @@
         </ol>
     </nav>
 
-    <article class="prose prose-lg max-w-none">
+    <article class="prose prose-lg prose-gray prose-indigo max-w-none prose-headings:tracking-tight prose-p:leading-relaxed prose-li:leading-relaxed prose-blockquote:border-indigo-300 prose-blockquote:bg-gray-50 prose-blockquote:rounded-r-lg prose-blockquote:py-1 prose-blockquote:pr-4">
         <time datetime="2026-03-13" class="text-sm text-gray-400 not-prose">March 13, 2026</time>
         <h1>How to Ask Customers for Reviews After Service (With Examples)</h1>
 

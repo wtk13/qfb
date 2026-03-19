@@ -25,11 +25,39 @@
         <script type="application/ld+json">{!! $jsonLd !!}</script>
     @endif
 
-    @vite(['resources/css/app.css'])
-</head>
-<body class="antialiased bg-white text-gray-900">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700|lora:400,400i,700" rel="stylesheet" />
 
-    <nav class="border-b border-gray-100">
+    @vite(['resources/css/app.css'])
+
+    <style>
+        .blog-content {
+            font-family: 'Lora', Georgia, serif;
+        }
+        .blog-content h1,
+        .blog-content h2,
+        .blog-content h3,
+        .blog-content h4 {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        /* Reading progress bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #818cf8);
+            z-index: 50;
+            transition: width 50ms linear;
+        }
+    </style>
+</head>
+<body class="antialiased bg-white text-gray-900" style="font-family: 'Inter', system-ui, sans-serif;">
+
+    <div class="reading-progress" id="reading-progress"></div>
+
+    <nav class="border-b border-gray-100 sticky top-0 bg-white/95 backdrop-blur-sm z-40">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
             <a href="/" class="text-xl font-bold text-indigo-600">{{ config('app.name') }}</a>
             <div class="flex items-center gap-6 text-sm">
@@ -39,7 +67,7 @@
         </div>
     </nav>
 
-    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 blog-content">
         {{ $slot }}
     </main>
 
@@ -50,6 +78,15 @@
             <a href="{{ route('terms') }}" class="hover:text-gray-600">Terms of Service</a>
         </div>
     </footer>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            var el = document.getElementById('reading-progress');
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            el.style.width = docHeight > 0 ? (scrollTop / docHeight * 100) + '%' : '0%';
+        });
+    </script>
 
 </body>
 </html>
