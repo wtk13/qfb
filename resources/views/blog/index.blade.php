@@ -20,6 +20,14 @@
 
     <div class="space-y-10">
         <article>
+            <a href="{{ route('blog.show', 'review-request-email-template-small-business') }}" class="group block">
+                <time datetime="2026-03-19" class="text-sm text-gray-400">March 19, 2026</time>
+                <h2 class="text-xl font-bold mt-1 group-hover:text-indigo-600 transition">Review Request Email Template for Small Business (Copy & Paste)</h2>
+                <p class="text-gray-600 mt-2">Free review request email templates for small businesses. Copy-and-paste examples that actually get customers to leave Google reviews, plus tips on timing and follow-ups.</p>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'best-way-to-collect-google-reviews-for-dentists') }}" class="group block">
                 <time datetime="2026-03-17" class="text-sm text-gray-400">March 17, 2026</time>
                 <h2 class="text-xl font-bold mt-1 group-hover:text-indigo-600 transition">Best Way to Collect Google Reviews for Dentists (2026 Guide)</h2>
