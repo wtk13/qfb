@@ -12,6 +12,7 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "resend/resend-laravel": "^1.3",
+        "sentry/sentry-laravel": "^4.23",
         "simplesoftwareio/simple-qrcode": "*"
     },
     "require-dev": {
