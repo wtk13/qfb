@@ -122,9 +122,9 @@
 
                 <!-- Google Review Link -->
                 <div class="mb-5">
-                    <label for="review-link-display" class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.your_google_review_link') }}</label>
+                    <span class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.your_google_review_link') }}</span>
                     <div class="flex items-center gap-2 bg-gray-50 rounded-lg p-3">
-                        <code id="review-link-display" class="flex-1 text-sm text-gray-700 break-all" x-text="reviewLink"></code>
+                        <code class="flex-1 text-sm text-gray-700 break-all" x-text="reviewLink"></code>
                         <button
                             @click="copyToClipboard(reviewLink, 'link')"
                             aria-label="Copy review link"
@@ -138,8 +138,8 @@
 
                 <!-- Email Template -->
                 <div class="mb-5">
-                    <label for="email-template-display" class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.email_template') }}</label>
-                    <div id="email-template-display" class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700 whitespace-pre-line max-h-40 overflow-y-auto" x-text="emailTemplate"></div>
+                    <span class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.email_template') }}</span>
+                    <div class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700 whitespace-pre-line max-h-40 overflow-y-auto" x-text="emailTemplate"></div>
                     <button
                         @click="copyToClipboard(emailTemplate, 'email')"
                         aria-label="Copy email template"
@@ -152,8 +152,8 @@
 
                 <!-- SMS Template -->
                 <div>
-                    <label for="sms-template-display" class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.sms_template') }}</label>
-                    <div id="sms-template-display" class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700" x-text="smsTemplate"></div>
+                    <span class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.sms_template') }}</span>
+                    <div class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700" x-text="smsTemplate"></div>
                     <button
                         @click="copyToClipboard(smsTemplate, 'sms')"
                         aria-label="Copy SMS template"
