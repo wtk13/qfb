@@ -19,6 +19,7 @@
     <meta name="twitter:description" content="Generate your direct Google review link instantly. Free tool — get your link, QR code, and ready-to-use templates in seconds.">
     <meta name="twitter:image" content="{{ asset('images/hero-bg.jpg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>[x-cloak] { display: none !important; }</style>
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'WebApplication',
@@ -66,6 +67,8 @@
             </div>
         </div>
     </nav>
+
+    <main>
 
     <!-- Hero -->
     <section class="pt-28 pb-12 sm:pt-32 sm:pb-16">
@@ -116,6 +119,7 @@
                         <code class="flex-1 text-sm text-gray-700 break-all" x-text="reviewLink"></code>
                         <button
                             @click="copyToClipboard(reviewLink, 'link')"
+                            aria-label="Copy review link to clipboard"
                             class="shrink-0 px-3 py-1.5 text-sm font-medium rounded-lg transition"
                             :class="copied.link ? 'bg-green-100 text-green-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'"
                         >
@@ -145,6 +149,7 @@
                     <div class="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 whitespace-pre-line" x-text="emailTemplate"></div>
                     <button
                         @click="copyToClipboard(emailTemplate, 'email')"
+                        aria-label="Copy email template to clipboard"
                         class="mt-3 px-4 py-2 text-sm font-medium rounded-lg transition"
                         :class="copied.email ? 'bg-green-100 text-green-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'"
                     >
@@ -158,6 +163,7 @@
                     <div class="bg-gray-50 rounded-xl p-4 text-sm text-gray-700" x-text="smsTemplate"></div>
                     <button
                         @click="copyToClipboard(smsTemplate, 'sms')"
+                        aria-label="Copy SMS template to clipboard"
                         class="mt-3 px-4 py-2 text-sm font-medium rounded-lg transition"
                         :class="copied.sms ? 'bg-green-100 text-green-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'"
                     >
@@ -185,44 +191,46 @@
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10">Frequently asked questions</h2>
             <div class="space-y-4" x-data="{ open: null }">
                 <div class="border border-gray-200 rounded-xl bg-white">
-                    <button @click="open = open === 1 ? null : 1" class="w-full flex items-center justify-between px-6 py-4 text-left">
+                    <button @click="open = open === 1 ? null : 1" :aria-expanded="open === 1" aria-controls="faq-1" class="w-full flex items-center justify-between px-6 py-4 text-left">
                         <span class="font-medium">What is a Google Place ID?</span>
                         <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{ 'rotate-180': open === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="open === 1" x-cloak class="px-6 pb-4 text-gray-600">
+                    <div x-show="open === 1" x-cloak id="faq-1" role="region" class="px-6 pb-4 text-gray-600">
                         A Google Place ID is a unique identifier for any place in Google's database. It's a string of letters and numbers (e.g., <code class="text-sm bg-gray-100 px-1 rounded">ChIJN1t_tDeuEmsRUsoyG83frY4</code>). You can find yours using <a href="https://developers.google.com/maps/documentation/places/web-service/place-id" target="_blank" rel="noopener" class="text-indigo-600 underline hover:text-indigo-500">Google's Place ID Finder</a> — just search your business name and copy the ID.
                     </div>
                 </div>
                 <div class="border border-gray-200 rounded-xl bg-white">
-                    <button @click="open = open === 2 ? null : 2" class="w-full flex items-center justify-between px-6 py-4 text-left">
+                    <button @click="open = open === 2 ? null : 2" :aria-expanded="open === 2" aria-controls="faq-2" class="w-full flex items-center justify-between px-6 py-4 text-left">
                         <span class="font-medium">Is this tool really free?</span>
                         <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{ 'rotate-180': open === 2 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="open === 2" x-cloak class="px-6 pb-4 text-gray-600">
+                    <div x-show="open === 2" x-cloak id="faq-2" role="region" class="px-6 pb-4 text-gray-600">
                         Yes, completely free. No signup, no email required, no limits. Generate as many review links and QR codes as you need.
                     </div>
                 </div>
                 <div class="border border-gray-200 rounded-xl bg-white">
-                    <button @click="open = open === 3 ? null : 3" class="w-full flex items-center justify-between px-6 py-4 text-left">
+                    <button @click="open = open === 3 ? null : 3" :aria-expanded="open === 3" aria-controls="faq-3" class="w-full flex items-center justify-between px-6 py-4 text-left">
                         <span class="font-medium">How do I use my Google review link?</span>
                         <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{ 'rotate-180': open === 3 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="open === 3" x-cloak class="px-6 pb-4 text-gray-600">
+                    <div x-show="open === 3" x-cloak id="faq-3" role="region" class="px-6 pb-4 text-gray-600">
                         Share it everywhere: in emails, text messages, on your website, in social media bios, and as a QR code on printed materials. Check out our <a href="{{ route('blog.show', 'google-review-link') }}" class="text-indigo-600 underline hover:text-indigo-500">complete guide to using your Google review link</a> for detailed strategies.
                     </div>
                 </div>
                 <div class="border border-gray-200 rounded-xl bg-white">
-                    <button @click="open = open === 4 ? null : 4" class="w-full flex items-center justify-between px-6 py-4 text-left">
+                    <button @click="open = open === 4 ? null : 4" :aria-expanded="open === 4" aria-controls="faq-4" class="w-full flex items-center justify-between px-6 py-4 text-left">
                         <span class="font-medium">Can I automate sending this link to customers?</span>
                         <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{ 'rotate-180': open === 4 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div x-show="open === 4" x-cloak class="px-6 pb-4 text-gray-600">
+                    <div x-show="open === 4" x-cloak id="faq-4" role="region" class="px-6 pb-4 text-gray-600">
                         Yes — that's exactly what <a href="{{ route('register') }}" class="text-indigo-600 underline hover:text-indigo-500">{{ config('app.name') }}</a> does. It sends your review link to every customer automatically after each job or appointment, follows up with those who don't respond, and routes unhappy customers to a private feedback form instead of a public review.
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="py-8 border-t border-gray-100">
@@ -487,39 +495,42 @@
         }
     }
 
+    function shouldInvert(mask, y, x) {
+        switch (mask) {
+            case 0: return (y + x) % 2 === 0;
+            case 1: return y % 2 === 0;
+            case 2: return x % 3 === 0;
+            case 3: return (y + x) % 3 === 0;
+            case 4: return (Math.floor(y/2) + Math.floor(x/3)) % 2 === 0;
+            case 5: return (y*x)%2 + (y*x)%3 === 0;
+            case 6: return ((y*x)%2 + (y*x)%3) % 2 === 0;
+            case 7: return ((y+x)%2 + (y*x)%3) % 2 === 0;
+        }
+        return false;
+    }
+
+    function applyMask(modules, isFunction, size, mask) {
+        for (let y = 0; y < size; y++) {
+            for (let x = 0; x < size; x++) {
+                if (!isFunction[y][x] && shouldInvert(mask, y, x)) {
+                    modules[y][x] = !modules[y][x];
+                }
+            }
+        }
+    }
+
     function applyBestMask(modules, isFunction, size) {
         let bestPenalty = Infinity;
         let bestMask = 0;
         const original = modules.map(r => [...r]);
 
         for (let mask = 0; mask < 8; mask++) {
-            // Apply mask
-            for (let y = 0; y < size; y++) {
-                for (let x = 0; x < size; x++) {
-                    if (!isFunction[y][x]) {
-                        let invert = false;
-                        switch (mask) {
-                            case 0: invert = (y + x) % 2 === 0; break;
-                            case 1: invert = y % 2 === 0; break;
-                            case 2: invert = x % 3 === 0; break;
-                            case 3: invert = (y + x) % 3 === 0; break;
-                            case 4: invert = (Math.floor(y/2) + Math.floor(x/3)) % 2 === 0; break;
-                            case 5: invert = (y*x)%2 + (y*x)%3 === 0; break;
-                            case 6: invert = ((y*x)%2 + (y*x)%3) % 2 === 0; break;
-                            case 7: invert = ((y+x)%2 + (y*x)%3) % 2 === 0; break;
-                        }
-                        if (invert) modules[y][x] = !modules[y][x];
-                    }
-                }
-            }
-
+            applyMask(modules, isFunction, size, mask);
             const penalty = calculatePenalty(modules, size);
             if (penalty < bestPenalty) {
                 bestPenalty = penalty;
                 bestMask = mask;
             }
-
-            // Restore
             for (let y = 0; y < size; y++) {
                 for (let x = 0; x < size; x++) {
                     modules[y][x] = original[y][x];
@@ -527,26 +538,7 @@
             }
         }
 
-        // Apply best mask
-        for (let y = 0; y < size; y++) {
-            for (let x = 0; x < size; x++) {
-                if (!isFunction[y][x]) {
-                    let invert = false;
-                    switch (bestMask) {
-                        case 0: invert = (y + x) % 2 === 0; break;
-                        case 1: invert = y % 2 === 0; break;
-                        case 2: invert = x % 3 === 0; break;
-                        case 3: invert = (y + x) % 3 === 0; break;
-                        case 4: invert = (Math.floor(y/2) + Math.floor(x/3)) % 2 === 0; break;
-                        case 5: invert = (y*x)%2 + (y*x)%3 === 0; break;
-                        case 6: invert = ((y*x)%2 + (y*x)%3) % 2 === 0; break;
-                        case 7: invert = ((y+x)%2 + (y*x)%3) % 2 === 0; break;
-                    }
-                    if (invert) modules[y][x] = !modules[y][x];
-                }
-            }
-        }
-
+        applyMask(modules, isFunction, size, bestMask);
         return bestMask;
     }
 
@@ -575,7 +567,7 @@
     function placeFormatInfo(modules, isFunction, size, mask) {
         const formatBits = getFormatBits(mask);
         for (let i = 0; i < 15; i++) {
-            const bit = (formatBits >> (14 - i)) & 1 === 1;
+            const bit = ((formatBits >> (14 - i)) & 1) === 1;
             // Around top-left finder
             if (i < 6) modules[8][i] = bit;
             else if (i < 8) modules[8][i + 1] = bit;
@@ -590,11 +582,6 @@
     function getFormatBits(mask) {
         // ECC level L = 01, mask pattern
         const data = (1 << 3) | mask; // 01xxx
-        let bits = data;
-        for (let i = 0; i < 10; i++) {
-            if (bits & (1 << (i + 4))) bits ^= 0x537 << i;
-        }
-        // Actually, compute BCH properly
         let rem = data << 10;
         const gen = 0x537;
         for (let i = 4; i >= 0; i--) {
@@ -622,6 +609,7 @@
             generate() {
                 const id = this.placeId.trim();
                 if (!id) return;
+                if (!/^[A-Za-z0-9_-]+$/.test(id)) return;
                 this.reviewLink = 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(id);
                 this.generated = true;
                 this.copied = { link: false, email: false, sms: false };
@@ -635,10 +623,30 @@
             },
 
             copyToClipboard(text, key) {
-                navigator.clipboard.writeText(text).then(() => {
+                const onSuccess = () => {
                     this.copied[key] = true;
                     setTimeout(() => { this.copied[key] = false; }, 2000);
-                });
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+                        this.fallbackCopy(text);
+                        onSuccess();
+                    });
+                } else {
+                    this.fallbackCopy(text);
+                    onSuccess();
+                }
+            },
+
+            fallbackCopy(text) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
             },
 
             get emailTemplate() {
@@ -660,7 +668,7 @@
                 a.href = url;
                 a.download = 'google-review-qr-code.svg';
                 a.click();
-                URL.revokeObjectURL(url);
+                setTimeout(() => URL.revokeObjectURL(url), 100);
             }
         };
     }
