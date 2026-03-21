@@ -86,8 +86,8 @@
             <!-- Review Link Toolkit -->
             @if($profile->googleReviewLink)
             <div class="mt-6 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6" x-data="{
-                reviewLink: '{{ $profile->googleReviewLink->value }}',
-                businessName: '{{ addslashes($profile->name) }}',
+                reviewLink: @js($profile->googleReviewLink->value),
+                businessName: @js($profile->name),
                 copied: { link: false, email: false, sms: false },
                 copyToClipboard(text, key) {
                     const onSuccess = () => {
@@ -95,18 +95,21 @@
                         setTimeout(() => { this.copied[key] = false; }, 2000);
                     };
                     if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(text).then(onSuccess).catch(() => onSuccess());
+                        navigator.clipboard.writeText(text).then(onSuccess).catch(() => this.fallbackCopy(text, onSuccess));
                     } else {
-                        const ta = document.createElement('textarea');
-                        ta.value = text;
-                        ta.style.position = 'fixed';
-                        ta.style.left = '-9999px';
-                        document.body.appendChild(ta);
-                        ta.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(ta);
-                        onSuccess();
+                        this.fallbackCopy(text, onSuccess);
                     }
+                },
+                fallbackCopy(text, onSuccess) {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    onSuccess();
                 },
                 get emailTemplate() {
                     return `Subject: How did we do, [First Name]?\n\nHi [First Name],\n\nThanks for choosing ${this.businessName}! We hope you had a great experience.\n\nIf you have 30 seconds, a quick Google review would mean the world to us:\n\n${this.reviewLink}\n\nThank you!\n${this.businessName}`;
@@ -115,17 +118,17 @@
                     return `Hi [First Name]! Thanks for choosing ${this.businessName}. If you had a great experience, would you leave us a quick Google review? It takes 30 seconds: ${this.reviewLink}`;
                 }
             }">
-                <h3 class="text-lg font-semibold mb-4">{{ __('business.review_link_toolkit') ?? 'Review Link Toolkit' }}</h3>
+                <h3 class="text-lg font-semibold mb-4">{{ __('business.review_link_toolkit') }}</h3>
 
                 <!-- Google Review Link -->
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-gray-500 mb-1">Your Google Review Link</label>
+                    <label for="review-link-display" class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.your_google_review_link') }}</label>
                     <div class="flex items-center gap-2 bg-gray-50 rounded-lg p-3">
-                        <code class="flex-1 text-sm text-gray-700 break-all" x-text="reviewLink"></code>
+                        <code id="review-link-display" class="flex-1 text-sm text-gray-700 break-all" x-text="reviewLink"></code>
                         <button
                             @click="copyToClipboard(reviewLink, 'link')"
                             aria-label="Copy review link"
-                            class="shrink-0 px-3 py-1.5 text-xs font-semibold rounded-md uppercase tracking-widest transition"
+                            class="shrink-0 px-3 py-1.5 text-xs font-semibold rounded-md uppercase tracking-widest transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             :class="copied.link ? 'bg-green-100 text-green-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'"
                         >
                             <span x-text="copied.link ? 'Copied!' : 'Copy'"></span>
@@ -135,12 +138,12 @@
 
                 <!-- Email Template -->
                 <div class="mb-5">
-                    <label class="block text-sm font-medium text-gray-500 mb-1">Email Template</label>
-                    <div class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700 whitespace-pre-line max-h-40 overflow-y-auto" x-text="emailTemplate"></div>
+                    <label for="email-template-display" class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.email_template') }}</label>
+                    <div id="email-template-display" class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700 whitespace-pre-line max-h-40 overflow-y-auto" x-text="emailTemplate"></div>
                     <button
                         @click="copyToClipboard(emailTemplate, 'email')"
                         aria-label="Copy email template"
-                        class="mt-2 px-3 py-1.5 text-xs font-semibold rounded-md uppercase tracking-widest transition"
+                        class="mt-2 px-3 py-1.5 text-xs font-semibold rounded-md uppercase tracking-widest transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         :class="copied.email ? 'bg-green-100 text-green-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'"
                     >
                         <span x-text="copied.email ? 'Copied!' : 'Copy Template'"></span>
@@ -149,12 +152,12 @@
 
                 <!-- SMS Template -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-500 mb-1">SMS Template</label>
-                    <div class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700" x-text="smsTemplate"></div>
+                    <label for="sms-template-display" class="block text-sm font-medium text-gray-500 mb-1">{{ __('business.sms_template') }}</label>
+                    <div id="sms-template-display" class="bg-gray-50 rounded-lg p-3 text-sm text-gray-700" x-text="smsTemplate"></div>
                     <button
                         @click="copyToClipboard(smsTemplate, 'sms')"
                         aria-label="Copy SMS template"
-                        class="mt-2 px-3 py-1.5 text-xs font-semibold rounded-md uppercase tracking-widest transition"
+                        class="mt-2 px-3 py-1.5 text-xs font-semibold rounded-md uppercase tracking-widest transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                         :class="copied.sms ? 'bg-green-100 text-green-700' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'"
                     >
                         <span x-text="copied.sms ? 'Copied!' : 'Copy Template'"></span>
@@ -163,10 +166,10 @@
             </div>
             @else
             <div class="mt-6 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h3 class="text-lg font-semibold mb-2">{{ __('business.review_link_toolkit') ?? 'Review Link Toolkit' }}</h3>
-                <p class="text-sm text-gray-500 mb-3">Add your Google review link to unlock copy-paste email and SMS templates personalized with your business name.</p>
+                <h3 class="text-lg font-semibold mb-2">{{ __('business.review_link_toolkit') }}</h3>
+                <p class="text-sm text-gray-500 mb-3">{{ __('business.review_link_toolkit_empty') }}</p>
                 <a href="{{ route('business-profiles.edit', $profile->id) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-500">
-                    Add Google Review Link
+                    {{ __('business.add_google_review_link') }}
                 </a>
             </div>
             @endif

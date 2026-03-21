@@ -18,4 +18,10 @@ return [
     'qr_code' => 'QR Code',
     'view_qr' => 'View QR Code',
     'download_qr' => 'Download QR Code',
+    'review_link_toolkit' => 'Review Link Toolkit',
+    'your_google_review_link' => 'Your Google Review Link',
+    'email_template' => 'Email Template',
+    'sms_template' => 'SMS Template',
+    'review_link_toolkit_empty' => 'Add your Google review link to unlock copy-paste email and SMS templates personalized with your business name.',
+    'add_google_review_link' => 'Add Google Review Link',
 ];

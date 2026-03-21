@@ -18,4 +18,10 @@ return [
     'qr_code' => 'Kod QR',
     'view_qr' => 'Zobacz kod QR',
     'download_qr' => 'Pobierz kod QR',
+    'review_link_toolkit' => 'Zestaw narzędzi do opinii',
+    'your_google_review_link' => 'Twój link do opinii Google',
+    'email_template' => 'Szablon e-mail',
+    'sms_template' => 'Szablon SMS',
+    'review_link_toolkit_empty' => 'Dodaj link do opinii Google, aby odblokować szablony e-mail i SMS spersonalizowane nazwą Twojej firmy.',
+    'add_google_review_link' => 'Dodaj link do opinii Google',
 ];
