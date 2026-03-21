@@ -21,6 +21,10 @@
     <meta name="twitter:title" content="{{ $title }} — {{ config('app.name') }}">
     <meta name="twitter:description" content="{{ $description }}">
 
+    <!-- OG Image -->
+    <meta property="og:image" content="{{ $ogImage ?? asset('images/hero-bg.jpg') }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('images/hero-bg.jpg') }}">
+
     @if(isset($jsonLd))
         <script type="application/ld+json">{!! $jsonLd !!}</script>
     @endif

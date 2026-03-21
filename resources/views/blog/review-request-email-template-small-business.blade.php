@@ -20,6 +20,7 @@
             'name' => config('app.name'),
             'url' => url('/'),
         ],
+        'image' => asset('images/hero-bg.jpg'),
         'mainEntityOfPage' => [
             '@type' => 'WebPage',
             '@id' => route('blog.show', 'review-request-email-template-small-business'),

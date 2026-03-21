@@ -6,7 +6,7 @@
     <title>{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <meta name="description" content="Automatically collect 5-star Google reviews from happy customers. Send review requests via email or QR code, route feedback smartly, and grow your online reputation.">
-    <meta name="keywords" content="Google reviews, review management, review requests, reputation management, QR code reviews, customer feedback">
+    <meta name="theme-color" content="#4F46E5">
     <link rel="canonical" href="{{ url('/') }}">
     <meta property="og:title" content="{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot">
     <meta property="og:description" content="Send review requests, collect feedback privately, and redirect happy customers to Google Reviews. Simple, fast, effective.">
@@ -17,25 +17,54 @@
     <meta name="twitter:title" content="{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot">
     <meta name="twitter:description" content="Automatically collect 5-star Google reviews from happy customers. Smart routing sends positive reviews to Google and negative feedback to you privately.">
     <meta name="twitter:image" content="{{ asset('images/hero-bg.jpg') }}">
+    <link rel="preload" as="image" href="{{ asset('images/hero-bg.jpg') }}" fetchpriority="high">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>[x-cloak] { display: none !important; }</style>
     <script type="application/ld+json">{!! json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'SoftwareApplication',
         'name' => config('app.name'),
+        'url' => url('/'),
         'applicationCategory' => 'BusinessApplication',
+        'operatingSystem' => 'Web',
         'description' => 'Automatically collect 5-star Google reviews from happy customers. Send review requests via email or QR code and grow your online reputation.',
         'offers' => [
             '@type' => 'Offer',
             'price' => '29',
             'priceCurrency' => 'USD',
+            'availability' => 'https://schema.org/InStock',
+            'url' => url('/'),
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Organization',
+        'name' => config('app.name'),
+        'url' => url('/'),
+        'logo' => asset('favicon.svg'),
+        'description' => 'SaaS platform for automating Google review collection for small businesses.',
+        'contactPoint' => [
+            '@type' => 'ContactPoint',
+            'email' => 'support@quickfeedback.app',
+            'contactType' => 'customer support',
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+    <script type="application/ld+json">{!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => [
+            ['@type' => 'Question', 'name' => 'How does the review routing work?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'When a customer rates you 4 or 5 stars, they\'re automatically redirected to your Google Reviews page. Customers who rate 1-3 stars are shown a private feedback form instead, so you can address their concerns before they go public.']],
+            ['@type' => 'Question', 'name' => 'What\'s a QR code used for?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Each business profile gets a unique QR code. Print it and place it at your counter, on receipts, or on table cards. Customers scan it with their phone and can leave a rating instantly — no email needed.']],
+            ['@type' => 'Question', 'name' => 'Can I manage multiple locations?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes! You can create up to 5 business profiles, each with its own Google Review link, QR code, branding, and customer language settings. Perfect for multi-location businesses.']],
+            ['@type' => 'Question', 'name' => 'Is this against Google\'s terms of service?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. We don\'t filter or gate reviews — all customers can leave a Google review. We simply ask for a quick rating first and route unhappy customers to private feedback. Asking for reviews is encouraged by Google.']],
+            ['@type' => 'Question', 'name' => 'Can I cancel anytime?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. No contracts, no commitments. Start with a 14-day free trial, and cancel anytime if it\'s not for you.']],
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 </head>
 <body class="antialiased bg-white text-gray-900">
 
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur border-b border-gray-100 z-50">
+    <nav aria-label="Main navigation" class="fixed top-0 w-full bg-white/90 backdrop-blur border-b border-gray-100 z-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
             <a href="/" class="text-xl font-bold text-indigo-600">{{ config('app.name') }}</a>
             <div class="hidden sm:flex items-center space-x-6 text-sm">
@@ -64,7 +93,7 @@
     <section class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 overflow-hidden">
         <!-- Background image -->
         <div class="absolute inset-0 -z-10">
-            <img src="{{ asset('images/hero-bg.jpg') }}" alt="Business growth and success" class="w-full h-full object-cover object-bottom">
+            <img src="{{ asset('images/hero-bg.jpg') }}" alt="Business growth and success" class="w-full h-full object-cover object-bottom" fetchpriority="high">
             <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-white/50 to-white"></div>
         </div>
 

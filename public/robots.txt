@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Disallow: /dashboard
+Disallow: /billing
+Disallow: /business-profiles
+Disallow: /profile
+Disallow: /rate/
+
+Sitemap: https://quickfeedback.app/sitemap.xml

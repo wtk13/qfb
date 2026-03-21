@@ -19,6 +19,13 @@ Route::get('/', function () {
 Route::get('/privacy', fn () => view('legal.privacy'))->name('privacy');
 Route::get('/terms', fn () => view('legal.terms'))->name('terms');
 
+Route::get('/sitemap.xml', function () {
+    $posts = collect(glob(resource_path('views/blog/*.blade.php')))
+        ->map(fn ($path) => basename($path, '.blade.php'))
+        ->reject(fn ($name) => $name === 'index');
+    return response()->view('sitemap', ['posts' => $posts])->header('Content-Type', 'application/xml');
+})->name('sitemap');
+
 Route::get('/blog', fn () => view('blog.index'))->name('blog.index');
 Route::get('/blog/{slug}', function (string $slug) {
     if (!view()->exists("blog.{$slug}")) {

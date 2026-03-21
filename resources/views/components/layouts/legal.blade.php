@@ -7,6 +7,14 @@
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <meta name="description" content="{{ $description }}">
     <link rel="canonical" href="{{ $canonical }}">
+    <meta property="og:title" content="{{ $title }} — {{ config('app.name') }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ $canonical }}">
+    <meta property="og:site_name" content="{{ config('app.name') }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $title }} — {{ config('app.name') }}">
+    <meta name="twitter:description" content="{{ $description }}">
     @vite(['resources/css/app.css'])
 </head>
 <body class="antialiased bg-white text-gray-900">
