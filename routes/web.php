@@ -26,6 +26,8 @@ Route::get('/sitemap.xml', function () {
     return response()->view('sitemap', ['posts' => $posts])->header('Content-Type', 'application/xml');
 })->name('sitemap');
 
+Route::get('/tools/google-review-link-generator', fn () => view('tools.google-review-link-generator'))->name('tools.google-review-link-generator');
+
 Route::get('/blog', fn () => view('blog.index'))->name('blog.index');
 Route::get('/blog/{slug}', function (string $slug) {
     if (!view()->exists("blog.{$slug}")) {

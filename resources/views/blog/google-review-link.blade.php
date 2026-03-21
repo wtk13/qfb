@@ -110,7 +110,7 @@
 
         <p><code>https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID</code></p>
 
-        <p>Replace <code>YOUR_PLACE_ID</code> with the actual ID you copied. Test the link in your browser — it should open your Google review form directly. Bookmark it, save it, and you're ready to start sharing.</p>
+        <p>Replace <code>YOUR_PLACE_ID</code> with the actual ID you copied. Test the link in your browser — it should open your Google review form directly. Bookmark it, save it, and you're ready to start sharing. Or skip the manual work and use our <a href="{{ route('tools.google-review-link-generator') }}">free Google Review Link Generator</a> to do it instantly.</p>
 
         <div class="not-prose bg-indigo-50 border border-indigo-100 rounded-xl p-6 my-8">
             <p class="text-indigo-900 font-medium"><a href="{{ url('/') }}" class="text-indigo-600 underline hover:text-indigo-500">{{ config('app.name') }}</a> embeds your direct Google review link automatically in every review request. When a customer rates their experience 4-5 stars, they're sent straight to your Google review page. Customers who had a less-than-perfect experience leave private feedback instead — so you can resolve issues before they become public reviews.</p>
