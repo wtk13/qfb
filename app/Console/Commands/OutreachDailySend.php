@@ -152,9 +152,8 @@ class OutreachDailySend extends Command
         $this->info("Done. Sent: {$sent}, Failed: {$failed}");
 
         // Refresh campaign stats from source of truth
-        $leads->pluck('category')->combine($leads->pluck('city'))
-            ->unique()
-            ->each(fn ($city, $category) => OutreachCampaignModel::refreshStats($category, $city));
+        $leads->unique(fn ($l) => $l->category . '|' . $l->city)
+            ->each(fn ($lead) => OutreachCampaignModel::refreshStats($lead->category, $lead->city));
 
         $totalQueue = OutreachLeadModel::sendable()->count();
         $this->info("Remaining in queue: {$totalQueue}");

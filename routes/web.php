@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\OutreachController;
+use App\Http\Controllers\Webhook\ResendWebhookController;
 use App\Http\Controllers\Billing\BillingController;
 use App\Http\Controllers\BusinessProfile\BusinessProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -123,5 +124,11 @@ Route::middleware(['auth', 'verified', EnsureAdmin::class])->prefix('admin')->na
     Route::post('/outreach/send-test', [OutreachController::class, 'sendTest'])->name('outreach.send-test');
     Route::patch('/outreach/leads/{id}/status', [OutreachController::class, 'updateStatus'])->name('outreach.update-status');
 });
+
+// Webhooks (no CSRF, rate limited)
+Route::post('/webhooks/resend', ResendWebhookController::class)
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class)
+    ->middleware('throttle:60,1')
+    ->name('webhooks.resend');
 
 require __DIR__.'/auth.php';
