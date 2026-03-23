@@ -28,6 +28,24 @@ Route::get('/sitemap.xml', function () {
 
 Route::get('/tools/google-review-link-generator', fn () => view('tools.google-review-link-generator'))->name('tools.google-review-link-generator');
 
+Route::match(['get', 'post'], '/outreach/unsubscribe', function (\Illuminate\Http\Request $request) {
+    if (! $request->hasValidSignature()) {
+        abort(403);
+    }
+    $email = $request->query('email');
+    if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $path = 'outreach_unsubscribed.log';
+        $existing = \Illuminate\Support\Facades\Storage::disk('local')->exists($path)
+            ? array_filter(explode("\n", \Illuminate\Support\Facades\Storage::disk('local')->get($path)))
+            : [];
+        if (!in_array($email, $existing)) {
+            \Illuminate\Support\Facades\Storage::disk('local')->append($path, $email);
+        }
+    }
+    return response('<html><body style="font-family:Arial,sans-serif;max-width:500px;margin:80px auto;text-align:center;"><h2>You\'ve been unsubscribed</h2><p>You won\'t receive any more emails from us.</p></body></html>', 200)
+        ->header('Content-Type', 'text/html');
+})->name('outreach.unsubscribe');
+
 Route::get('/blog', fn () => view('blog.index'))->name('blog.index');
 Route::get('/blog/{slug}', function (string $slug) {
     if (!view()->exists("blog.{$slug}")) {
