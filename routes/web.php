@@ -34,6 +34,10 @@ Route::match(['get', 'post'], '/outreach/unsubscribe', function (\Illuminate\Htt
     }
     $email = $request->query('email');
     if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Mark in database
+        \App\Infrastructure\Persistence\Eloquent\OutreachLeadModel::where('email', $email)
+            ->update(['outreach_status' => 'unsubscribed']);
+        // Also keep flat file log for the old CSV-based commands
         $path = 'outreach_unsubscribed.log';
         $existing = \Illuminate\Support\Facades\Storage::disk('local')->exists($path)
             ? array_filter(explode("\n", \Illuminate\Support\Facades\Storage::disk('local')->get($path)))
