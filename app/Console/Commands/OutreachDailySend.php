@@ -30,39 +30,42 @@ class OutreachDailySend extends Command
 
         // Prevent concurrent runs
         $lock = Cache::lock('outreach-daily-send', 600);
-        if (!$lock->get()) {
+        if (! $lock->get()) {
             $this->warn('Another outreach:daily-send is already running. Skipping.');
+
             return self::SUCCESS;
         }
 
         // Check daily cap (Resend free = 100/day, keep 20 buffer for transactional)
-        $sentToday = OutreachLeadModel::whereNotIn('outreach_status', ['new', 'bounced'])
+        $sentToday = OutreachLeadModel::whereNotNull('sent_at')
             ->whereDate('sent_at', today())
             ->count();
 
-        $dailyCap = 80;
+        $dailyCap = config('outreach.daily_cap');
         $remaining = max(0, $dailyCap - $sentToday);
         $limit = min($limit, $remaining);
 
         if ($limit === 0) {
             $this->info("Daily cap reached ({$sentToday} sent today). Skipping.");
             $lock->release();
+
             return self::SUCCESS;
         }
 
-        // Check monthly cap (Resend free = 3,000/month)
-        $sentThisMonth = OutreachLeadModel::whereNotIn('outreach_status', ['new', 'bounced'])
+        // Check monthly cap (Resend free = 3,000/month, keep 500 buffer for transactional)
+        $sentThisMonth = OutreachLeadModel::whereNotNull('sent_at')
             ->whereMonth('sent_at', now()->month)
             ->whereYear('sent_at', now()->year)
             ->count();
 
-        $monthlyCap = 2500; // 3,000 actual, keep 500 buffer for transactional
+        $monthlyCap = config('outreach.monthly_cap');
         $monthlyRemaining = max(0, $monthlyCap - $sentThisMonth);
         $limit = min($limit, $monthlyRemaining);
 
         if ($limit === 0) {
             $this->info("Monthly cap reached ({$sentThisMonth} sent this month). Skipping.");
             $lock->release();
+
             return self::SUCCESS;
         }
 
@@ -74,6 +77,7 @@ class OutreachDailySend extends Command
 
         if ($leads->isEmpty()) {
             $this->info('No verified leads to send. Run outreach:weekly to scrape more.');
+
             return self::SUCCESS;
         }
 
@@ -105,6 +109,7 @@ class OutreachDailySend extends Command
                 $this->info("         Subject: {$subject}");
                 $this->info('         (dry run — skipped)');
                 $sent++;
+
                 continue;
             }
 
@@ -130,7 +135,7 @@ class OutreachDailySend extends Command
                 $this->info('         Sent!');
             } catch (\Exception $e) {
                 $failed++;
-                $this->error('         Failed: ' . $e->getMessage());
+                $this->error('         Failed: '.$e->getMessage());
 
                 // Mark as bounced if it's an email delivery error
                 if (str_contains($e->getMessage(), 'bounce') || str_contains($e->getMessage(), 'rejected')) {
@@ -219,6 +224,6 @@ EMAIL;
             return "other {$plural} in {$city}";
         }
 
-        return "your competitors in the area";
+        return 'your competitors in the area';
     }
 }

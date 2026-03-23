@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OutreachController;
 use App\Http\Controllers\Billing\BillingController;
 use App\Http\Controllers\BusinessProfile\BusinessProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Public\RatingController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ReviewRequest\ReviewRequestController;
 use App\Http\Middleware\EnsureActiveSubscription;
+use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureTenantAccess;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +25,7 @@ Route::get('/sitemap.xml', function () {
     $posts = collect(glob(resource_path('views/blog/*.blade.php')))
         ->map(fn ($path) => basename($path, '.blade.php'))
         ->reject(fn ($name) => $name === 'index');
+
     return response()->view('sitemap', ['posts' => $posts])->header('Content-Type', 'application/xml');
 })->name('sitemap');
 
@@ -42,19 +45,21 @@ Route::match(['get', 'post'], '/outreach/unsubscribe', function (\Illuminate\Htt
         $existing = \Illuminate\Support\Facades\Storage::disk('local')->exists($path)
             ? array_filter(explode("\n", \Illuminate\Support\Facades\Storage::disk('local')->get($path)))
             : [];
-        if (!in_array($email, $existing)) {
+        if (! in_array($email, $existing)) {
             \Illuminate\Support\Facades\Storage::disk('local')->append($path, $email);
         }
     }
+
     return response('<html><body style="font-family:Arial,sans-serif;max-width:500px;margin:80px auto;text-align:center;"><h2>You\'ve been unsubscribed</h2><p>You won\'t receive any more emails from us.</p></body></html>', 200)
         ->header('Content-Type', 'text/html');
 })->name('outreach.unsubscribe');
 
 Route::get('/blog', fn () => view('blog.index'))->name('blog.index');
 Route::get('/blog/{slug}', function (string $slug) {
-    if (!view()->exists("blog.{$slug}")) {
+    if (! view()->exists("blog.{$slug}")) {
         abort(404);
     }
+
     return view("blog.{$slug}");
 })->where('slug', '[a-z0-9\-]+')->name('blog.show');
 
@@ -62,6 +67,7 @@ Route::post('/locale/{locale}', function (string $locale) {
     if (in_array($locale, config('locales.supported'))) {
         session()->put('locale', $locale);
     }
+
     return back();
 })->name('locale.switch');
 
@@ -106,6 +112,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Admin routes
+Route::middleware(['auth', 'verified', EnsureAdmin::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/outreach', [OutreachController::class, 'index'])->name('outreach.index');
+    Route::get('/outreach/leads', [OutreachController::class, 'leads'])->name('outreach.leads');
+    Route::post('/outreach/run-weekly', [OutreachController::class, 'runWeekly'])->name('outreach.run-weekly');
+    Route::post('/outreach/send-batch', [OutreachController::class, 'sendBatch'])->name('outreach.send-batch');
+    Route::post('/outreach/send-test', [OutreachController::class, 'sendTest'])->name('outreach.send-test');
+    Route::patch('/outreach/leads/{id}/status', [OutreachController::class, 'updateStatus'])->name('outreach.update-status');
 });
 
 require __DIR__.'/auth.php';

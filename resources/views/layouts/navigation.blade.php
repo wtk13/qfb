@@ -21,6 +21,11 @@
                     <x-nav-link :href="route('billing.index')" :active="request()->routeIs('billing.*')">
                         {{ __('billing.title') }}
                     </x-nav-link>
+                    @if(auth()->user()?->isAdmin())
+                        <x-nav-link :href="route('admin.outreach.index')" :active="request()->routeIs('admin.outreach.*')">
+                            Outreach
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -83,6 +88,11 @@
             <x-responsive-nav-link :href="route('billing.index')" :active="request()->routeIs('billing.*')">
                 {{ __('billing.title') }}
             </x-responsive-nav-link>
+            @if(auth()->user()?->isAdmin())
+                <x-responsive-nav-link :href="route('admin.outreach.index')" :active="request()->routeIs('admin.outreach.*')">
+                    Outreach
+                </x-responsive-nav-link>
+            @endif
 
             <x-language-switcher :mobile="true" />
         </div>
