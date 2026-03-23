@@ -25,7 +25,7 @@ class GoogleReviewLinkGeneratorToolTest extends TestCase
     {
         $response = $this->get('/tools/google-review-link-generator');
 
-        $response->assertSee('meta name="description" content="Generate your direct Google review link instantly', false);
+        $response->assertSee('meta name="description" content="Generate your direct Google review link instantly. Free tool', false);
     }
 
     public function test_tool_page_has_canonical_url(): void
@@ -94,42 +94,16 @@ class GoogleReviewLinkGeneratorToolTest extends TestCase
     {
         $response = $this->get('/tools/google-review-link-generator');
 
-        $response->assertSee('Find it here');
+        $response->assertSee('Google Maps');
+        $response->assertSee('Place ID Finder');
         $response->assertSee('developers.google.com/maps/documentation/places/web-service/place-id', false);
     }
 
-    public function test_tool_page_has_qr_code_section(): void
-    {
-        $response = $this->get('/tools/google-review-link-generator');
-
-        $response->assertSee('QR Code');
-        $response->assertSee('id="qr-code"', false);
-        $response->assertSee('Download QR Code');
-    }
-
-    public function test_tool_page_has_email_template_section(): void
-    {
-        $response = $this->get('/tools/google-review-link-generator');
-
-        $response->assertSee('Email Template');
-        $response->assertSee('x-text="emailTemplate"', false);
-    }
-
-    public function test_tool_page_has_sms_template_section(): void
-    {
-        $response = $this->get('/tools/google-review-link-generator');
-
-        $response->assertSee('SMS Template');
-        $response->assertSee('x-text="smsTemplate"', false);
-    }
-
-    public function test_tool_page_has_copy_buttons_with_aria_labels(): void
+    public function test_tool_page_has_copy_button_with_aria_label(): void
     {
         $response = $this->get('/tools/google-review-link-generator');
 
         $response->assertSee('aria-label="Copy review link to clipboard"', false);
-        $response->assertSee('aria-label="Copy email template to clipboard"', false);
-        $response->assertSee('aria-label="Copy SMS template to clipboard"', false);
     }
 
     public function test_tool_page_has_cta_section(): void
@@ -209,12 +183,10 @@ class GoogleReviewLinkGeneratorToolTest extends TestCase
         $response->assertSee('[x-cloak] { display: none !important; }', false);
     }
 
-    public function test_tool_page_has_qr_code_generator_script(): void
+    public function test_tool_page_has_review_link_generator_script(): void
     {
         $response = $this->get('/tools/google-review-link-generator');
 
-        $response->assertSee('function generateQRCode(', false);
-        $response->assertSee('function qrEncode(', false);
         $response->assertSee('function reviewLinkGenerator()', false);
     }
 
@@ -230,7 +202,7 @@ class GoogleReviewLinkGeneratorToolTest extends TestCase
     {
         $response = $this->get('/tools/google-review-link-generator');
 
-        $response->assertSee('/^[A-Za-z0-9_-]+$/', false);
+        $response->assertSee('extractPlaceId(', false);
     }
 
     public function test_tool_page_is_in_sitemap(): void
