@@ -12,18 +12,18 @@ class OutreachController extends Controller
 {
     public function index()
     {
-        // Single query for all status counts
+        // Single query for all status counts (PostgreSQL-compatible with CASE casts)
         $counts = OutreachLeadModel::query()
             ->selectRaw('COUNT(*) as total_leads')
-            ->selectRaw("SUM(email_status = 'verified') as verified")
-            ->selectRaw("SUM(outreach_status = 'new') as new_count")
-            ->selectRaw("SUM(outreach_status = 'sent') as sent")
-            ->selectRaw("SUM(outreach_status = 'replied') as replied")
-            ->selectRaw("SUM(outreach_status = 'converted') as converted")
-            ->selectRaw("SUM(outreach_status = 'bounced') as bounced")
-            ->selectRaw("SUM(outreach_status = 'unsubscribed') as unsubscribed")
-            ->selectRaw('SUM(sent_at >= ? AND sent_at IS NOT NULL) as sent_today', [today()])
-            ->selectRaw('SUM(sent_at >= ? AND sent_at IS NOT NULL) as sent_this_month', [now()->startOfMonth()])
+            ->selectRaw("COUNT(*) FILTER (WHERE email_status = 'verified') as verified")
+            ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'new') as new_count")
+            ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'sent') as sent")
+            ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'replied') as replied")
+            ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'converted') as converted")
+            ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'bounced') as bounced")
+            ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'unsubscribed') as unsubscribed")
+            ->selectRaw('COUNT(*) FILTER (WHERE sent_at >= ?) as sent_today', [today()])
+            ->selectRaw('COUNT(*) FILTER (WHERE sent_at >= ?) as sent_this_month', [now()->startOfMonth()])
             ->first();
 
         $stats = [
