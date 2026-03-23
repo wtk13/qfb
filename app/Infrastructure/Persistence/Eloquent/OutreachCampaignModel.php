@@ -22,6 +22,7 @@ class OutreachCampaignModel extends Model
         'conversions',
         'scraped_at',
         'last_sent_at',
+        'new_leads_last_scrape',
     ];
 
     protected function casts(): array
@@ -29,6 +30,7 @@ class OutreachCampaignModel extends Model
         return [
             'scraped_at' => 'datetime',
             'last_sent_at' => 'datetime',
+            'new_leads_last_scrape' => 'integer',
         ];
     }
 

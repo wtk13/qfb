@@ -17,27 +17,82 @@ class OutreachWeeklyRotation extends Command
 
     private string $apiKey;
 
-    private array $rotation = [
-        ['category' => 'dentist', 'city' => 'Austin', 'state' => 'TX'],
-        ['category' => 'plumber', 'city' => 'Denver', 'state' => 'CO'],
-        ['category' => 'restaurant', 'city' => 'Miami', 'state' => 'FL'],
-        ['category' => 'salon', 'city' => 'Nashville', 'state' => 'TN'],
-        ['category' => 'chiropractor', 'city' => 'Portland', 'state' => 'OR'],
-        ['category' => 'cleaning company', 'city' => 'Phoenix', 'state' => 'AZ'],
-        ['category' => 'dentist', 'city' => 'Dallas', 'state' => 'TX'],
-        ['category' => 'plumber', 'city' => 'Atlanta', 'state' => 'GA'],
-        ['category' => 'restaurant', 'city' => 'Chicago', 'state' => 'IL'],
-        ['category' => 'salon', 'city' => 'Charlotte', 'state' => 'NC'],
-        ['category' => 'veterinarian', 'city' => 'Seattle', 'state' => 'WA'],
-        ['category' => 'gym', 'city' => 'San Diego', 'state' => 'CA'],
-        ['category' => 'dentist', 'city' => 'Houston', 'state' => 'TX'],
-        ['category' => 'electrician', 'city' => 'Tampa', 'state' => 'FL'],
-        ['category' => 'auto repair', 'city' => 'Columbus', 'state' => 'OH'],
-        ['category' => 'accountant', 'city' => 'Raleigh', 'state' => 'NC'],
-        ['category' => 'landscaper', 'city' => 'Orlando', 'state' => 'FL'],
-        ['category' => 'roofer', 'city' => 'Las Vegas', 'state' => 'NV'],
-        ['category' => 'hvac', 'city' => 'San Antonio', 'state' => 'TX'],
-        ['category' => 'real estate', 'city' => 'Minneapolis', 'state' => 'MN'],
+    private array $categories = [
+        // Medical & Health
+        'dentist', 'chiropractor', 'veterinarian', 'optometrist',
+        'dermatologist', 'physical therapist', 'pediatrician',
+        'orthodontist', 'podiatrist', 'psychiatrist', 'allergist',
+        'urgent care', 'medical spa', 'acupuncturist', 'hearing aid',
+        // Home Services
+        'plumber', 'electrician', 'hvac', 'roofer', 'landscaper',
+        'cleaning company', 'pest control', 'garage door repair',
+        'painting contractor', 'fence company', 'handyman',
+        'locksmith', 'tree service', 'carpet cleaning', 'window cleaning',
+        'pool service', 'septic service', 'foundation repair',
+        'water damage restoration', 'mold removal', 'solar installer',
+        'general contractor', 'interior designer', 'home inspector',
+        // Auto
+        'auto repair', 'auto detailing', 'tire shop',
+        'auto body shop', 'oil change', 'car wash', 'towing service',
+        'transmission repair', 'auto glass repair',
+        // Beauty & Wellness
+        'salon', 'barbershop', 'spa', 'nail salon', 'gym',
+        'yoga studio', 'massage therapist', 'med spa', 'tattoo shop',
+        'tanning salon', 'eyelash extensions', 'waxing salon',
+        'pilates studio', 'personal trainer', 'crossfit',
+        // Food & Hospitality
+        'restaurant', 'cafe', 'bakery', 'catering', 'food truck',
+        'pizza', 'sushi', 'mexican restaurant', 'italian restaurant',
+        'thai restaurant', 'indian restaurant', 'bbq restaurant',
+        'juice bar', 'ice cream shop', 'brewery', 'wine bar',
+        // Professional Services
+        'accountant', 'real estate agent', 'insurance agent', 'lawyer',
+        'financial advisor', 'photographer', 'wedding planner',
+        'tutoring', 'dog groomer', 'pet boarding', 'moving company',
+        'storage facility', 'tax preparer', 'notary', 'travel agent',
+        'property management', 'mortgage broker', 'home stager',
+        // Education & Childcare
+        'daycare', 'preschool', 'martial arts', 'dance studio',
+        'music school', 'driving school', 'swim lessons',
+        // Events & Entertainment
+        'dj', 'event planner', 'florist', 'party rental',
+        'photo booth', 'videographer', 'escape room',
+        // Trades & Specialty
+        'appliance repair', 'furniture repair', 'tailor',
+        'dry cleaner', 'print shop', 'sign company',
+        'computer repair', 'phone repair', 'jewelry repair',
+    ];
+
+    private array $cities = [
+        // Texas
+        'Austin, TX', 'Dallas, TX', 'Houston, TX', 'San Antonio, TX', 'Fort Worth, TX',
+        'El Paso, TX', 'Plano, TX', 'Arlington, TX', 'Frisco, TX',
+        // Florida
+        'Miami, FL', 'Tampa, FL', 'Orlando, FL', 'Jacksonville, FL',
+        'St Petersburg, FL', 'Fort Lauderdale, FL', 'Sarasota, FL', 'Naples, FL',
+        // California
+        'San Diego, CA', 'Sacramento, CA', 'San Jose, CA', 'Fresno, CA',
+        'Long Beach, CA', 'Bakersfield, CA', 'Riverside, CA', 'Irvine, CA',
+        'Santa Barbara, CA', 'Pasadena, CA',
+        // Southeast
+        'Atlanta, GA', 'Nashville, TN', 'Memphis, TN', 'Charlotte, NC', 'Raleigh, NC',
+        'Charleston, SC', 'Greenville, SC', 'Savannah, GA', 'Knoxville, TN',
+        'Birmingham, AL', 'Huntsville, AL', 'New Orleans, LA', 'Baton Rouge, LA',
+        'Richmond, VA', 'Virginia Beach, VA',
+        // Northeast
+        'Philadelphia, PA', 'Pittsburgh, PA', 'Boston, MA', 'Providence, RI',
+        'Hartford, CT', 'Newark, NJ', 'Jersey City, NJ', 'Buffalo, NY',
+        'Rochester, NY', 'Syracuse, NY', 'Baltimore, MD',
+        // Midwest
+        'Chicago, IL', 'Columbus, OH', 'Indianapolis, IN', 'Minneapolis, MN',
+        'Kansas City, MO', 'St Louis, MO', 'Milwaukee, WI', 'Madison, WI',
+        'Detroit, MI', 'Grand Rapids, MI', 'Cincinnati, OH', 'Cleveland, OH',
+        'Omaha, NE', 'Des Moines, IA', 'Louisville, KY', 'Lexington, KY',
+        // Mountain & West
+        'Denver, CO', 'Colorado Springs, CO', 'Phoenix, AZ', 'Scottsdale, AZ',
+        'Tucson, AZ', 'Las Vegas, NV', 'Reno, NV', 'Salt Lake City, UT',
+        'Boise, ID', 'Portland, OR', 'Seattle, WA', 'Spokane, WA',
+        'Albuquerque, NM', 'Oklahoma City, OK', 'Tulsa, OK',
     ];
 
     public function handle(): int
@@ -84,7 +139,10 @@ class OutreachWeeklyRotation extends Command
         OutreachCampaignModel::refreshStats($category, $city);
         OutreachCampaignModel::where('category', $category)
             ->where('city', $city)
-            ->update(['scraped_at' => now()]);
+            ->update([
+                'scraped_at' => now(),
+                'new_leads_last_scrape' => $places['new'],
+            ]);
 
         // Summary
         $this->newLine();
@@ -103,40 +161,61 @@ class OutreachWeeklyRotation extends Command
 
     private function pickNextTarget(): ?array
     {
-        // Load all campaigns in one query
+        // Load all campaigns in one query, keyed by "category|city"
         $campaigns = OutreachCampaignModel::all()
             ->keyBy(fn ($c) => $c->category . '|' . $c->city);
 
-        $best = null;
-        $oldestDate = now();
+        // Collect never-scraped combos and score scraped ones
+        $unscraped = [];
+        $candidates = [];
 
-        foreach ($this->rotation as $entry) {
-            $key = $entry['category'] . '|' . $entry['city'];
-            $campaign = $campaigns->get($key);
+        foreach ($this->categories as $category) {
+            foreach ($this->cities as $cityState) {
+                [$city, $state] = array_map('trim', explode(',', $cityState));
+                $key = $category . '|' . $city;
+                $campaign = $campaigns->get($key);
 
-            if (!$campaign) {
-                return $entry; // Never scraped — pick this one
-            }
+                $entry = ['category' => $category, 'city' => $city, 'state' => $state];
 
-            if ($campaign->scraped_at && $campaign->scraped_at < $oldestDate) {
-                $oldestDate = $campaign->scraped_at;
-                $best = $entry;
+                if (!$campaign || !$campaign->scraped_at) {
+                    $unscraped[] = $entry;
+                    continue;
+                }
+
+                $weeksAgo = $campaign->scraped_at->diffInWeeks(now());
+
+                // Exhausted niches (0 new leads last time) need 12+ weeks cooldown
+                $cooldown = ($campaign->new_leads_last_scrape === 0) ? 12 : 4;
+
+                if ($weeksAgo >= $cooldown) {
+                    $candidates[] = ['entry' => $entry, 'weeks_ago' => $weeksAgo];
+                }
             }
         }
 
-        // Only re-scrape if oldest was more than 4 weeks ago
-        if ($best && $oldestDate->diffInWeeks(now()) >= 4) {
-            return $best;
+        // Prefer a random never-scraped combo
+        if (!empty($unscraped)) {
+            return $unscraped[array_rand($unscraped)];
         }
 
-        return $best; // Re-scrape the oldest one
+        // Otherwise pick the stalest eligible candidate
+        if (!empty($candidates)) {
+            usort($candidates, fn ($a, $b) => $b['weeks_ago'] <=> $a['weeks_ago']);
+            return $candidates[0]['entry'];
+        }
+
+        return null;
     }
 
     private function scrapeLeads(string $query, int $maxResults, int $maxReviews, string $category, string $city): array
     {
-        $places = $this->searchPlaces($query, $maxResults);
+        // Pre-load all known place_ids to avoid wasting API detail calls on duplicates
+        $knownPlaceIds = OutreachLeadModel::pluck('place_id')->flip();
+
+        $places = $this->searchPlaces($query, $maxResults, $knownPlaceIds);
         $total = count($places);
         $new = 0;
+        $skipped = 0;
 
         $bar = $this->output->createProgressBar($total);
         $bar->start();
@@ -144,8 +223,9 @@ class OutreachWeeklyRotation extends Command
         foreach ($places as $place) {
             $bar->advance();
 
-            // Skip if already in DB
-            if (OutreachLeadModel::where('place_id', $place['place_id'])->exists()) {
+            // Skip if already in DB (checked against pre-loaded set)
+            if ($knownPlaceIds->has($place['place_id'])) {
+                $skipped++;
                 continue;
             }
 
@@ -176,11 +256,17 @@ class OutreachWeeklyRotation extends Command
                 'email_status' => $email ? 'pending' : 'invalid',
             ]);
 
+            // Add to known set so multi-page results don't hit DB again
+            $knownPlaceIds[$place['place_id']] = true;
             $new++;
         }
 
         $bar->finish();
         $this->newLine();
+
+        if ($skipped > 0) {
+            $this->warn("  Skipped {$skipped} already-known businesses (saved {$skipped} API detail calls).");
+        }
 
         return ['total' => $total, 'new' => $new];
     }
@@ -274,7 +360,7 @@ class OutreachWeeklyRotation extends Command
         $this->info("Total sent: {$totalSent} | Replies: {$totalReplies} | Conversions: {$totalConversions} | Queue: {$pendingSend}");
     }
 
-    private function searchPlaces(string $query, int $maxResults): array
+    private function searchPlaces(string $query, int $maxResults, \Illuminate\Support\Collection $knownPlaceIds): array
     {
         $places = [];
         $nextPageToken = null;
@@ -303,11 +389,30 @@ class OutreachWeeklyRotation extends Command
                 break;
             }
 
-            foreach ($data['results'] ?? [] as $result) {
+            $pageResults = $data['results'] ?? [];
+            $newOnPage = 0;
+
+            foreach ($pageResults as $result) {
+                if (empty($result['place_id'])) {
+                    continue;
+                }
+
                 $places[] = $result;
+
+                if (!$knownPlaceIds->has($result['place_id'])) {
+                    $newOnPage++;
+                }
+
                 if (count($places) >= $maxResults) {
                     break;
                 }
+            }
+
+            // Early exit: if an entire page returned only known businesses,
+            // Google is recycling results — stop wasting API calls
+            if (count($pageResults) > 0 && $newOnPage === 0) {
+                $this->warn('  Entire page was duplicates — stopping early to save API quota.');
+                break;
             }
 
             $nextPageToken = $data['next_page_token'] ?? null;
