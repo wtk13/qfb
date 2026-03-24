@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Infrastructure\Persistence\Eloquent\OutreachCampaignModel;
 use App\Infrastructure\Persistence\Eloquent\OutreachLeadModel;
+use App\Infrastructure\Scraper\WebsiteEmailScraper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -209,6 +210,8 @@ class OutreachWeeklyRotation extends Command
 
     private function scrapeLeads(string $query, int $maxResults, int $maxReviews, string $category, string $city): array
     {
+        $emailScraper = app(WebsiteEmailScraper::class);
+
         // Pre-load all known place_ids to avoid wasting API detail calls on duplicates
         $knownPlaceIds = OutreachLeadModel::pluck('place_id')->flip();
 
@@ -216,6 +219,7 @@ class OutreachWeeklyRotation extends Command
         $total = count($places);
         $new = 0;
         $skipped = 0;
+        $scraped = 0;
 
         $bar = $this->output->createProgressBar($total);
         $bar->start();
@@ -240,7 +244,20 @@ class OutreachWeeklyRotation extends Command
             }
 
             $website = $detail['website'] ?? '';
-            $email = $this->guessEmail($website);
+            $email = '';
+
+            // Try scraping the actual website for a real email
+            if ($website && !$this->isGenericDomain($website)) {
+                $email = $emailScraper->scrape($website);
+                if ($email) {
+                    $scraped++;
+                }
+            }
+
+            // Fall back to info@ guess if scraping found nothing
+            if (!$email) {
+                $email = $this->guessEmail($website);
+            }
 
             OutreachLeadModel::create([
                 'business_name' => $detail['name'] ?? '',
@@ -267,8 +284,27 @@ class OutreachWeeklyRotation extends Command
         if ($skipped > 0) {
             $this->warn("  Skipped {$skipped} already-known businesses (saved {$skipped} API detail calls).");
         }
+        if ($scraped > 0) {
+            $this->info("  Found {$scraped} real emails from website scraping.");
+        }
 
         return ['total' => $total, 'new' => $new];
+    }
+
+    private function isGenericDomain(string $website): bool
+    {
+        $host = parse_url($website, PHP_URL_HOST);
+        if (!$host) {
+            return true;
+        }
+
+        foreach (WebsiteEmailScraper::GENERIC_DOMAINS as $generic) {
+            if (str_contains($host, $generic)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function verifyEmails(string $category, string $city): array
@@ -455,14 +491,7 @@ class OutreachWeeklyRotation extends Command
 
         $host = preg_replace('/^www\./', '', $host);
 
-        $genericDomains = [
-            'facebook.com', 'instagram.com', 'yelp.com', 'yellowpages.com',
-            'wix.com', 'squarespace.com', 'weebly.com', 'godaddy.com',
-            'wordpress.com', 'blogspot.com', 'google.com', 'linktr.ee',
-            'healthgrades.com', 'zocdoc.com', 'thumbtack.com',
-        ];
-
-        foreach ($genericDomains as $generic) {
+        foreach (WebsiteEmailScraper::GENERIC_DOMAINS as $generic) {
             if (str_contains($host, $generic)) {
                 return '';
             }
