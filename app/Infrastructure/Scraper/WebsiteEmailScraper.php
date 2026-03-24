@@ -154,6 +154,23 @@ class WebsiteEmailScraper
             }
         }
 
+        // Reject placeholder/example emails from templates and boilerplate
+        $placeholders = [
+            'user@domain.com', 'user@example.com', 'email@domain.com',
+            'email@example.com', 'name@domain.com', 'name@example.com',
+            'your@email.com', 'youremail@domain.com', 'test@test.com',
+            'mail@example.com', 'example@example.com', 'john@doe.com',
+            'jane@doe.com', 'someone@example.com', 'username@domain.com',
+        ];
+        if (in_array($email, $placeholders, true)) {
+            return false;
+        }
+
+        // Reject emails from example/placeholder domains
+        if (preg_match('/@(example\.|domain\.|test\.|placeholder\.|sample\.)/i', $email)) {
+            return false;
+        }
+
         // Reject image file extensions mistakenly captured
         if (preg_match('/\.(png|jpg|jpeg|gif|svg|webp|css|js)$/i', $email)) {
             return false;
