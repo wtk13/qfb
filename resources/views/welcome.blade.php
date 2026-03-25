@@ -213,11 +213,11 @@
         </div>
     </section>
 
-    <!-- Social Proof -->
+    <!-- How It Works -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-lg text-gray-600">
-                <span class="font-semibold text-gray-900">Join early adopters</span> who are already growing their Google reviews with {{ config('app.name') }}.
+                <span class="font-semibold text-gray-900">Get started in minutes</span> &mdash; no technical skills required.
             </p>
             <div class="mt-8 flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-gray-400">
                 <div class="text-center">
@@ -225,12 +225,12 @@
                     <div class="text-sm mt-1">Setup time</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">4.8x</div>
-                    <div class="text-sm mt-1">More reviews</div>
+                    <div class="text-3xl font-bold text-gray-900">14 days</div>
+                    <div class="text-sm mt-1">Free trial</div>
                 </div>
                 <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">90%</div>
-                    <div class="text-sm mt-1">Open rate</div>
+                    <div class="text-3xl font-bold text-gray-900">0</div>
+                    <div class="text-sm mt-1">Credit card required</div>
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <meta name="description" content="Generate your direct Google review link instantly. Free tool — enter your Place ID and get a shareable link in seconds. No signup required.">
     <link rel="canonical" href="{{ route('tools.google-review-link-generator') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#4F46E5">
     <meta property="og:title" content="Free Google Review Link Generator — {{ config('app.name') }}">
     <meta property="og:description" content="Generate your direct Google review link instantly. Free tool — enter your Place ID and get a shareable link in seconds. No signup required.">
@@ -133,6 +134,33 @@
                     </div>
                 </div>
 
+                <!-- Email Capture -->
+                <div x-show="!emailSent" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+                    <h3 class="text-lg font-bold mb-1">Want this link emailed to you with a ready-to-send customer template?</h3>
+                    <p class="text-sm text-gray-500 mb-4">We'll send you the link plus a copy-paste email template you can use right away.</p>
+                    <div class="flex gap-3">
+                        <input
+                            type="email"
+                            x-model="email"
+                            @keydown.enter="submitEmail()"
+                            placeholder="you@example.com"
+                            class="flex-1 rounded-xl border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm sm:text-base"
+                        >
+                        <button
+                            @click="submitEmail()"
+                            :disabled="!email.trim() || emailSending"
+                            class="px-6 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-500 transition disabled:opacity-40 disabled:cursor-not-allowed text-sm sm:text-base whitespace-nowrap"
+                        >
+                            <span x-show="!emailSending">Send it to me</span>
+                            <span x-show="emailSending" x-cloak>Sending...</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-show="emailSent" x-cloak class="bg-white border border-green-200 rounded-2xl shadow-sm p-6 text-center">
+                    <p class="text-green-700 font-semibold">Check your inbox!</p>
+                </div>
+
                 <!-- CTA -->
                 <div class="bg-indigo-600 rounded-2xl p-8 text-center">
                     <h3 class="text-2xl font-bold text-white">You have the link. Now automate sending it.</h3>
@@ -215,6 +243,9 @@
             reviewLink: '',
             error: '',
             copied: { link: false },
+            email: '',
+            emailSent: false,
+            emailSending: false,
 
             extractPlaceId(input) {
                 input = input.trim();
@@ -258,6 +289,8 @@
                 this.generated = true;
                 this.error = '';
                 this.copied = { link: false };
+                this.emailSent = false;
+                this.emailSending = false;
             },
 
             copyToClipboard(text, key) {
@@ -273,6 +306,34 @@
                 } else {
                     this.fallbackCopy(text);
                     onSuccess();
+                }
+            },
+
+            async submitEmail() {
+                if (!this.email.trim() || this.emailSending) return;
+                this.emailSending = true;
+                try {
+                    const url = new URL(this.reviewLink);
+                    const placeId = url.searchParams.get('placeid');
+                    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    const res = await fetch('{{ route("tools.capture-email") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': token,
+                        },
+                        body: JSON.stringify({ email: this.email, place_id: placeId }),
+                    });
+                    if (res.ok) {
+                        this.emailSent = true;
+                    } else {
+                        this.error = 'Something went wrong. Please try again.';
+                    }
+                } catch (e) {
+                    this.error = 'Something went wrong. Please try again.';
+                } finally {
+                    this.emailSending = false;
                 }
             },
 

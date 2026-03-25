@@ -182,15 +182,16 @@ class OutreachDailySend extends Command
             default => "I was looking at {$lead->business_name}'s Google profile — {$lead->reviews} reviews at {$lead->rating} stars is solid. But {$competitorPhrase} have significantly more, which pushes them higher in local search results.",
         };
 
+        $landingUrl = route('outreach.landing', ['placeId' => $lead->place_id]);
+
         return <<<EMAIL
 {$reviewLine}
 
-I made a free tool that generates a direct Google review link for your business. Your customers tap it and they're immediately writing a review — no searching, no extra steps.
+I put together a quick review snapshot for {$lead->business_name} — it shows where you stand and includes your direct Google review link (customers tap it and they're immediately writing a review, no extra steps):
 
-Here's yours (free, no signup needed):
-https://quickfeedback.app/tools/google-review-link-generator
+{$landingUrl}
 
-Give it a try and let me know if it helps.
+Give it a look and let me know if it helps.
 
 {$senderName}
 {$senderTitle}

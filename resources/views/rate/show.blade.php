@@ -39,6 +39,10 @@
                 </div>
             </form>
         </div>
+
+        <p class="text-xs text-gray-400 text-center mt-6">
+            Review management by <a href="{{ url('/') }}" target="_blank" rel="noopener" class="text-gray-500 hover:text-indigo-600">QuickFeedback</a>
+        </p>
     </div>
 
     <script>

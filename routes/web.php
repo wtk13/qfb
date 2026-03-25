@@ -32,6 +32,30 @@ Route::get('/sitemap.xml', function () {
 
 Route::get('/tools/google-review-link-generator', fn () => view('tools.google-review-link-generator'))->name('tools.google-review-link-generator');
 
+Route::post('/tools/google-review-link-generator/capture', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'email' => 'required|email|max:255',
+        'place_id' => 'required|string|max:255|regex:/^[A-Za-z0-9_-]+$/',
+    ]);
+
+    \App\Infrastructure\Persistence\Eloquent\ToolLeadModel::updateOrCreate(
+        ['email' => $request->email],
+        ['place_id' => $request->place_id, 'source' => 'review-link-generator']
+    );
+
+    return response()->json(['ok' => true]);
+})->middleware('throttle:10,1')->name('tools.capture-email');
+
+Route::get('/for/{placeId}', function (string $placeId) {
+    $lead = \App\Infrastructure\Persistence\Eloquent\OutreachLeadModel::where('place_id', $placeId)->first();
+
+    if (! $lead) {
+        return redirect()->route('tools.google-review-link-generator');
+    }
+
+    return view('outreach.landing', ['lead' => $lead]);
+})->where('placeId', '[A-Za-z0-9_-]+')->name('outreach.landing');
+
 Route::match(['get', 'post'], '/outreach/unsubscribe', function (\Illuminate\Http\Request $request) {
     if (! $request->hasValidSignature()) {
         abort(403);
