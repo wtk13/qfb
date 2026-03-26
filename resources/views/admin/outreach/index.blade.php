@@ -103,6 +103,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="bg-white shadow-sm rounded-lg p-4 border-l-4 border-cyan-500">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-2xl font-bold text-cyan-600">{{ $stats['total_clicks'] }}</div>
+                            <div class="text-sm text-gray-500">Landing Clicks</div>
+                        </div>
+                        <div class="text-cyan-200">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/></svg>
+                        </div>
+                    </div>
+                </div>
                 <div class="bg-white shadow-sm rounded-lg p-4 border-l-4 border-violet-500">
                     <div class="flex items-center justify-between">
                         <div>

@@ -24,6 +24,7 @@ class OutreachController extends Controller
             ->selectRaw("COUNT(*) FILTER (WHERE outreach_status = 'unsubscribed') as unsubscribed")
             ->selectRaw('COUNT(*) FILTER (WHERE sent_at >= ?) as sent_today', [today()])
             ->selectRaw('COUNT(*) FILTER (WHERE sent_at >= ?) as sent_this_month', [now()->startOfMonth()])
+            ->selectRaw('COALESCE(SUM(landing_clicks), 0) as total_clicks')
             ->first();
 
         $stats = [
@@ -37,6 +38,7 @@ class OutreachController extends Controller
             'unsubscribed' => (int) $counts->unsubscribed,
             'sent_today' => (int) $counts->sent_today,
             'sent_this_month' => (int) $counts->sent_this_month,
+            'total_clicks' => (int) $counts->total_clicks,
         ];
 
         $campaigns = OutreachCampaignModel::orderByDesc('scraped_at')->get();
@@ -106,11 +108,13 @@ class OutreachController extends Controller
 
     public function leads(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'status' => 'nullable|in:new,sent,replied,converted,bounced,unsubscribed',
             'category' => 'nullable|string|max:100',
             'city' => 'nullable|string|max:100',
             'search' => 'nullable|string|max:200',
+            'sort' => 'nullable|in:created_at,landing_clicks,reviews,rating',
+            'direction' => 'nullable|in:asc,desc',
         ]);
 
         $query = OutreachLeadModel::query();
@@ -128,7 +132,10 @@ class OutreachController extends Controller
             $query->where('business_name', 'like', '%'.$request->search.'%');
         }
 
-        $leads = $query->orderByDesc('created_at')->paginate(50);
+        $sort = $validated['sort'] ?? 'created_at';
+        $direction = $validated['direction'] ?? 'desc';
+
+        $leads = $query->orderBy($sort, $direction)->paginate(50);
 
         $categories = OutreachLeadModel::distinct()->pluck('category')->filter()->sort();
         $cities = OutreachLeadModel::distinct()->pluck('city')->filter()->sort();

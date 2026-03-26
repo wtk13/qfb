@@ -12,6 +12,8 @@
             {{-- Filters --}}
             <div class="bg-white shadow-sm rounded-lg p-6">
                 <form method="GET" action="{{ route('admin.outreach.leads') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                    @if(request('sort'))<input type="hidden" name="sort" value="{{ request('sort') }}">@endif
+                    @if(request('direction'))<input type="hidden" name="direction" value="{{ request('direction') }}">@endif
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                         <select name="status" class="w-full rounded-md border-gray-300 text-sm">
@@ -62,8 +64,21 @@
                                 <th class="text-left py-2 pr-4 font-medium text-gray-500">Email</th>
                                 <th class="text-left py-2 pr-4 font-medium text-gray-500">Category</th>
                                 <th class="text-left py-2 pr-4 font-medium text-gray-500">City</th>
-                                <th class="text-right py-2 pr-4 font-medium text-gray-500">Rating</th>
-                                <th class="text-right py-2 pr-4 font-medium text-gray-500">Reviews</th>
+                                <th class="text-right py-2 pr-4 font-medium text-gray-500">
+                                    <a href="{{ route('admin.outreach.leads', array_merge(request()->query(), ['sort' => 'rating', 'direction' => request('sort') === 'rating' && request('direction') === 'desc' ? 'asc' : 'desc'])) }}" class="hover:text-gray-900">
+                                        Rating {!! request('sort') === 'rating' ? (request('direction') === 'desc' ? '&#9660;' : '&#9650;') : '' !!}
+                                    </a>
+                                </th>
+                                <th class="text-right py-2 pr-4 font-medium text-gray-500">
+                                    <a href="{{ route('admin.outreach.leads', array_merge(request()->query(), ['sort' => 'reviews', 'direction' => request('sort') === 'reviews' && request('direction') === 'desc' ? 'asc' : 'desc'])) }}" class="hover:text-gray-900">
+                                        Reviews {!! request('sort') === 'reviews' ? (request('direction') === 'desc' ? '&#9660;' : '&#9650;') : '' !!}
+                                    </a>
+                                </th>
+                                <th class="text-right py-2 pr-4 font-medium text-gray-500">
+                                    <a href="{{ route('admin.outreach.leads', array_merge(request()->query(), ['sort' => 'landing_clicks', 'direction' => request('sort') === 'landing_clicks' && request('direction') === 'desc' ? 'asc' : 'desc'])) }}" class="hover:text-gray-900">
+                                        Clicks {!! request('sort') === 'landing_clicks' ? (request('direction') === 'desc' ? '&#9660;' : '&#9650;') : '' !!}
+                                    </a>
+                                </th>
                                 <th class="text-left py-2 pr-4 font-medium text-gray-500">Email Status</th>
                                 <th class="text-left py-2 pr-4 font-medium text-gray-500">Outreach</th>
                                 <th class="text-left py-2 pr-4 font-medium text-gray-500">Sent</th>
@@ -85,6 +100,13 @@
                                 <td class="py-2 pr-4">{{ $lead->city }}</td>
                                 <td class="py-2 pr-4 text-right">{{ $lead->rating ?? '-' }}</td>
                                 <td class="py-2 pr-4 text-right">{{ $lead->reviews ?? '-' }}</td>
+                                <td class="py-2 pr-4 text-right">
+                                    @if($lead->landing_clicks > 0)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-cyan-100 text-cyan-800">{{ $lead->landing_clicks }}</span>
+                                    @else
+                                        <span class="text-gray-300">0</span>
+                                    @endif
+                                </td>
                                 <td class="py-2 pr-4">
                                     <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
                                         {{ match($lead->email_status) {
@@ -131,7 +153,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="10" class="py-8 text-center text-gray-500">No leads found.</td>
+                                <td colspan="11" class="py-8 text-center text-gray-500">No leads found.</td>
                             </tr>
                             @endforelse
                         </tbody>

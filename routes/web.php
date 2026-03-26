@@ -53,8 +53,10 @@ Route::get('/for/{placeId}', function (string $placeId) {
         return redirect()->route('tools.google-review-link-generator');
     }
 
+    $lead->increment('landing_clicks');
+
     return view('outreach.landing', ['lead' => $lead]);
-})->where('placeId', '[A-Za-z0-9_-]+')->name('outreach.landing');
+})->where('placeId', '[A-Za-z0-9_-]+')->middleware('throttle:30,1')->name('outreach.landing');
 
 Route::match(['get', 'post'], '/outreach/unsubscribe', function (\Illuminate\Http\Request $request) {
     if (! $request->hasValidSignature()) {

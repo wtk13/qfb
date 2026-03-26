@@ -33,6 +33,7 @@ class OutreachLeadModel extends Model
         return [
             'rating' => 'decimal:1',
             'reviews' => 'integer',
+            'landing_clicks' => 'integer',
             'sent_at' => 'datetime',
             'verified_at' => 'datetime',
         ];
