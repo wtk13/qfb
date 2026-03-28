@@ -1,12 +1,12 @@
 <x-layouts.blog
     title="Blog"
-    description="Tips and strategies to get more Google reviews and grow your online reputation."
+    description="Strategies and tips to get more Google reviews for your local business."
     :canonical="route('blog.index')"
     :json-ld="json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'Blog',
-        'name' => config('app.name') . ' Blog',
-        'description' => 'Tips and strategies to get more Google reviews and grow your online reputation.',
+        'name' => 'The Google Reviews Playbook',
+        'description' => 'Strategies and tips to get more Google reviews for your local business.',
         'url' => route('blog.index'),
         'publisher' => [
             '@type' => 'Organization',
@@ -16,8 +16,8 @@
     ], JSON_UNESCAPED_SLASHES)"
 >
     <div class="text-center mb-14">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3">The QFB Blog</h1>
-        <p class="text-gray-500 text-lg max-w-lg mx-auto">Tips and strategies to grow your online reputation with Google reviews.</p>
+        <h1 class="text-3xl sm:text-4xl font-bold mb-3">The Google Reviews Playbook</h1>
+        <p class="text-gray-500 text-lg max-w-lg mx-auto">Strategies and tips to get more Google reviews for your local business.</p>
     </div>
 
     <div class="space-y-6">

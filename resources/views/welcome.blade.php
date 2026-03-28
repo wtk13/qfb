@@ -3,19 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot</title>
+    <title>{{ config('app.name') }} — More 5-Star Reviews, Fewer Complaints. $29/mo.</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
-    <meta name="description" content="Automatically collect 5-star Google reviews from happy customers. Send review requests via email or QR code, route feedback smartly, and grow your online reputation.">
+    <meta name="description" content="QuickFeedback helps local businesses get more Google reviews. Happy customers go to Google. Unhappy ones send private feedback instead. Starting at $29/mo.">
     <meta name="theme-color" content="#4F46E5">
     <link rel="canonical" href="{{ url('/') }}">
-    <meta property="og:title" content="{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot">
-    <meta property="og:description" content="Send review requests, collect feedback privately, and redirect happy customers to Google Reviews. Simple, fast, effective.">
+    <meta property="og:title" content="{{ config('app.name') }} — More 5-Star Reviews, Fewer Complaints. $29/mo.">
+    <meta property="og:description" content="QuickFeedback helps local businesses get more Google reviews. Happy customers go to Google. Unhappy ones send private feedback instead. Starting at $29/mo.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:image" content="{{ asset('images/hero-bg.jpg') }}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ config('app.name') }} — Get More 5-Star Google Reviews on Autopilot">
-    <meta name="twitter:description" content="Automatically collect 5-star Google reviews from happy customers. Smart routing sends positive reviews to Google and negative feedback to you privately.">
+    <meta name="twitter:title" content="{{ config('app.name') }} — More 5-Star Reviews, Fewer Complaints. $29/mo.">
+    <meta name="twitter:description" content="QuickFeedback helps local businesses get more Google reviews. Happy customers go to Google. Unhappy ones send private feedback instead. Starting at $29/mo.">
     <meta name="twitter:image" content="{{ asset('images/hero-bg.jpg') }}">
     <link rel="preload" as="image" href="{{ asset('images/hero-bg.jpg') }}" fetchpriority="high">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -27,7 +27,7 @@
         'url' => url('/'),
         'applicationCategory' => 'BusinessApplication',
         'operatingSystem' => 'Web',
-        'description' => 'Automatically collect 5-star Google reviews from happy customers. Send review requests via email or QR code and grow your online reputation.',
+        'description' => 'QuickFeedback helps local businesses get more Google reviews. Happy customers go to Google. Unhappy ones send private feedback. $29/mo.',
         'offers' => [
             '@type' => 'Offer',
             'price' => '29',
@@ -99,15 +99,16 @@
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-gray-900 drop-shadow-sm">
-                Get More 5-Star Google Reviews
-                <span class="text-indigo-600">on Autopilot</span>
+                Your Competitors Have More Google Reviews.
+                <span class="text-indigo-600">Let's Fix That.</span>
             </h1>
             <p class="mt-6 text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto font-medium">
-                Send review requests via email, collect feedback privately, and redirect happy customers straight to Google Reviews. Simple, fast, effective.
+                QuickFeedback sends your customers a quick rating after every job. Happy customers get sent straight to Google to leave a review. Unhappy ones send you private feedback instead. More 5-star reviews, fewer public complaints &mdash; for <strong>$29/mo</strong>.
             </p>
+            <p class="mt-4 text-sm text-gray-500">Built for plumbers, dentists, salons, cleaners, contractors, and every local business that lives and dies by Google reviews.</p>
             <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="{{ route('register') }}" class="inline-flex items-center px-8 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-xl hover:bg-indigo-500 transition shadow-lg shadow-indigo-200">
-                    Start Free Trial
+                    Try It Free for 14 Days
                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </a>
                 <a href="#how-it-works" class="text-gray-600 hover:text-gray-900 font-medium">See how it works &darr;</a>
@@ -139,8 +140,8 @@
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
                     <div class="text-sm font-semibold text-indigo-600 mb-2">Step 2</div>
-                    <h3 class="text-xl font-bold mb-2">Smart Routing</h3>
-                    <p class="text-gray-600">Happy customers (4-5 stars) are redirected to leave a Google review. Unhappy ones leave private feedback instead.</p>
+                    <h3 class="text-xl font-bold mb-2">Happy to Google, Unhappy to You</h3>
+                    <p class="text-gray-600">4-5 star customers go straight to your Google Reviews page. 1-3 star customers leave private feedback you can fix before it goes public.</p>
                 </div>
                 <!-- Step 3 -->
                 <div class="text-center">
@@ -160,7 +161,7 @@
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold">Simple, transparent pricing</h2>
-                <p class="mt-4 text-gray-600 text-lg">One plan. Everything included. No surprises.</p>
+                <p class="mt-4 text-gray-600 text-lg">Enterprise review tools can cost $249&ndash;$399/mo.<br class="hidden sm:inline"> You get the same result &mdash; more Google reviews &mdash; for a fraction of the cost.</p>
             </div>
             <div class="bg-white border-2 border-indigo-600 rounded-2xl shadow-xl p-8 sm:p-10 max-w-md mx-auto">
                 <div class="text-center">
@@ -169,7 +170,7 @@
                         <span class="text-5xl font-extrabold">$29</span>
                         <span class="text-gray-500 text-lg">/month</span>
                     </div>
-                    <p class="mt-4 text-gray-600">Everything you need to grow your online reputation</p>
+                    <p class="mt-4 text-gray-600">Everything you need to get more Google reviews</p>
                 </div>
                 <ul class="mt-8 space-y-3">
                     <li class="flex items-start gap-3">
@@ -182,7 +183,7 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <span>Smart review routing</span>
+                        <span>Unhappy customers routed to private feedback</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -190,19 +191,19 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <span>Private feedback collection</span>
+                        <span>Fix problems before they become 1-star reviews</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <span>Analytics dashboard</span>
+                        <span>See every rating and review in one place</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <span>Email notifications</span>
+                        <span>Get notified instantly when someone rates you</span>
                     </li>
                 </ul>
                 <a href="{{ route('register') }}" class="mt-8 block w-full text-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-500 transition shadow-lg shadow-indigo-200">
-                    Start Free Trial
+                    Try It Free for 14 Days
                 </a>
                 <p class="text-center text-sm text-gray-400 mt-3">14-day free trial. Cancel anytime.</p>
                 <p class="text-center text-xs text-gray-300 mt-2 flex items-center justify-center gap-1">
@@ -213,26 +214,16 @@
         </div>
     </section>
 
-    <!-- How It Works -->
+    <!-- Why I Built This -->
     <section class="py-16 bg-gray-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-lg text-gray-600">
-                <span class="font-semibold text-gray-900">Get started in minutes</span> &mdash; no technical skills required.
-            </p>
-            <div class="mt-8 flex flex-wrap items-center justify-center gap-8 sm:gap-12 text-gray-400">
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">5 min</div>
-                    <div class="text-sm mt-1">Setup time</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">14 days</div>
-                    <div class="text-sm mt-1">Free trial</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-gray-900">0</div>
-                    <div class="text-sm mt-1">Credit card required</div>
-                </div>
-            </div>
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="sr-only">Why I built QuickFeedback</h2>
+            <blockquote class="text-center">
+                <p class="text-lg text-gray-700 leading-relaxed italic">
+                    &ldquo;I built QuickFeedback because I ran a service business and couldn't justify paying $300/month just to send review request emails. This tool does the one thing that actually matters &mdash; getting more Google reviews &mdash; without the bloat or the price tag.&rdquo;
+                </p>
+                <footer class="mt-4 text-sm text-gray-500">&mdash; Mike, Founder</footer>
+            </blockquote>
         </div>
     </section>
 
@@ -295,10 +286,10 @@
     <!-- Final CTA -->
     <section class="py-20 bg-indigo-600">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl sm:text-4xl font-bold text-white">Ready to get more 5-star reviews?</h2>
-            <p class="mt-4 text-indigo-100 text-lg">Start your free trial today. No credit card required.</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white">Stop losing customers to competitors with more reviews</h2>
+            <p class="mt-4 text-indigo-100 text-lg">Try QuickFeedback free for 14 days. No credit card required.</p>
             <a href="{{ route('register') }}" class="mt-8 inline-flex items-center px-8 py-3 bg-white text-indigo-600 text-lg font-semibold rounded-xl hover:bg-indigo-50 transition shadow-lg">
-                Start Free Trial
+                Try It Free for 14 Days
                 <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
             </a>
         </div>

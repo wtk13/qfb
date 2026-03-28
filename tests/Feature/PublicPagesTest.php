@@ -11,7 +11,7 @@ class PublicPagesTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('Get More 5-Star Google Reviews');
+        $response->assertSee('Your Competitors Have More Google Reviews');
     }
 
     public function test_privacy_policy_loads(): void
