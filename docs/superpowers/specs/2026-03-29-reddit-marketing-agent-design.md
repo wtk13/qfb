@@ -1,4 +1,4 @@
-# Reddit Marketing Agent — Design Spec
+# Reddit Marketing Agent -- Design Spec
 
 **Date:** 2026-03-29
 **Status:** Approved
@@ -8,7 +8,7 @@
 
 ## 1. System Overview
 
-Four scheduled jobs orchestrate the pipeline (Lurker removed — automated upvoting violates Reddit ToS):
+Four scheduled jobs orchestrate the pipeline (Lurker removed -- automated upvoting violates Reddit ToS):
 
 | Job | Schedule | Phase | Purpose |
 |-----|----------|-------|---------|
@@ -159,26 +159,26 @@ Follows existing DDD patterns exactly (verified against codebase).
 ### Domain Layer (`src/Domain/Reddit/`)
 
 **Entities** (`src/Domain/Reddit/Entity/`):
-- `RedditThread` — Thread with type classification and status
-- `RedditDraft` — Draft with content category and status lifecycle
-- `RedditSubreddit` — Subreddit with tier, cadence limits, and rules
-- `RedditStrategyReport` — Weekly strategy report
+- `RedditThread` -- Thread with type classification and status
+- `RedditDraft` -- Draft with content category and status lifecycle
+- `RedditSubreddit` -- Subreddit with tier, cadence limits, and rules
+- `RedditStrategyReport` -- Weekly strategy report
 
 **Value Objects** (`src/Domain/Reddit/`):
-- `ContentMixPolicy` — Enforces 70/20/10 ratio over rolling 30-day window
-- `PhasePolicy` — Determines current phase from account age
-- `SubredditCadencePolicy` — Enforces per-tier posting limits
-- `SubredditRules` — Typed accessor for `rules_json` (validates structure)
-- `SubredditKeywords` — Typed accessor for `keywords_json` (validates structure)
-- `ThreadType` — Enum for thread classification
+- `ContentMixPolicy` -- Enforces 70/20/10 ratio over rolling 30-day window
+- `PhasePolicy` -- Determines current phase from account age
+- `SubredditCadencePolicy` -- Enforces per-tier posting limits
+- `SubredditRules` -- Typed accessor for `rules_json` (validates structure)
+- `SubredditKeywords` -- Typed accessor for `keywords_json` (validates structure)
+- `ThreadType` -- Enum for thread classification
 
 **Port Interfaces** (`src/Domain/Reddit/Port/`):
-- `RedditApiInterface` — Reddit API operations (search, submit, OAuth)
-- `AiDrafterInterface` — AI draft generation
-- `RedditThreadRepositoryInterface` — Thread persistence
-- `RedditDraftRepositoryInterface` — Draft persistence
-- `RedditSubredditRepositoryInterface` — Subreddit persistence
-- `RedditStrategyReportRepositoryInterface` — Report persistence
+- `RedditApiInterface` -- Reddit API operations (search, submit, OAuth)
+- `AiDrafterInterface` -- AI draft generation
+- `RedditThreadRepositoryInterface` -- Thread persistence
+- `RedditDraftRepositoryInterface` -- Draft persistence
+- `RedditSubredditRepositoryInterface` -- Subreddit persistence
+- `RedditStrategyReportRepositoryInterface` -- Report persistence
 
 ### Infrastructure Layer
 
@@ -195,40 +195,40 @@ Follows existing DDD patterns exactly (verified against codebase).
 - `EloquentRedditStrategyReportRepository` implements `RedditStrategyReportRepositoryInterface`
 
 **Services** (`app/Infrastructure/Reddit/`):
-- `RedditApiClient` implements `RedditApiInterface` — OAuth2 with auto token refresh (cached 55 min TTL), search, submit, rate limiting
-- `ClaudeAiDrafter` implements `AiDrafterInterface` — Sends thread + playbook context to Claude API
+- `RedditApiClient` implements `RedditApiInterface` -- OAuth2 with auto token refresh (cached 55 min TTL), search, submit, rate limiting
+- `ClaudeAiDrafter` implements `AiDrafterInterface` -- Sends thread + playbook context to Claude API
 
-**Service Provider bindings** — All port-to-implementation bindings registered in `DomainServiceProvider` (existing pattern).
+**Service Provider bindings** -- All port-to-implementation bindings registered in `DomainServiceProvider` (existing pattern).
 
 ### Application Layer (`app/Application/Command/Reddit/`)
 
-- `ScoutThreads` — Search Reddit, classify threads, save new ones
-- `DraftResponses` — Generate drafts for unprocessed threads
-- `PublishApprovedDrafts` — Post approved drafts to Reddit
-- `GenerateStrategyReport` — Analyze performance, generate report
+- `ScoutThreads` -- Search Reddit, classify threads, save new ones
+- `DraftResponses` -- Generate drafts for unprocessed threads
+- `PublishApprovedDrafts` -- Post approved drafts to Reddit
+- `GenerateStrategyReport` -- Analyze performance, generate report
 
 ### Artisan Commands (`app/Console/Commands/Reddit/`)
 
 Following existing colon-separated naming convention:
-- `reddit:scout` — Triggers `ScoutThreads`
-- `reddit:draft` — Triggers `DraftResponses`
-- `reddit:publish` — Triggers `PublishApprovedDrafts`
-- `reddit:strategist` — Triggers `GenerateStrategyReport`
+- `reddit:scout` -- Triggers `ScoutThreads`
+- `reddit:draft` -- Triggers `DraftResponses`
+- `reddit:publish` -- Triggers `PublishApprovedDrafts`
+- `reddit:strategist` -- Triggers `GenerateStrategyReport`
 
 ### HTTP Layer (`app/Http/Controllers/Admin/`)
 
-- `RedditDashboardController` — Dashboard overview
-- `RedditDraftController` — CRUD for drafts (list, show, approve, reject, retry, edit)
-- `RedditSubredditController` — Manage subreddit config
-- `RedditStrategyReportController` — View reports
+- `RedditDashboardController` -- Dashboard overview
+- `RedditDraftController` -- CRUD for drafts (list, show, approve, reject, retry, edit)
+- `RedditSubredditController` -- Manage subreddit config
+- `RedditStrategyReportController` -- View reports
 
 ### Views (`resources/views/admin/reddit/`)
 
-- `dashboard.blade.php` — Overview with phase indicator, ratio chart, recent drafts
-- `drafts/index.blade.php` — Pending drafts list with approve/reject/retry actions
-- `drafts/show.blade.php` — Single draft with thread context, edit + approve
-- `subreddits/index.blade.php` — Subreddit management
-- `reports/show.blade.php` — Strategy report view
+- `dashboard.blade.php` -- Overview with phase indicator, ratio chart, recent drafts
+- `drafts/index.blade.php` -- Pending drafts list with approve/reject/retry actions
+- `drafts/show.blade.php` -- Single draft with thread context, edit + approve
+- `subreddits/index.blade.php` -- Subreddit management
+- `reports/show.blade.php` -- Strategy report view
 
 ---
 
@@ -239,7 +239,7 @@ Following existing colon-separated naming convention:
 **Input:** Active subreddits from DB + keywords from playbook
 **Process:**
 
-1. Check `REDDIT_ENABLED` env — abort if false
+1. Check `REDDIT_ENABLED` env -- abort if false
 2. For each active subreddit (respecting tier cadence):
    a. Search Reddit API for threads matching keywords
    b. Filter: only threads from last 24 hours, min 2 upvotes, not already in DB
@@ -264,12 +264,12 @@ Following existing colon-separated naming convention:
 **Input:** Threads with status `new` discovered within last 24 hours
 **Process:**
 
-1. Check `REDDIT_ENABLED` env — abort if false
-2. Check current phase — skip if days 1-14
+1. Check `REDDIT_ENABLED` env -- abort if false
+2. Check current phase -- skip if days 1-14
 3. Mark threads older than 24 hours as `stale`, skip them
 4. Check content mix ratio over last 30 days
 5. For each unprocessed thread (max 10 per run):
-   a. Check subreddit cadence — skip if over limit
+   a. Check subreddit cadence -- skip if over limit
    b. Determine content category based on ratio needs and thread type
    c. If phase is "comment" (days 15-30), only generate comments
    d. Build Claude API prompt (see Section 7a below)
@@ -319,10 +319,10 @@ Write the response:
 **Input:** Drafts with status `approved`
 **Process:**
 
-1. Check `REDDIT_ENABLED` and `REDDIT_DRY_RUN` env — abort or simulate
-2. Check current phase — skip if days 1-14
+1. Check `REDDIT_ENABLED` and `REDDIT_DRY_RUN` env -- abort or simulate
+2. Check current phase -- skip if days 1-14
 3. For each approved draft (max 3 per run, to appear natural):
-   a. Check subreddit cadence — skip if over limit for this week
+   a. Check subreddit cadence -- skip if over limit for this week
    b. If type is `comment`: submit as reply to the thread via Reddit API
    c. If type is `post`: submit as new post to the subreddit
    d. Update draft status to `published`, save `reddit_thing_id`
@@ -345,7 +345,7 @@ Write the response:
    - Content mix ratio (actual vs. target)
    - Per-subreddit performance
    - Phase status
-2. Call Claude API (model from `REDDIT_STRATEGIST_MODEL` env — defaults to sonnet for deeper analysis)
+2. Call Claude API (model from `REDDIT_STRATEGIST_MODEL` env -- defaults to sonnet for deeper analysis)
 3. Generate recommendations:
    - Which subreddits to increase/decrease activity
    - Content types that are performing well/poorly
@@ -388,7 +388,7 @@ Simple Blade + Alpine.js pages behind admin auth. Matches existing app style.
 ## 11. Dependencies
 
 ### New Composer Packages
-- `anthropic-ai/anthropic-php` — Claude API SDK (or HTTP client directly)
+- `anthropic-ai/anthropic-php` -- Claude API SDK (or HTTP client directly)
 
 ### External Services
 - Reddit API (free, requires app registration at reddit.com/prefs/apps)
@@ -417,17 +417,17 @@ Simple Blade + Alpine.js pages behind admin auth. Matches existing app style.
 
 ## 13. Safety Guardrails
 
-- **No auto-publishing** — Every draft requires human approval
-- **Phase enforcement** — Cannot post during lurk phase even if manually triggered
-- **No automated voting** — Lurk phase is observe-only (Reddit ToS compliance)
-- **Cadence limits** — Hard caps per subreddit per week
-- **Content ratio** — Drafter refuses to generate brand content if over 10%
-- **Rate limiting** — Respects Reddit API limits, adds human-like delays
-- **Stale thread skip** — Won't draft for threads older than 24 hours
-- **withoutOverlapping()** — All jobs prevent concurrent execution
-- **Dry-run mode** — `REDDIT_DRY_RUN=true` disables all Reddit API writes
-- **Kill switch** — `REDDIT_ENABLED=false` disables all jobs
-- **OAuth token refresh** — Cached with 55-min TTL, auto-refreshed before expiry
+- **No auto-publishing** -- Every draft requires human approval
+- **Phase enforcement** -- Cannot post during lurk phase even if manually triggered
+- **No automated voting** -- Lurk phase is observe-only (Reddit ToS compliance)
+- **Cadence limits** -- Hard caps per subreddit per week
+- **Content ratio** -- Drafter refuses to generate brand content if over 10%
+- **Rate limiting** -- Respects Reddit API limits, adds human-like delays
+- **Stale thread skip** -- Won't draft for threads older than 24 hours
+- **withoutOverlapping()** -- All jobs prevent concurrent execution
+- **Dry-run mode** -- `REDDIT_DRY_RUN=true` disables all Reddit API writes
+- **Kill switch** -- `REDDIT_ENABLED=false` disables all jobs
+- **OAuth token refresh** -- Cached with 55-min TTL, auto-refreshed before expiry
 
 ---
 
