@@ -149,6 +149,18 @@ Route::middleware(['auth', 'verified', EnsureAdmin::class])->prefix('admin')->na
     Route::post('/outreach/send-batch', [OutreachController::class, 'sendBatch'])->name('outreach.send-batch');
     Route::post('/outreach/send-test', [OutreachController::class, 'sendTest'])->name('outreach.send-test');
     Route::patch('/outreach/leads/{id}/status', [OutreachController::class, 'updateStatus'])->name('outreach.update-status');
+
+    // Reddit marketing agent
+    Route::get('/reddit', [\App\Http\Controllers\Admin\RedditDashboardController::class, 'index'])->name('reddit.dashboard');
+    Route::get('/reddit/drafts', [\App\Http\Controllers\Admin\RedditDraftController::class, 'index'])->name('reddit.drafts.index');
+    Route::get('/reddit/drafts/{id}', [\App\Http\Controllers\Admin\RedditDraftController::class, 'show'])->name('reddit.drafts.show');
+    Route::post('/reddit/drafts/{id}/approve', [\App\Http\Controllers\Admin\RedditDraftController::class, 'approve'])->name('reddit.drafts.approve');
+    Route::post('/reddit/drafts/{id}/reject', [\App\Http\Controllers\Admin\RedditDraftController::class, 'reject'])->name('reddit.drafts.reject');
+    Route::post('/reddit/drafts/{id}/retry', [\App\Http\Controllers\Admin\RedditDraftController::class, 'retry'])->name('reddit.drafts.retry');
+    Route::patch('/reddit/drafts/{id}', [\App\Http\Controllers\Admin\RedditDraftController::class, 'update'])->name('reddit.drafts.update');
+    Route::get('/reddit/subreddits', [\App\Http\Controllers\Admin\RedditSubredditController::class, 'index'])->name('reddit.subreddits.index');
+    Route::patch('/reddit/subreddits/{id}', [\App\Http\Controllers\Admin\RedditSubredditController::class, 'update'])->name('reddit.subreddits.update');
+    Route::get('/reddit/reports/{id}', [\App\Http\Controllers\Admin\RedditStrategyReportController::class, 'show'])->name('reddit.reports.show');
 });
 
 // Webhooks (no CSRF, rate limited)
