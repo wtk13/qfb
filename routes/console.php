@@ -24,4 +24,4 @@ Schedule::call(function () {
         ->purgeOlderThan(new \DateTimeImmutable('-30 days'), [\Domain\Reddit\ValueObject\ThreadStatus::Skipped, \Domain\Reddit\ValueObject\ThreadStatus::Stale]);
     app(\Domain\Reddit\Port\RedditDraftRepositoryInterface::class)
         ->purgeOlderThan(new \DateTimeImmutable('-90 days'), [\Domain\Reddit\ValueObject\DraftStatus::Rejected]);
-})->monthly()->withoutOverlapping();
+})->name('reddit:cleanup')->monthly()->withoutOverlapping();

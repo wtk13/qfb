@@ -21,7 +21,7 @@ class RedditDashboardTest extends TestCase
 
         $tenant = \App\Infrastructure\Persistence\Eloquent\TenantModel::create([
             'name' => 'Test',
-            'slug' => 'test-' . uniqid(),
+            'slug' => 'test-'.uniqid(),
             'trial_ends_at' => now()->addDays(14),
         ]);
         $this->admin = User::factory()->create([
@@ -67,14 +67,14 @@ class RedditDashboardTest extends TestCase
         $response = $this->actingAs($this->admin)->get('/admin/reddit');
 
         $response->assertStatus(200);
-        $response->assertSee('Test draft body');
+        $response->assertSee('How to get reviews');
     }
 
     public function test_non_admin_cannot_access(): void
     {
         $tenant = \App\Infrastructure\Persistence\Eloquent\TenantModel::create([
             'name' => 'Other',
-            'slug' => 'other-' . uniqid(),
+            'slug' => 'other-'.uniqid(),
         ]);
         $user = User::factory()->create(['tenant_id' => $tenant->id]);
 

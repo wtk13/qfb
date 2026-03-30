@@ -16,7 +16,7 @@ class PublishApprovedDraftsTest extends TestCase
 
     public function test_publishes_approved_drafts(): void
     {
-        config(['reddit.account_created_at' => now()->subDays(20)->format('Y-m-d')]);
+        config(['reddit.account_created_at' => now()->subDays(20)->format('Y-m-d'), 'reddit.dry_run' => false]);
 
         $sub = RedditSubredditModel::create([
             'name' => 'smallbusiness',
@@ -63,7 +63,7 @@ class PublishApprovedDraftsTest extends TestCase
 
     public function test_marks_draft_failed_on_api_error(): void
     {
-        config(['reddit.account_created_at' => now()->subDays(20)->format('Y-m-d')]);
+        config(['reddit.account_created_at' => now()->subDays(20)->format('Y-m-d'), 'reddit.dry_run' => false]);
 
         $sub = RedditSubredditModel::create([
             'name' => 'smallbusiness',
