@@ -25,6 +25,9 @@
                         <x-nav-link :href="route('admin.outreach.index')" :active="request()->routeIs('admin.outreach.*')">
                             Outreach
                         </x-nav-link>
+                        <x-nav-link :href="route('admin.reddit.dashboard')" :active="request()->routeIs('admin.reddit.*')">
+                            Reddit
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -91,6 +94,9 @@
             @if(auth()->user()?->isAdmin())
                 <x-responsive-nav-link :href="route('admin.outreach.index')" :active="request()->routeIs('admin.outreach.*')">
                     Outreach
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.reddit.dashboard')" :active="request()->routeIs('admin.reddit.*')">
+                    Reddit
                 </x-responsive-nav-link>
             @endif
 
