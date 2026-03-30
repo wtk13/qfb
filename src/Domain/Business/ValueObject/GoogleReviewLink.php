@@ -10,11 +10,11 @@ final readonly class GoogleReviewLink
 
     public function __construct(string $value)
     {
-        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+        if (! filter_var($value, FILTER_VALIDATE_URL)) {
             throw new \InvalidArgumentException("Invalid URL: {$value}");
         }
 
-        if (!str_contains($value, 'google.com') && !str_contains($value, 'google.')) {
+        if (! str_contains($value, 'google.com') && ! str_contains($value, 'google.')) {
             throw new \InvalidArgumentException('Google review link must be a Google URL.');
         }
 

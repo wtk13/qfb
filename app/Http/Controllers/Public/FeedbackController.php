@@ -19,7 +19,7 @@ class FeedbackController
     {
         $profile = $this->profileRepository->findBySlug($slug);
 
-        if (!$profile) {
+        if (! $profile) {
             abort(404);
         }
 
@@ -34,7 +34,7 @@ class FeedbackController
     {
         $profile = $this->profileRepository->findBySlug($slug);
 
-        if (!$profile) {
+        if (! $profile) {
             abort(404);
         }
 
@@ -60,7 +60,7 @@ class FeedbackController
     {
         $profile = $this->profileRepository->findById($id);
 
-        if (!$profile || !$profile->tenantId->equals($request->get('tenant_id'))) {
+        if (! $profile || ! $profile->tenantId->equals($request->get('tenant_id'))) {
             abort(403);
         }
 

@@ -20,7 +20,7 @@ class ReviewRequestController extends Controller
     {
         $profile = $this->profileRepository->findById($id);
 
-        if (!$profile || !$profile->tenantId->equals($request->get('tenant_id'))) {
+        if (! $profile || ! $profile->tenantId->equals($request->get('tenant_id'))) {
             abort(403);
         }
 
@@ -38,7 +38,7 @@ class ReviewRequestController extends Controller
     {
         $profile = $this->profileRepository->findById($id);
 
-        if (!$profile || !$profile->tenantId->equals($request->get('tenant_id'))) {
+        if (! $profile || ! $profile->tenantId->equals($request->get('tenant_id'))) {
             abort(403);
         }
 

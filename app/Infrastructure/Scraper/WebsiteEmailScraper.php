@@ -36,7 +36,7 @@ class WebsiteEmailScraper
     public function scrape(string $website): string
     {
         $host = $this->extractHost($website);
-        if (!$host) {
+        if (! $host) {
             return '';
         }
 
@@ -50,10 +50,10 @@ class WebsiteEmailScraper
         // If no emails on homepage, try contact/about pages
         if (empty($emails)) {
             foreach (self::CONTACT_PATHS as $path) {
-                $pageEmails = $this->scrapeUrl($baseUrl . $path, $host);
+                $pageEmails = $this->scrapeUrl($baseUrl.$path, $host);
                 $emails = array_merge($emails, $pageEmails);
 
-                if (!empty($emails)) {
+                if (! empty($emails)) {
                     break;
                 }
             }
@@ -70,7 +70,7 @@ class WebsiteEmailScraper
 
     private function scrapeUrl(string $url, string $host): array
     {
-        if (!$this->isSafeUrl($url)) {
+        if (! $this->isSafeUrl($url)) {
             return [];
         }
 
@@ -95,7 +95,7 @@ class WebsiteEmailScraper
 
             return $this->extractEmails($html, $host);
         } catch (\Exception $e) {
-            Log::debug('WebsiteEmailScraper: failed to fetch ' . $url, ['error' => $e->getMessage()]);
+            Log::debug('WebsiteEmailScraper: failed to fetch '.$url, ['error' => $e->getMessage()]);
 
             return [];
         }
@@ -124,7 +124,7 @@ class WebsiteEmailScraper
         // 3. Look for obfuscated emails: "name [at] domain [dot] com"
         if (preg_match_all('/([a-zA-Z0-9._%+\-]+)\s*[\[\(]\s*at\s*[\]\)]\s*([a-zA-Z0-9.\-]+)\s*[\[\(]\s*dot\s*[\]\)]\s*([a-zA-Z]{2,})/i', $text, $matches)) {
             foreach ($matches[0] as $i => $match) {
-                $emails[] = strtolower($matches[1][$i] . '@' . $matches[2][$i] . '.' . $matches[3][$i]);
+                $emails[] = strtolower($matches[1][$i].'@'.$matches[2][$i].'.'.$matches[3][$i]);
             }
         }
 
@@ -133,7 +133,7 @@ class WebsiteEmailScraper
 
     private function isValidEmail(string $email, string $host): bool
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
 
@@ -185,11 +185,11 @@ class WebsiteEmailScraper
      */
     private function pickBestEmail(array $emails, string $host): string
     {
-        $domainEmails = array_filter($emails, fn ($e) => str_ends_with($e, '@' . $host));
+        $domainEmails = array_filter($emails, fn ($e) => str_ends_with($e, '@'.$host));
         $otherEmails = array_diff($emails, $domainEmails);
 
         // Prefer emails matching the business domain
-        $pool = !empty($domainEmails) ? $domainEmails : $otherEmails;
+        $pool = ! empty($domainEmails) ? $domainEmails : $otherEmails;
 
         // Score each email — lower is better
         $scored = [];
@@ -209,7 +209,7 @@ class WebsiteEmailScraper
         if (preg_match('/^[a-z]+\.[a-z]+$/', $local)) {
             return 1; // john.smith
         }
-        if (preg_match('/^[a-z]{2,15}$/', $local) && !in_array($local, ['info', 'hello', 'contact', 'admin', 'office', 'support', 'sales', 'help'])) {
+        if (preg_match('/^[a-z]{2,15}$/', $local) && ! in_array($local, ['info', 'hello', 'contact', 'admin', 'office', 'support', 'sales', 'help'])) {
             return 2; // mike, sarah — likely a person
         }
 
@@ -230,7 +230,7 @@ class WebsiteEmailScraper
     private function extractHost(string $website): string
     {
         $host = parse_url($website, PHP_URL_HOST);
-        if (!$host) {
+        if (! $host) {
             return '';
         }
 
@@ -249,12 +249,12 @@ class WebsiteEmailScraper
     private function isSafeUrl(string $url): bool
     {
         $scheme = parse_url($url, PHP_URL_SCHEME);
-        if (!in_array($scheme, ['http', 'https'], true)) {
+        if (! in_array($scheme, ['http', 'https'], true)) {
             return false;
         }
 
         $host = parse_url($url, PHP_URL_HOST);
-        if (!$host) {
+        if (! $host) {
             return false;
         }
 

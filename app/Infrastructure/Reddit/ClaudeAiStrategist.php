@@ -44,7 +44,7 @@ PROMPT;
         if ($response->failed()) {
             Log::error('Claude API strategy report failed', ['status' => $response->status()]);
 
-            return ['error' => 'Failed to generate report: ' . $response->status()];
+            return ['error' => 'Failed to generate report: '.$response->status()];
         }
 
         return json_decode($response->json('content.0.text', '{}'), true) ?? [];

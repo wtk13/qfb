@@ -21,7 +21,7 @@ class BusinessProfileController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'nullable|string|max:500',
             'google_review_link' => 'nullable|url|max:500',
-            'locale' => 'nullable|string|in:' . implode(',', config('locales.supported')),
+            'locale' => 'nullable|string|in:'.implode(',', config('locales.supported')),
             'logo' => 'nullable|image|max:2048',
         ];
     }
@@ -69,7 +69,7 @@ class BusinessProfileController extends Controller
     {
         $data = $this->getBusinessProfile->execute($id);
 
-        if (!$data) {
+        if (! $data) {
             abort(404);
         }
 
@@ -126,7 +126,7 @@ class BusinessProfileController extends Controller
     {
         $profile = $this->repository->findById($id);
 
-        if (!$profile) {
+        if (! $profile) {
             abort(404);
         }
 
@@ -137,7 +137,7 @@ class BusinessProfileController extends Controller
 
     private function authorizeProfile(Request $request, $profile): void
     {
-        if (!$profile->tenantId->equals($request->get('tenant_id'))) {
+        if (! $profile->tenantId->equals($request->get('tenant_id'))) {
             abort(403);
         }
     }

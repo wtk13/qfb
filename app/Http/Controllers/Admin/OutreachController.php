@@ -183,7 +183,7 @@ class OutreachController extends Controller
         Artisan::queue('outreach:daily-send', [
             '--limit' => $limit,
             '--delay' => 5,
-            '--sender-name' => $request->input('sender_name', 'Mike'),
+            '--sender-name' => $request->input('sender_name', 'Wojtek'),
             '--sender-title' => 'Founder, QuickFeedback',
         ]);
 

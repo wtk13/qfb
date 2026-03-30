@@ -19,7 +19,7 @@ class ClaudeAiDrafter implements AiDrafterInterface
         DraftType $draftType,
     ): string {
         $maxWords = $draftType === DraftType::Comment ? 300 : 500;
-        $rulesText = $subredditRules ? 'Subreddit rules: ' . json_encode($subredditRules) : 'No special subreddit rules.';
+        $rulesText = $subredditRules ? 'Subreddit rules: '.json_encode($subredditRules) : 'No special subreddit rules.';
 
         $brandInstruction = $contentCategory === ContentCategory::Brand
             ? 'You may mention QuickFeedback naturally. Always disclose you built it. Always mention competitors fairly. Always provide a free/manual alternative.'
@@ -63,7 +63,7 @@ PROMPT;
 
         if ($response->failed()) {
             Log::error('Claude API draft failed', ['status' => $response->status()]);
-            throw new \RuntimeException('Failed to generate draft: ' . $response->status());
+            throw new \RuntimeException('Failed to generate draft: '.$response->status());
         }
 
         return $response->json('content.0.text', '');

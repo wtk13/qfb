@@ -34,7 +34,7 @@ class OutreachRescrapeEmails extends Command
             ->whereIn('outreach_status', ['new', 'bounced'])
             ->where(fn ($q) => $q->whereNull('email')->orWhere('email_status', 'invalid'));
 
-        if (!empty($statuses)) {
+        if (! empty($statuses)) {
             $infoQuery->whereIn('email_status', $statuses);
             $noEmailQuery->whereIn('email_status', $statuses);
         }
@@ -51,6 +51,7 @@ class OutreachRescrapeEmails extends Command
 
         if ($total === 0) {
             $this->info('No leads to rescrape.');
+
             return self::SUCCESS;
         }
 
@@ -77,11 +78,13 @@ class OutreachRescrapeEmails extends Command
                 $newEmail = $scraper->scrape($lead->website);
             } catch (\Exception $e) {
                 $unchanged++;
+
                 continue;
             }
 
-            if (!$newEmail || $newEmail === $lead->email) {
+            if (! $newEmail || $newEmail === $lead->email) {
                 $unchanged++;
+
                 continue;
             }
 
@@ -112,7 +115,7 @@ class OutreachRescrapeEmails extends Command
         $this->info("Found new email:     {$found}");
         $this->info("Unchanged:           {$unchanged}");
 
-        if (!$dryRun && ($upgraded + $found) > 0) {
+        if (! $dryRun && ($upgraded + $found) > 0) {
             $this->newLine();
             $this->info('Run outreach:weekly to verify the new emails via MX lookup.');
         }

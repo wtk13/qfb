@@ -12,7 +12,7 @@ class RatingRoutingServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->service = new RatingRoutingService();
+        $this->service = new RatingRoutingService;
     }
 
     public function test_high_score_routes_to_google(): void

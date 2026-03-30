@@ -11,12 +11,14 @@ class EloquentRedditStrategyReportRepository implements RedditStrategyReportRepo
     public function findById(int $id): ?RedditStrategyReport
     {
         $model = RedditStrategyReportModel::find($id);
+
         return $model ? $this->toDomain($model) : null;
     }
 
     public function findLatest(): ?RedditStrategyReport
     {
         $model = RedditStrategyReportModel::orderByDesc('period_end')->first();
+
         return $model ? $this->toDomain($model) : null;
     }
 

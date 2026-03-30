@@ -25,6 +25,7 @@ class ScrapeGoogleBusinesses extends Command
 
         if (empty($this->apiKey)) {
             $this->error('GOOGLE_PLACES_API_KEY is not set in .env');
+
             return self::FAILURE;
         }
 
@@ -41,6 +42,7 @@ class ScrapeGoogleBusinesses extends Command
 
         if (empty($places)) {
             $this->warn('No results found.');
+
             return self::SUCCESS;
         }
 
@@ -54,7 +56,7 @@ class ScrapeGoogleBusinesses extends Command
             $detail = $this->getPlaceDetails($place['place_id']);
             $bar->advance();
 
-            if (!$detail) {
+            if (! $detail) {
                 continue;
             }
 
@@ -86,6 +88,7 @@ class ScrapeGoogleBusinesses extends Command
 
         if (empty($leads)) {
             $this->warn('No businesses matched your filters.');
+
             return self::SUCCESS;
         }
 
@@ -132,14 +135,14 @@ class ScrapeGoogleBusinesses extends Command
             $response = Http::get('https://maps.googleapis.com/maps/api/place/textsearch/json', $params);
 
             if ($response->failed()) {
-                $this->error('Google Places API request failed: ' . $response->status());
+                $this->error('Google Places API request failed: '.$response->status());
                 break;
             }
 
             $data = $response->json();
 
             if (($data['status'] ?? '') !== 'OK' && ($data['status'] ?? '') !== 'ZERO_RESULTS') {
-                $this->error('API error: ' . ($data['status'] ?? 'unknown') . ' — ' . ($data['error_message'] ?? ''));
+                $this->error('API error: '.($data['status'] ?? 'unknown').' — '.($data['error_message'] ?? ''));
                 break;
             }
 
@@ -152,7 +155,7 @@ class ScrapeGoogleBusinesses extends Command
 
             $nextPageToken = $data['next_page_token'] ?? null;
 
-            if (!$nextPageToken) {
+            if (! $nextPageToken) {
                 break;
             }
 

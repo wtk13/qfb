@@ -15,7 +15,7 @@ enum ThreadType: string
 
     public static function classify(string $title, ?string $body = null): self
     {
-        $text = strtolower($title . ' ' . ($body ?? ''));
+        $text = strtolower($title.' '.($body ?? ''));
 
         $patterns = [
             'how_to_get_reviews' => '/\b(get|more|increase)\b.*\breview/',

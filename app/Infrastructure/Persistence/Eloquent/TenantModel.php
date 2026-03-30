@@ -9,7 +9,7 @@ use Laravel\Cashier\Billable;
 
 class TenantModel extends Model
 {
-    use HasUuids, Billable;
+    use Billable, HasUuids;
 
     protected $table = 'tenants';
 

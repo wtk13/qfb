@@ -11,6 +11,7 @@ class EloquentRedditSubredditRepository implements RedditSubredditRepositoryInte
     public function findById(int $id): ?RedditSubreddit
     {
         $model = RedditSubredditModel::find($id);
+
         return $model ? $this->toDomain($model) : null;
     }
 

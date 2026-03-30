@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\OutreachController;
-use App\Http\Controllers\Webhook\ResendWebhookController;
 use App\Http\Controllers\Billing\BillingController;
 use App\Http\Controllers\BusinessProfile\BusinessProfileController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -10,6 +9,7 @@ use App\Http\Controllers\Public\FeedbackController;
 use App\Http\Controllers\Public\RatingController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ReviewRequest\ReviewRequestController;
+use App\Http\Controllers\Webhook\ResendWebhookController;
 use App\Http\Middleware\EnsureActiveSubscription;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureTenantAccess;

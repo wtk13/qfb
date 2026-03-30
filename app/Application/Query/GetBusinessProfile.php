@@ -20,7 +20,7 @@ class GetBusinessProfile
     {
         $profile = $this->profileRepository->findById($id);
 
-        if (!$profile) {
+        if (! $profile) {
             return null;
         }
 

@@ -22,7 +22,7 @@ class RatingController
     {
         $profile = $this->profileRepository->findBySlug($slug);
 
-        if (!$profile) {
+        if (! $profile) {
             abort(404);
         }
 
@@ -48,7 +48,7 @@ class RatingController
     {
         $profile = $this->profileRepository->findBySlug($slug);
 
-        if (!$profile) {
+        if (! $profile) {
             abort(404);
         }
 

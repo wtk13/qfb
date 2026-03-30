@@ -216,7 +216,7 @@
                         @csrf
                         <div class="flex gap-2">
                             <input type="number" name="limit" value="10" min="1" max="50" class="w-20 rounded-md border-gray-300 text-sm">
-                            <input type="text" name="sender_name" placeholder="Your name" value="{{ old('sender_name', 'Mike') }}" class="flex-1 rounded-md border-gray-300 text-sm">
+                            <input type="text" name="sender_name" placeholder="Your name" value="{{ old('sender_name', 'Wojtek') }}" class="flex-1 rounded-md border-gray-300 text-sm">
                         </div>
                         <button type="submit" class="w-full px-4 py-2 bg-green-600 text-white rounded-md text-sm font-semibold hover:bg-green-500 transition">
                             Send Emails
@@ -232,7 +232,7 @@
                         @csrf
                         <div class="flex gap-2">
                             <input type="email" name="email" placeholder="your@email.com" required class="flex-1 rounded-md border-gray-300 text-sm">
-                            <input type="text" name="sender_name" value="{{ old('sender_name', 'Mike') }}" class="w-28 rounded-md border-gray-300 text-sm">
+                            <input type="text" name="sender_name" value="{{ old('sender_name', 'Wojtek') }}" class="w-28 rounded-md border-gray-300 text-sm">
                         </div>
                         <button type="submit" class="w-full px-4 py-2 bg-gray-600 text-white rounded-md text-sm font-semibold hover:bg-gray-500 transition">
                             Send Test

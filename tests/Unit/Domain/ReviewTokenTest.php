@@ -9,8 +9,8 @@ class ReviewTokenTest extends TestCase
 {
     public function test_generates_unique_token(): void
     {
-        $token1 = new ReviewToken();
-        $token2 = new ReviewToken();
+        $token1 = new ReviewToken;
+        $token2 = new ReviewToken;
 
         $this->assertNotEmpty($token1->value);
         $this->assertNotEquals($token1->value, $token2->value);
@@ -24,7 +24,7 @@ class ReviewTokenTest extends TestCase
 
     public function test_token_length(): void
     {
-        $token = new ReviewToken();
+        $token = new ReviewToken;
         $this->assertSame(64, strlen($token->value));
     }
 

@@ -13,7 +13,7 @@ class EnsureTenantAccess
     {
         $user = $request->user();
 
-        if (!$user || !$user->tenant_id) {
+        if (! $user || ! $user->tenant_id) {
             abort(403, 'No tenant access.');
         }
 

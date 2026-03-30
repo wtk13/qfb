@@ -22,7 +22,7 @@ final class ReviewRequest
     public function markAsSent(): void
     {
         $this->transitionTo(ReviewRequestStatus::Sent);
-        $this->sentAt = new \DateTimeImmutable();
+        $this->sentAt = new \DateTimeImmutable;
     }
 
     public function markAsClicked(): void
@@ -37,7 +37,7 @@ final class ReviewRequest
 
     private function transitionTo(ReviewRequestStatus $newStatus): void
     {
-        if (!$this->status->canTransitionTo($newStatus)) {
+        if (! $this->status->canTransitionTo($newStatus)) {
             throw new \DomainException(
                 "Cannot transition from {$this->status->value} to {$newStatus->value}."
             );

@@ -54,8 +54,8 @@ class ScoutThreads
                         numComments: $result['num_comments'],
                         threadType: ThreadType::classify($result['title'], $result['selftext']),
                         status: ThreadStatus::New,
-                        discoveredAt: new \DateTimeImmutable(),
-                        createdAt: new \DateTimeImmutable(),
+                        discoveredAt: new \DateTimeImmutable,
+                        createdAt: new \DateTimeImmutable,
                     );
 
                     $thread = $this->threadRepo->save($thread);

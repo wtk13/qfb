@@ -9,6 +9,7 @@ use Domain\Feedback\ValueObject\Score;
 final class RatingRoutingService
 {
     public const string ROUTE_GOOGLE = 'google';
+
     public const string ROUTE_FEEDBACK = 'feedback';
 
     public function determineRoute(Score $score): string

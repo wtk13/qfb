@@ -15,13 +15,13 @@ class NotifyOwnerOnNegativeFeedback implements ShouldQueue
     {
         $business = BusinessProfileModel::find($event->businessProfileId);
 
-        if (!$business) {
+        if (! $business) {
             return;
         }
 
         $owner = User::where('tenant_id', $business->tenant_id)->first();
 
-        if (!$owner) {
+        if (! $owner) {
             return;
         }
 

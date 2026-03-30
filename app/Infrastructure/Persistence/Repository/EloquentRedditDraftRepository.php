@@ -14,6 +14,7 @@ class EloquentRedditDraftRepository implements RedditDraftRepositoryInterface
     public function findById(int $id): ?RedditDraft
     {
         $model = RedditDraftModel::find($id);
+
         return $model ? $this->toDomain($model) : null;
     }
 

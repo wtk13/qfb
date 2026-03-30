@@ -13,7 +13,7 @@ class SendOutreachEmails extends Command
         {--input=outreach.csv : Input CSV file in storage/app/}
         {--limit=10 : Max emails to send in this run}
         {--delay=30 : Seconds between emails}
-        {--sender-name=Mike : Your name for the email footer}
+        {--sender-name=Wojtek : Your name for the email footer}
         {--dry-run : Preview emails without sending}';
 
     protected $description = 'Send personalized outreach emails from generated CSV via Resend';
@@ -26,9 +26,10 @@ class SendOutreachEmails extends Command
         $senderName = $this->option('sender-name');
         $dryRun = $this->option('dry-run');
 
-        if (!Storage::disk('local')->exists($inputFile)) {
+        if (! Storage::disk('local')->exists($inputFile)) {
             $this->error("File not found: storage/app/{$inputFile}");
             $this->info('Run outreach:generate first.');
+
             return self::FAILURE;
         }
 
@@ -43,11 +44,12 @@ class SendOutreachEmails extends Command
         fclose($handle);
 
         // Filter out leads without email
-        $leads = array_filter($leads, fn ($l) => !empty($l['Email']));
+        $leads = array_filter($leads, fn ($l) => ! empty($l['Email']));
         $leads = array_values($leads);
 
         if (empty($leads)) {
             $this->warn('No leads with email addresses found.');
+
             return self::SUCCESS;
         }
 
@@ -66,11 +68,12 @@ class SendOutreachEmails extends Command
         }
 
         $skippedEmails = array_unique(array_merge($sentEmails, $unsubEmails));
-        $leads = array_filter($leads, fn ($l) => !in_array($l['Email'], $skippedEmails));
+        $leads = array_filter($leads, fn ($l) => ! in_array($l['Email'], $skippedEmails));
         $leads = array_values($leads);
 
         if (empty($leads)) {
             $this->info('All leads in this file have already been emailed.');
+
             return self::SUCCESS;
         }
 
@@ -101,6 +104,7 @@ class SendOutreachEmails extends Command
             if ($dryRun) {
                 $this->info('         (dry run — skipped)');
                 $sent++;
+
                 continue;
             }
 
@@ -124,7 +128,7 @@ class SendOutreachEmails extends Command
                 $this->info('         Sent!');
             } catch (\Exception $e) {
                 $failed++;
-                $this->error('         Failed: ' . $e->getMessage());
+                $this->error('         Failed: '.$e->getMessage());
             }
 
             // Delay between sends (except after last one)
@@ -136,7 +140,7 @@ class SendOutreachEmails extends Command
         $this->newLine();
         $this->info("Done. Sent: {$sent}, Failed: {$failed}");
 
-        if (!$dryRun && count($leads) > $limit) {
+        if (! $dryRun && count($leads) > $limit) {
             $remaining = count($leads) - $limit;
             $this->newLine();
             $this->info("Run again to send the next batch ({$remaining} remaining).");

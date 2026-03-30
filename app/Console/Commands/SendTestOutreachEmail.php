@@ -10,7 +10,7 @@ class SendTestOutreachEmail extends Command
 {
     protected $signature = 'outreach:test
         {email : Your email address to send the test to}
-        {--sender-name=Mike : Your name for the email footer}';
+        {--sender-name=Wojtek : Your name for the email footer}';
 
     protected $description = 'Send a test outreach email to yourself to verify everything works on prod';
 
@@ -22,7 +22,7 @@ class SendTestOutreachEmail extends Command
         $businessName = 'Austin Family Dental';
         $reviews = 12;
         $rating = 4.2;
-        $subject = "Idea for Austin Family Dental to get more 5-star reviews";
+        $subject = 'Idea for Austin Family Dental to get more 5-star reviews';
 
         $body = <<<EMAIL
 I was looking at Austin Family Dental's Google profile — 12 reviews at 4.2 stars is solid. But other dentists in Austin have significantly more, which pushes them higher in local search results.
@@ -56,7 +56,8 @@ EMAIL;
 
             $this->info('Test email sent! Check your inbox.');
         } catch (\Exception $e) {
-            $this->error('Failed: ' . $e->getMessage());
+            $this->error('Failed: '.$e->getMessage());
+
             return self::FAILURE;
         }
 

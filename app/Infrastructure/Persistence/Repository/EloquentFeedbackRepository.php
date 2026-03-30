@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Persistence\Repository;
 
 use App\Infrastructure\Persistence\Eloquent\FeedbackModel;
-use App\Infrastructure\Persistence\Eloquent\RatingModel;
 use Domain\Feedback\Entity\Feedback;
 use Domain\Feedback\Port\FeedbackRepositoryInterface;
 use Domain\Shared\ValueObject\Email;

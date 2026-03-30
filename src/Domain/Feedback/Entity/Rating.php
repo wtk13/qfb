@@ -15,6 +15,6 @@ final class Rating
         public readonly ?string $reviewRequestId,
         public readonly Score $score,
         public readonly Source $source,
-        public readonly \DateTimeImmutable $createdAt = new \DateTimeImmutable(),
+        public readonly \DateTimeImmutable $createdAt = new \DateTimeImmutable,
     ) {}
 }

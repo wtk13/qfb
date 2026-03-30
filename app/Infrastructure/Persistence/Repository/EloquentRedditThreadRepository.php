@@ -13,12 +13,14 @@ class EloquentRedditThreadRepository implements RedditThreadRepositoryInterface
     public function findById(int $id): ?RedditThread
     {
         $model = RedditThreadModel::find($id);
+
         return $model ? $this->toDomain($model) : null;
     }
 
     public function findByRedditId(string $redditId): ?RedditThread
     {
         $model = RedditThreadModel::where('reddit_id', $redditId)->first();
+
         return $model ? $this->toDomain($model) : null;
     }
 

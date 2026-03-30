@@ -14,7 +14,7 @@ class DeleteBusinessProfile
     {
         $profile = $this->repository->findById($id);
 
-        if (!$profile) {
+        if (! $profile) {
             throw new \RuntimeException('Business profile not found.');
         }
 

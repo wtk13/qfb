@@ -22,7 +22,7 @@ class ResendWebhookController extends Controller
             ?? $request->input('data.email_address')
             ?? $request->input('data.to');
 
-        if (!$email || !$type) {
+        if (! $email || ! $type) {
             return response()->json(['status' => 'ignored']);
         }
 
@@ -32,7 +32,7 @@ class ResendWebhookController extends Controller
             ->where('outreach_status', 'sent')
             ->first();
 
-        if (!$lead) {
+        if (! $lead) {
             return response()->json(['status' => 'no_match']);
         }
 
@@ -54,7 +54,7 @@ class ResendWebhookController extends Controller
     {
         $secret = config('services.resend.webhook_secret');
 
-        if (!$secret) {
+        if (! $secret) {
             abort(500, 'Webhook secret not configured.');
         }
 

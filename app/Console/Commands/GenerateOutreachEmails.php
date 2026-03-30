@@ -10,7 +10,7 @@ class GenerateOutreachEmails extends Command
     protected $signature = 'outreach:generate
         {--input=leads.csv : Input CSV file in storage/app/}
         {--output=outreach.csv : Output CSV with personalized emails}
-        {--sender-name=Mike : Your first name for the email signature}
+        {--sender-name=Wojtek : Your first name for the email signature}
         {--sender-title=Founder, QuickFeedback : Your title}
         {--category= : Business category for personalization, e.g. "dentist"}
         {--city= : City name for personalization, e.g. "Austin"}';
@@ -26,9 +26,10 @@ class GenerateOutreachEmails extends Command
         $category = $this->option('category');
         $city = $this->option('city');
 
-        if (!Storage::disk('local')->exists($inputFile)) {
+        if (! Storage::disk('local')->exists($inputFile)) {
             $this->error("File not found: storage/app/{$inputFile}");
             $this->info('Run scrape:google-businesses first to generate leads.');
+
             return self::FAILURE;
         }
 
@@ -44,6 +45,7 @@ class GenerateOutreachEmails extends Command
 
         if (empty($leads)) {
             $this->warn('No leads found in CSV.');
+
             return self::SUCCESS;
         }
 
@@ -76,7 +78,7 @@ class GenerateOutreachEmails extends Command
 
         $this->writeCsv($outreach, $outputFile);
 
-        $withEmail = count(array_filter($outreach, fn ($o) => !empty($o['email'])));
+        $withEmail = count(array_filter($outreach, fn ($o) => ! empty($o['email'])));
         $withoutEmail = count($outreach) - $withEmail;
 
         $this->info(sprintf('Generated %d outreach emails → storage/app/%s', count($outreach), $outputFile));
@@ -147,11 +149,13 @@ EMAIL;
     {
         if ($category && $city) {
             $plural = $this->pluralizeCategory($category);
+
             return "other {$plural} in {$city}";
         }
 
         if ($category) {
             $plural = $this->pluralizeCategory($category);
+
             return "other {$plural} in your area";
         }
 
@@ -159,7 +163,7 @@ EMAIL;
             return "similar businesses in {$city}";
         }
 
-        return "your competitors in the area";
+        return 'your competitors in the area';
     }
 
     private function pluralizeCategory(string $category): string
@@ -194,7 +198,7 @@ EMAIL;
 
         $host = parse_url($website, PHP_URL_HOST);
 
-        if (!$host) {
+        if (! $host) {
             return '';
         }
 

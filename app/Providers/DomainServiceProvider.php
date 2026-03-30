@@ -3,9 +3,6 @@
 namespace App\Providers;
 
 use App\Infrastructure\Billing\CashierSubscriptionService;
-use App\Infrastructure\Reddit\ClaudeAiDrafter;
-use App\Infrastructure\Reddit\ClaudeAiStrategist;
-use App\Infrastructure\Reddit\RedditApiClient;
 use App\Infrastructure\Persistence\Repository\EloquentBusinessProfileRepository;
 use App\Infrastructure\Persistence\Repository\EloquentFeedbackRepository;
 use App\Infrastructure\Persistence\Repository\EloquentRatingRepository;
@@ -15,6 +12,9 @@ use App\Infrastructure\Persistence\Repository\EloquentRedditSubredditRepository;
 use App\Infrastructure\Persistence\Repository\EloquentRedditThreadRepository;
 use App\Infrastructure\Persistence\Repository\EloquentReviewRequestRepository;
 use App\Infrastructure\Persistence\Repository\EloquentTenantRepository;
+use App\Infrastructure\Reddit\ClaudeAiDrafter;
+use App\Infrastructure\Reddit\ClaudeAiStrategist;
+use App\Infrastructure\Reddit\RedditApiClient;
 use Domain\Billing\Port\SubscriptionServiceInterface;
 use Domain\Business\Port\BusinessProfileRepositoryInterface;
 use Domain\Campaign\Port\ReviewRequestRepositoryInterface;

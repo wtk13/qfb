@@ -23,8 +23,8 @@ class BillingController extends Controller
     {
         $url = $this->subscriptionService->createCheckoutSession(
             tenantId: $request->user()->tenant_id,
-            successUrl: route('billing.index') . '?checkout=success',
-            cancelUrl: route('billing.index') . '?checkout=cancelled',
+            successUrl: route('billing.index').'?checkout=success',
+            cancelUrl: route('billing.index').'?checkout=cancelled',
         );
 
         return redirect($url);

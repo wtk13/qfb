@@ -32,13 +32,13 @@ final class RedditDraft
     public function approve(): void
     {
         $this->status = DraftStatus::Approved;
-        $this->approvedAt = new \DateTimeImmutable();
+        $this->approvedAt = new \DateTimeImmutable;
     }
 
     public function reject(string $reason): void
     {
         $this->status = DraftStatus::Rejected;
-        $this->rejectedAt = new \DateTimeImmutable();
+        $this->rejectedAt = new \DateTimeImmutable;
         $this->rejectionReason = $reason;
     }
 
@@ -46,7 +46,7 @@ final class RedditDraft
     {
         $this->status = DraftStatus::Published;
         $this->redditThingId = $redditThingId;
-        $this->publishedAt = new \DateTimeImmutable();
+        $this->publishedAt = new \DateTimeImmutable;
     }
 
     public function markFailed(): void

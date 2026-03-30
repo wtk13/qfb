@@ -362,7 +362,7 @@
                     <p class="text-lg text-gray-700 leading-relaxed italic">
                         &ldquo;I built QuickFeedback because I ran a service business and couldn't justify paying $300/month just to send review request emails. This tool does the one thing that actually matters &mdash; getting more Google reviews &mdash; without the bloat or the price tag.&rdquo;
                     </p>
-                    <footer class="mt-4 text-sm font-semibold text-gray-900">Mike, Founder</footer>
+                    <footer class="mt-4 text-sm font-semibold text-gray-900">Wojtek, Founder</footer>
                 </blockquote>
             </div>
         </div>

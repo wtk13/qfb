@@ -14,7 +14,9 @@ class RedditDraftControllerTest extends TestCase
     use RefreshDatabase;
 
     private User $admin;
+
     private RedditSubredditModel $subreddit;
+
     private RedditThreadModel $thread;
 
     protected function setUp(): void
@@ -23,7 +25,7 @@ class RedditDraftControllerTest extends TestCase
 
         $tenant = \App\Infrastructure\Persistence\Eloquent\TenantModel::create([
             'name' => 'Test',
-            'slug' => 'test-' . uniqid(),
+            'slug' => 'test-'.uniqid(),
             'trial_ends_at' => now()->addDays(14),
         ]);
         $this->admin = User::factory()->create([

@@ -7,11 +7,13 @@ namespace Domain\Reddit\ValueObject;
 final readonly class ContentMixPolicy
 {
     private const float VALUE_TARGET = 0.70;
+
     private const float DISCUSSION_TARGET = 0.20;
+
     private const float BRAND_TARGET = 0.10;
 
     /**
-     * @param array{value: int, discussion: int, brand: int} $counts 30-day rolling counts
+     * @param  array{value: int, discussion: int, brand: int}  $counts  30-day rolling counts
      */
     public function __construct(
         private array $counts,

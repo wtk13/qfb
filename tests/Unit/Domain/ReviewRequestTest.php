@@ -17,7 +17,7 @@ class ReviewRequestTest extends TestCase
             businessProfileId: 'bp-1',
             recipientEmail: new Email('test@example.com'),
             status: $status,
-            token: new ReviewToken(),
+            token: new ReviewToken,
         );
     }
 

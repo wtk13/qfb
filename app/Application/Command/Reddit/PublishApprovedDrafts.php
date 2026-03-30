@@ -60,6 +60,7 @@ class PublishApprovedDrafts
                 if ($isDryRun) {
                     Log::info('Reddit dry run: would publish draft', ['draft_id' => $draft->id, 'type' => $draft->type->value]);
                     $publishedCount++;
+
                     continue;
                 }
 

@@ -102,6 +102,7 @@ class OutreachWeeklyRotation extends Command
 
         if (empty($this->apiKey)) {
             $this->error('GOOGLE_PLACES_API_KEY is not set in .env');
+
             return self::FAILURE;
         }
 
@@ -111,8 +112,9 @@ class OutreachWeeklyRotation extends Command
         // Pick the next niche that hasn't been scraped or was scraped longest ago
         $target = $this->pickNextTarget();
 
-        if (!$target) {
+        if (! $target) {
             $this->warn('All niches have been recently scraped. Nothing to do.');
+
             return self::SUCCESS;
         }
 
@@ -121,7 +123,7 @@ class OutreachWeeklyRotation extends Command
         $state = $target['state'];
         $query = "{$category} in {$city} {$state}";
 
-        $this->info("=== Weekly Outreach Rotation ===");
+        $this->info('=== Weekly Outreach Rotation ===');
         $this->info("Target: {$query}");
         $this->newLine();
 
@@ -164,7 +166,7 @@ class OutreachWeeklyRotation extends Command
     {
         // Load all campaigns in one query, keyed by "category|city"
         $campaigns = OutreachCampaignModel::all()
-            ->keyBy(fn ($c) => $c->category . '|' . $c->city);
+            ->keyBy(fn ($c) => $c->category.'|'.$c->city);
 
         // Collect never-scraped combos and score scraped ones
         $unscraped = [];
@@ -173,13 +175,14 @@ class OutreachWeeklyRotation extends Command
         foreach ($this->categories as $category) {
             foreach ($this->cities as $cityState) {
                 [$city, $state] = array_map('trim', explode(',', $cityState));
-                $key = $category . '|' . $city;
+                $key = $category.'|'.$city;
                 $campaign = $campaigns->get($key);
 
                 $entry = ['category' => $category, 'city' => $city, 'state' => $state];
 
-                if (!$campaign || !$campaign->scraped_at) {
+                if (! $campaign || ! $campaign->scraped_at) {
                     $unscraped[] = $entry;
+
                     continue;
                 }
 
@@ -195,13 +198,14 @@ class OutreachWeeklyRotation extends Command
         }
 
         // Prefer a random never-scraped combo
-        if (!empty($unscraped)) {
+        if (! empty($unscraped)) {
             return $unscraped[array_rand($unscraped)];
         }
 
         // Otherwise pick the stalest eligible candidate
-        if (!empty($candidates)) {
+        if (! empty($candidates)) {
             usort($candidates, fn ($a, $b) => $b['weeks_ago'] <=> $a['weeks_ago']);
+
             return $candidates[0]['entry'];
         }
 
@@ -230,11 +234,12 @@ class OutreachWeeklyRotation extends Command
             // Skip if already in DB (checked against pre-loaded set)
             if ($knownPlaceIds->has($place['place_id'])) {
                 $skipped++;
+
                 continue;
             }
 
             $detail = $this->getPlaceDetails($place['place_id']);
-            if (!$detail) {
+            if (! $detail) {
                 continue;
             }
 
@@ -247,7 +252,7 @@ class OutreachWeeklyRotation extends Command
             $email = '';
 
             // Try scraping the actual website for a real email
-            if ($website && !$this->isGenericDomain($website)) {
+            if ($website && ! $this->isGenericDomain($website)) {
                 $email = $emailScraper->scrape($website);
                 if ($email) {
                     $scraped++;
@@ -255,7 +260,7 @@ class OutreachWeeklyRotation extends Command
             }
 
             // Fall back to info@ guess if scraping found nothing
-            if (!$email) {
+            if (! $email) {
                 $email = $this->guessEmail($website);
             }
 
@@ -294,7 +299,7 @@ class OutreachWeeklyRotation extends Command
     private function isGenericDomain(string $website): bool
     {
         $host = parse_url($website, PHP_URL_HOST);
-        if (!$host) {
+        if (! $host) {
             return true;
         }
 
@@ -323,6 +328,7 @@ class OutreachWeeklyRotation extends Command
             if (empty($lead->email)) {
                 $lead->update(['email_status' => 'invalid']);
                 $noEmail++;
+
                 continue;
             }
 
@@ -351,13 +357,14 @@ class OutreachWeeklyRotation extends Command
 
         // Check MX records
         $mxRecords = [];
-        if (@getmxrr($domain, $mxRecords) && !empty($mxRecords)) {
+        if (@getmxrr($domain, $mxRecords) && ! empty($mxRecords)) {
             return true;
         }
 
         // Fallback: check if domain has any A record (some small businesses use A record for mail)
         $dns = @dns_get_record($domain, DNS_A);
-        return !empty($dns);
+
+        return ! empty($dns);
     }
 
     private function showOverallStats(): void
@@ -382,7 +389,7 @@ class OutreachWeeklyRotation extends Command
                 $c->replies,
                 $c->conversions,
                 $c->emails_sent > 0
-                    ? round(($c->replies / $c->emails_sent) * 100, 1) . '%'
+                    ? round(($c->replies / $c->emails_sent) * 100, 1).'%'
                     : '-',
             ])->toArray()
         );
@@ -414,14 +421,14 @@ class OutreachWeeklyRotation extends Command
             $response = Http::get('https://maps.googleapis.com/maps/api/place/textsearch/json', $params);
 
             if ($response->failed()) {
-                $this->error('API request failed: ' . $response->status());
+                $this->error('API request failed: '.$response->status());
                 break;
             }
 
             $data = $response->json();
 
-            if (!in_array($data['status'] ?? '', ['OK', 'ZERO_RESULTS'])) {
-                $this->error('API error: ' . ($data['status'] ?? 'unknown') . ' — ' . ($data['error_message'] ?? ''));
+            if (! in_array($data['status'] ?? '', ['OK', 'ZERO_RESULTS'])) {
+                $this->error('API error: '.($data['status'] ?? 'unknown').' — '.($data['error_message'] ?? ''));
                 break;
             }
 
@@ -435,7 +442,7 @@ class OutreachWeeklyRotation extends Command
 
                 $places[] = $result;
 
-                if (!$knownPlaceIds->has($result['place_id'])) {
+                if (! $knownPlaceIds->has($result['place_id'])) {
                     $newOnPage++;
                 }
 
@@ -452,7 +459,7 @@ class OutreachWeeklyRotation extends Command
             }
 
             $nextPageToken = $data['next_page_token'] ?? null;
-            if (!$nextPageToken) {
+            if (! $nextPageToken) {
                 break;
             }
 
@@ -475,6 +482,7 @@ class OutreachWeeklyRotation extends Command
         }
 
         $data = $response->json();
+
         return ($data['status'] ?? '') === 'OK' ? ($data['result'] ?? null) : null;
     }
 
@@ -485,7 +493,7 @@ class OutreachWeeklyRotation extends Command
         }
 
         $host = parse_url($website, PHP_URL_HOST);
-        if (!$host) {
+        if (! $host) {
             return '';
         }
 

@@ -14,7 +14,7 @@ class OutreachDailySend extends Command
     protected $signature = 'outreach:daily-send
         {--limit=15 : Max emails to send today (Resend free = 100/day, stay conservative)}
         {--delay=30 : Seconds between emails}
-        {--sender-name=Mike : Your name}
+        {--sender-name=Wojtek : Your name}
         {--sender-title=Founder, QuickFeedback : Your title}
         {--dry-run : Preview without sending}';
 
@@ -152,7 +152,7 @@ class OutreachDailySend extends Command
         $this->info("Done. Sent: {$sent}, Failed: {$failed}");
 
         // Refresh campaign stats from source of truth
-        $leads->unique(fn ($l) => $l->category . '|' . $l->city)
+        $leads->unique(fn ($l) => $l->category.'|'.$l->city)
             ->each(fn ($lead) => OutreachCampaignModel::refreshStats($lead->category, $lead->city));
 
         $totalQueue = OutreachLeadModel::sendable()->count();

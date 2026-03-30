@@ -40,7 +40,7 @@ class DraftResponses
 
         $counts = $this->draftRepo->countByContentCategoryBetween(
             new \DateTimeImmutable('-30 days'),
-            new \DateTimeImmutable(),
+            new \DateTimeImmutable,
         );
         $mixPolicy = new ContentMixPolicy($counts);
 
@@ -101,7 +101,7 @@ class DraftResponses
                 rejectionReason: null,
                 redditScore: null,
                 redditNumComments: null,
-                createdAt: new \DateTimeImmutable(),
+                createdAt: new \DateTimeImmutable,
             );
 
             $draft = $this->draftRepo->save($draft);

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 class RedditApiClient implements RedditApiInterface
 {
     private const string TOKEN_CACHE_KEY = 'reddit_oauth_token';
+
     private const int TOKEN_TTL_SECONDS = 3300; // 55 minutes
 
     public function searchSubreddit(string $subreddit, string $query, int $limit = 25): array
@@ -42,7 +43,7 @@ class RedditApiClient implements RedditApiInterface
             'title' => $child['data']['title'],
             'selftext' => $child['data']['selftext'] ?? null,
             'author' => $child['data']['author'],
-            'url' => 'https://reddit.com' . $child['data']['permalink'],
+            'url' => 'https://reddit.com'.$child['data']['permalink'],
             'score' => $child['data']['score'],
             'num_comments' => $child['data']['num_comments'],
             'created_utc' => $child['data']['created_utc'],
@@ -54,7 +55,7 @@ class RedditApiClient implements RedditApiInterface
         if (config('reddit.dry_run')) {
             Log::info('Reddit dry run: would submit comment', ['parent' => $parentThingId]);
 
-            return 'dry_run_' . uniqid();
+            return 'dry_run_'.uniqid();
         }
 
         $token = $this->getAccessToken();
@@ -69,7 +70,7 @@ class RedditApiClient implements RedditApiInterface
 
         if ($response->failed()) {
             Log::error('Reddit API submit comment failed', ['status' => $response->status()]);
-            throw new \RuntimeException('Failed to submit comment: ' . $response->status());
+            throw new \RuntimeException('Failed to submit comment: '.$response->status());
         }
 
         return $response->json('json.data.things.0.data.name', '');
@@ -80,7 +81,7 @@ class RedditApiClient implements RedditApiInterface
         if (config('reddit.dry_run')) {
             Log::info('Reddit dry run: would submit post', ['subreddit' => $subreddit, 'title' => $title]);
 
-            return 'dry_run_' . uniqid();
+            return 'dry_run_'.uniqid();
         }
 
         $token = $this->getAccessToken();
@@ -97,7 +98,7 @@ class RedditApiClient implements RedditApiInterface
 
         if ($response->failed()) {
             Log::error('Reddit API submit post failed', ['status' => $response->status()]);
-            throw new \RuntimeException('Failed to submit post: ' . $response->status());
+            throw new \RuntimeException('Failed to submit post: '.$response->status());
         }
 
         return $response->json('json.data.name', '');
@@ -116,7 +117,7 @@ class RedditApiClient implements RedditApiInterface
                 ]);
 
             if ($response->failed()) {
-                throw new \RuntimeException('Failed to obtain Reddit access token: ' . $response->status());
+                throw new \RuntimeException('Failed to obtain Reddit access token: '.$response->status());
             }
 
             return $response->json('access_token');

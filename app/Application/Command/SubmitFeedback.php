@@ -25,7 +25,7 @@ class SubmitFeedback
     ): Feedback {
         $rating = $this->ratingRepository->findById($ratingId);
 
-        if (!$rating) {
+        if (! $rating) {
             throw new \RuntimeException('Rating not found.');
         }
 

@@ -12,7 +12,7 @@ final readonly class RatingSubmitted implements DomainEventInterface
         public string $ratingId,
         public string $businessProfileId,
         public int $score,
-        public \DateTimeImmutable $occurredAt = new \DateTimeImmutable(),
+        public \DateTimeImmutable $occurredAt = new \DateTimeImmutable,
     ) {}
 
     public function occurredAt(): \DateTimeImmutable

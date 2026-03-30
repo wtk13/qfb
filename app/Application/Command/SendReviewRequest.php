@@ -23,7 +23,7 @@ class SendReviewRequest
             businessProfileId: $businessProfileId,
             recipientEmail: new Email($recipientEmail),
             status: ReviewRequestStatus::Pending,
-            token: new ReviewToken(),
+            token: new ReviewToken,
         );
 
         $this->repository->save($reviewRequest);

@@ -41,8 +41,9 @@ class OutreachStats extends Command
     {
         $lead = OutreachLeadModel::where('email', $email)->first();
 
-        if (!$lead) {
+        if (! $lead) {
             $this->error("No lead found with email: {$email}");
+
             return self::FAILURE;
         }
 
@@ -52,6 +53,7 @@ class OutreachStats extends Command
         OutreachCampaignModel::refreshStats($lead->category, $lead->city);
 
         $this->info("Marked {$lead->business_name} ({$email}) as: {$status}");
+
         return self::SUCCESS;
     }
 
@@ -80,8 +82,8 @@ class OutreachStats extends Command
                 ['Converted (signed up)', $converted],
                 ['Bounced', $bounced],
                 ['Unsubscribed', $unsubscribed],
-                ['Reply rate', $sent > 0 ? round(($replied / $sent) * 100, 1) . '%' : '-'],
-                ['Conversion rate', $sent > 0 ? round(($converted / $sent) * 100, 1) . '%' : '-'],
+                ['Reply rate', $sent > 0 ? round(($replied / $sent) * 100, 1).'%' : '-'],
+                ['Conversion rate', $sent > 0 ? round(($converted / $sent) * 100, 1).'%' : '-'],
             ]
         );
     }
@@ -108,7 +110,7 @@ class OutreachStats extends Command
                 $c->emails_sent,
                 $c->replies,
                 $c->conversions,
-                $c->emails_sent > 0 ? round(($c->replies / $c->emails_sent) * 100, 1) . '%' : '-',
+                $c->emails_sent > 0 ? round(($c->replies / $c->emails_sent) * 100, 1).'%' : '-',
                 $c->scraped_at?->diffForHumans() ?? 'never',
             ])->toArray()
         );

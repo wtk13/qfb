@@ -19,7 +19,7 @@ class GenerateStrategyReport
 
     public function execute(): void
     {
-        $periodEnd = new \DateTimeImmutable();
+        $periodEnd = new \DateTimeImmutable;
         $periodStart = new \DateTimeImmutable('-7 days');
 
         $contentRatio = $this->draftRepo->countByContentCategoryBetween($periodStart, $periodEnd);
@@ -35,7 +35,7 @@ class GenerateStrategyReport
         $phasePolicy = $accountCreatedAt ? new PhasePolicy(new \DateTimeImmutable($accountCreatedAt)) : null;
 
         $metricsContext = [
-            'period' => $periodStart->format('Y-m-d') . ' to ' . $periodEnd->format('Y-m-d'),
+            'period' => $periodStart->format('Y-m-d').' to '.$periodEnd->format('Y-m-d'),
             'content_ratio' => $contentRatio,
             'published_count' => count($thisWeekPublished),
             'phase' => $phasePolicy?->currentPhase()->value ?? 'unknown',
@@ -63,7 +63,7 @@ class GenerateStrategyReport
                 'score' => $d->redditScore,
                 'category' => $d->contentCategory->value,
             ], $topPerforming),
-            createdAt: new \DateTimeImmutable(),
+            createdAt: new \DateTimeImmutable,
         );
 
         $this->reportRepo->save($report);

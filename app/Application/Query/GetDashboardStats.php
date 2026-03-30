@@ -31,7 +31,7 @@ class GetDashboardStats
 
         $ratingsOverTime = RatingModel::whereIn('business_profile_id', $profileIds)
             ->where('created_at', '>=', now()->subDays(30))
-            ->selectRaw("DATE(created_at) as date, COUNT(*) as count")
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
             ->groupBy('date')
             ->orderBy('date')
             ->pluck('count', 'date')

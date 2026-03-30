@@ -35,9 +35,10 @@ final class RedditThread
         $this->status = ThreadStatus::Drafted;
     }
 
-    public function isStale(\DateTimeImmutable $now = new \DateTimeImmutable()): bool
+    public function isStale(\DateTimeImmutable $now = new \DateTimeImmutable): bool
     {
         $hoursSinceDiscovery = ($now->getTimestamp() - $this->discoveredAt->getTimestamp()) / 3600;
+
         return $hoursSinceDiscovery > 24;
     }
 }

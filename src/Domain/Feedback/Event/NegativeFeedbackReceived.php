@@ -12,7 +12,7 @@ final readonly class NegativeFeedbackReceived implements DomainEventInterface
         public string $feedbackId,
         public string $ratingId,
         public string $businessProfileId,
-        public \DateTimeImmutable $occurredAt = new \DateTimeImmutable(),
+        public \DateTimeImmutable $occurredAt = new \DateTimeImmutable,
     ) {}
 
     public function occurredAt(): \DateTimeImmutable

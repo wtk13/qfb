@@ -17,7 +17,7 @@ class EnsureActiveSubscription
     {
         $tenantId = $request->user()?->tenant_id;
 
-        if ($tenantId && !$this->subscriptionService->isActive($tenantId)) {
+        if ($tenantId && ! $this->subscriptionService->isActive($tenantId)) {
             return redirect()->route('billing.index')
                 ->with('warning', __('billing.subscription_required'));
         }

@@ -34,7 +34,7 @@ class CashierSubscriptionService implements SubscriptionServiceInterface
         $tenant = $this->findTenant($tenantId);
         $subscription = $tenant->subscription(self::SUBSCRIPTION_NAME);
 
-        if ($subscription && !$subscription->canceled()) {
+        if ($subscription && ! $subscription->canceled()) {
             $subscription->cancel();
         }
     }
@@ -60,7 +60,7 @@ class CashierSubscriptionService implements SubscriptionServiceInterface
     {
         $tenant = $this->findTenant($tenantId);
 
-        return $tenant->onTrial() && !$tenant->subscribed(self::SUBSCRIPTION_NAME);
+        return $tenant->onTrial() && ! $tenant->subscribed(self::SUBSCRIPTION_NAME);
     }
 
     public function isCancelled(string $tenantId): bool
@@ -79,7 +79,7 @@ class CashierSubscriptionService implements SubscriptionServiceInterface
 
         return [
             'is_active' => $tenant->onTrial() || $isSubscribed,
-            'is_on_trial' => $tenant->onTrial() && !$isSubscribed,
+            'is_on_trial' => $tenant->onTrial() && ! $isSubscribed,
             'trial_ends_at' => $tenant->trial_ends_at,
             'is_subscribed' => $isSubscribed,
             'is_cancelled' => $subscription?->canceled() ?? false,

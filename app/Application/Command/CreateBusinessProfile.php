@@ -30,7 +30,7 @@ class CreateBusinessProfile
             googleReviewLink: $googleReviewLink ? new GoogleReviewLink($googleReviewLink) : null,
             logoPath: $logoPath,
             locale: $locale,
-            slug: Str::slug($name) . '-' . Str::random(6),
+            slug: Str::slug($name).'-'.Str::random(6),
         );
 
         $this->repository->save($profile);

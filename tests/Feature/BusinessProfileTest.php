@@ -13,6 +13,7 @@ class BusinessProfileTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private TenantModel $tenant;
 
     protected function setUp(): void
