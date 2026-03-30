@@ -1,7 +1,7 @@
 # Reddit Marketing Playbook for QuickFeedback
 
 **Last updated:** 2026-03-29
-**Product:** QuickFeedback (quickfeedback.app) -- Review management for local businesses, $29/mo
+**Product:** QuickFeedback (quickfeedback.app) - Review management for local businesses, $29/mo
 **Goal:** Build authentic brand presence, drive organic traffic, establish thought leadership in the local business / reputation management space
 
 ---
@@ -24,7 +24,7 @@
 
 ## 1. Target Subreddits
 
-### Tier 1 -- Primary Communities (Daily Engagement)
+### Tier 1 - Primary Communities (Daily Engagement)
 
 These are your highest-value communities where your exact target audience spends time.
 
@@ -41,9 +41,9 @@ These are your highest-value communities where your exact target audience spends
 #### r/Entrepreneur (~2.2M members)
 - **Why:** Startup founders and business owners, many running local service businesses.
 - **Rules to watch:**
-  - Strict self-promotion rules -- no linking to your own site in posts
+  - Strict self-promotion rules - no linking to your own site in posts
   - "Value-add" posts only; no thinly veiled ads
-  - Weekly self-promotion thread exists -- use it for direct mentions
+  - Weekly self-promotion thread exists - use it for direct mentions
 - **Best approach:** Share educational content about customer experience, feedback loops, and local marketing. Frame everything as lessons learned, not product pitches.
 
 #### r/SEO (~350K members)
@@ -54,7 +54,7 @@ These are your highest-value communities where your exact target audience spends
   - Quality threshold is higher; surface-level advice gets downvoted
 - **Best approach:** Share data-driven insights about how review velocity, recency, and volume affect local pack rankings. This is where your blog post on Google reviews and local SEO translates directly.
 
-### Tier 2 -- Industry-Specific Communities (3-4x per week)
+### Tier 2 - Industry-Specific Communities (3-4x per week)
 
 These subreddits contain the exact business owners who need QuickFeedback.
 
@@ -80,7 +80,7 @@ These subreddits contain the exact business owners who need QuickFeedback.
 
 #### r/electricians (~200K members)
 - **Why:** Another core home services vertical.
-- **Best approach:** Same as plumbing -- focus on threads about growing a business, getting more customers, and building reputation.
+- **Best approach:** Same as plumbing - focus on threads about growing a business, getting more customers, and building reputation.
 
 #### r/landscaping (~130K members)
 - **Why:** Landscapers are local service providers who benefit from reviews.
@@ -90,7 +90,7 @@ These subreddits contain the exact business owners who need QuickFeedback.
 - **Why:** Salons are a target vertical for review management.
 - **Best approach:** Smaller communities mean more visibility per post. Engage authentically with business growth questions.
 
-### Tier 3 -- Marketing and SaaS Communities (2x per week)
+### Tier 3 - Marketing and SaaS Communities (2x per week)
 
 #### r/marketing (~1.2M members)
 - **Why:** Marketing professionals who advise small businesses.
@@ -117,10 +117,10 @@ These subreddits contain the exact business owners who need QuickFeedback.
   - Share This and Feedback Friday threads exist for product mentions
 - **Best approach:** Use designated threads for product feedback. In general discussions, share startup lessons.
 
-### Tier 4 -- Local Business and Niche (1x per week)
+### Tier 4 - Local Business and Niche (1x per week)
 
 #### r/sweatystartup (~95K members)
-- **Why:** Specifically focused on service-based and "sweaty" businesses -- exactly your customer base.
+- **Why:** Specifically focused on service-based and "sweaty" businesses - exactly your customer base.
 - **Rules to watch:** Generally more relaxed about tools and recommendations.
 - **Best approach:** This is a goldmine. The community is full of people starting cleaning companies, pressure washing businesses, and lawn care operations. Share review strategies openly.
 
@@ -129,7 +129,7 @@ These subreddits contain the exact business owners who need QuickFeedback.
 - **Best approach:** Smaller communities allow more direct engagement. Be a regular helpful contributor.
 
 #### r/GoogleMyBusiness (~12K members)
-- **Why:** People actively managing their Google Business Profiles -- many asking about reviews.
+- **Why:** People actively managing their Google Business Profiles - many asking about reviews.
 - **Best approach:** Answer questions about review management, review links, and profile optimization. Your free tool is directly relevant here.
 
 #### r/HomeImprovement (~5.5M members)
@@ -152,7 +152,7 @@ These posts provide actionable advice with no mention of QuickFeedback whatsoeve
 **Post types:**
 - Step-by-step guides (e.g., "How I helped a client go from 12 to 87 Google reviews in 6 months")
 - Data and research summaries (e.g., "I analyzed 500 local businesses and here's how review count correlates with local pack ranking")
-- Templates and scripts (e.g., "5 review request text messages that actually work -- copy-paste ready")
+- Templates and scripts (e.g., "5 review request text messages that actually work - copy-paste ready")
 - Common mistakes posts (e.g., "3 things killing your Google review conversion rate")
 - Industry-specific advice (e.g., "Why dentists lose 60% of potential reviews and how to fix it")
 
@@ -190,7 +190,7 @@ Hey r/[subreddit],
 
 [One sentence of context about who you are and why this is relevant]
 
-[The meat of the advice -- use numbered lists, bold headers, and short paragraphs]
+[The meat of the advice - use numbered lists, bold headers, and short paragraphs]
 
 **Step 1: ...**
 Details...
@@ -227,11 +227,11 @@ Use Reddit search (or a monitoring tool like F5Bot which is free) with these key
 
 #### Thread Types Where Your Comments Add Value
 
-1. **"How do I get more reviews?" threads** -- Share specific, actionable tactics. Do not mention your tool unless directly asked what tools exist.
-2. **"Got a bad review, what do I do?" threads** -- Share empathetic, practical advice about responding to negative reviews. Link to your blog post about responding to negative reviews only if the subreddit allows external links and it genuinely helps.
-3. **"Starting a [service] business" threads** -- Comment about the importance of building a review strategy from day one. Share the long game perspective.
-4. **"What tools do you use?" threads** -- This is your green light. Mention QuickFeedback honestly, explain what it does, and be transparent that you built it. Always mention alternatives too for credibility.
-5. **"Local SEO help" threads** -- Share insights about how reviews affect local search. Position as knowledgeable, not as a vendor.
+1. **"How do I get more reviews?" threads** - Share specific, actionable tactics. Do not mention your tool unless directly asked what tools exist.
+2. **"Got a bad review, what do I do?" threads** - Share empathetic, practical advice about responding to negative reviews. Link to your blog post about responding to negative reviews only if the subreddit allows external links and it genuinely helps.
+3. **"Starting a [service] business" threads** - Comment about the importance of building a review strategy from day one. Share the long game perspective.
+4. **"What tools do you use?" threads** - This is your green light. Mention QuickFeedback honestly, explain what it does, and be transparent that you built it. Always mention alternatives too for credibility.
+5. **"Local SEO help" threads** - Share insights about how reviews affect local search. Position as knowledgeable, not as a vendor.
 
 ### Comment Structure That Gets Upvoted
 
@@ -269,7 +269,7 @@ Use Reddit search (or a monitoring tool like F5Bot which is free) with these key
 
 ### Example Post 1: Educational Guide for r/smallbusiness
 
-**Title:** I helped 12 local businesses double their Google reviews in 90 days -- here's the exact playbook
+**Title:** I helped 12 local businesses double their Google reviews in 90 days - here's the exact playbook
 
 **Body:**
 ```
@@ -283,8 +283,8 @@ I've been refining this approach with plumbers, dentists, cleaners,
 and contractors over the past year. Here's what I've learned.
 
 **The core problem:** Most businesses only get reviews from customers
-who are either thrilled or furious. The 80% in the middle -- the
-satisfied-but-not-motivated customers -- never leave reviews unless
+who are either thrilled or furious. The 80% in the middle - the
+satisfied-but-not-motivated customers - never leave reviews unless
 you make it stupid easy.
 
 **The system that works:**
@@ -350,7 +350,7 @@ For anyone running a service business (cleaning, lawn care, pressure
 washing, etc.), I wanted to share something I keep seeing:
 
 The businesses that are crushing it on Google reviews all do one
-thing differently -- they separate happy customers from unhappy ones
+thing differently - they separate happy customers from unhappy ones
 BEFORE asking for a review.
 
 Here's the flow:
@@ -365,19 +365,19 @@ This does two things:
 
 One cleaning company I know went from a 3.8 to a 4.7 average rating
 in about 4 months using this approach. They didn't get fewer
-complaints -- they just caught them privately and resolved them.
+complaints - they just caught them privately and resolved them.
 
 Has anyone else tried something like this? What's working for your
 service business?
 ```
 
-**Why this works:** Teaches the core concept behind QuickFeedback's value proposition without ever mentioning the product. Ends with a question to drive engagement. If someone asks "how do you automate this?" -- that is your natural opening.
+**Why this works:** Teaches the core concept behind QuickFeedback's value proposition without ever mentioning the product. Ends with a question to drive engagement. If someone asks "how do you automate this?" - that is your natural opening.
 
 ---
 
 ### Example Post 3: Founder Journey for r/SaaS (monthly)
 
-**Title:** 6 months building a review management SaaS for local businesses -- lessons and numbers
+**Title:** 6 months building a review management SaaS for local businesses - lessons and numbers
 
 **Body:**
 ```
@@ -385,7 +385,7 @@ Hey r/SaaS,
 
 I've been building QuickFeedback (quickfeedback.app) for the past
 [X] months and wanted to share an honest update. This is a review
-management tool for local businesses -- plumbers, dentists, cleaners,
+management tool for local businesses - plumbers, dentists, cleaners,
 etc.
 
 **What it does:** Sends customers a quick rating after service. Happy
@@ -410,7 +410,7 @@ customers (4-5 stars) get routed to Google Reviews. Unhappy ones
 **Biggest lesson this month:**
 [Something genuinely useful for other SaaS founders]
 
-Happy to answer any questions. Not here to sell -- just sharing the
+Happy to answer any questions. Not here to sell - just sharing the
 journey and learning from others.
 ```
 
@@ -430,7 +430,7 @@ Specifically:
    already have it)
 2. After the job, send a short text with a direct Google review link
 3. The link should go straight to the review form, not your Google
-   listing -- removes one extra click
+   listing - removes one extra click
 
 The "within 30 minutes" part matters more than people think.
 Satisfaction peaks right after a problem is solved. Wait until the
@@ -447,7 +447,7 @@ reads them.
 ### Example Comment 2: Responding to "Got a terrible 1-star review, what do I do?"
 
 ```
-Take a breath before responding -- I know it feels personal, but a
+Take a breath before responding - I know it feels personal, but a
 thoughtful response actually turns this into a marketing opportunity.
 
 Here's what I'd suggest:
@@ -455,10 +455,10 @@ Here's what I'd suggest:
 1. Respond publicly within 24 hours. Keep it professional and
    empathetic. Something like: "Hi [Name], I'm sorry to hear about
    your experience. This isn't the standard we hold ourselves to.
-   I'd like to make this right -- could you contact me directly at
+   I'd like to make this right - could you contact me directly at
    [phone/email] so we can discuss?"
 
-2. This response isn't just for the reviewer -- it's for every
+2. This response isn't just for the reviewer - it's for every
    potential customer who reads it. They want to see that you handle
    problems professionally.
 
@@ -485,20 +485,20 @@ share what I know about the space honestly.
 
 For a simple, affordable option for a single-location business:
 
-- **QuickFeedback** (quickfeedback.app) -- this is mine. $29/mo,
+- **QuickFeedback** (quickfeedback.app) - this is mine. $29/mo,
   sends customers a quick rating, routes happy ones to Google
   Reviews and unhappy ones to a private feedback form. Has QR codes
   and email campaigns too. 14-day free trial, no credit card needed.
 
-- **Birdeye** -- more enterprise-focused, multi-location. Powerful
+- **Birdeye** - more enterprise-focused, multi-location. Powerful
   but pricier (usually $300+/mo).
 
-- **Podium** -- strong in text-based communication and reviews.
+- **Podium** - strong in text-based communication and reviews.
   Also on the pricier side.
 
-- **Grade.us** -- good for agencies managing multiple clients.
+- **Grade.us** - good for agencies managing multiple clients.
 
-- **DIY approach** -- honestly, you can do a basic version of this
+- **DIY approach** - honestly, you can do a basic version of this
   manually. Get your Google review link, put it in a text template,
   and send it after every job. It works, it's just manual.
 
@@ -531,10 +531,10 @@ You have seven blog posts that can be adapted for Reddit. Here is how to repurpo
 | Blog Post | Target Subreddits | Reddit Angle |
 |-----------|-------------------|--------------|
 | Responding to negative Google reviews | r/smallbusiness, r/Entrepreneur | "The response template I use for every negative review (copy-paste ready)" |
-| Google reviews and local SEO | r/SEO, r/digital_marketing | "I analyzed how Google reviews affect local pack rankings -- here's the data" |
+| Google reviews and local SEO | r/SEO, r/digital_marketing | "I analyzed how Google reviews affect local pack rankings - here's the data" |
 | Getting your Google review link | r/GoogleMyBusiness, r/smallbusiness | "PSA: Here's how to get a direct link to your Google review form (takes 30 seconds)" |
 | Review request email templates | r/smallbusiness, r/sweatystartup | "5 review request emails that actually get responses (templates included)" |
-| Collecting reviews for dentists | r/dentistry | "A review strategy specifically for dental practices -- what's working right now" |
+| Collecting reviews for dentists | r/dentistry | "A review strategy specifically for dental practices - what's working right now" |
 | Asking customers for reviews after service | r/sweatystartup, r/plumbing, r/HVAC | "The exact script I use to ask for reviews after completing a job" |
 | Reviews for cleaning businesses | r/Cleaning, r/sweatystartup | "How one cleaning company went from 3 to 50+ Google reviews in 3 months" |
 
@@ -565,9 +565,9 @@ Your free tool (Google Review Link Generator) is a natural fit for Reddit becaus
 
 #### When to Mention It
 
-1. **Threads asking "how do I get my Google review link?"** -- This is the most natural context. Share the manual method first, then mention the tool as an easier alternative.
-2. **Threads about getting more reviews** -- In the context of making it easy for customers, mention that a direct review link is essential, and your free tool generates one.
-3. **r/GoogleMyBusiness threads** -- This subreddit is full of people managing their profiles. The tool is directly relevant.
+1. **Threads asking "how do I get my Google review link?"** - This is the most natural context. Share the manual method first, then mention the tool as an easier alternative.
+2. **Threads about getting more reviews** - In the context of making it easy for customers, mention that a direct review link is essential, and your free tool generates one.
+3. **r/GoogleMyBusiness threads** - This subreddit is full of people managing their profiles. The tool is directly relevant.
 
 #### How to Mention It
 
@@ -581,7 +581,7 @@ You can get your Google review link manually:
 
 Or if you want a shorter link, there are free review link
 generators out there. I built one at quickfeedback.app/tools/
-google-review-link -- no signup needed, just paste your business
+google-review-link - no signup needed, just paste your business
 name and it generates the link.
 ```
 
@@ -596,7 +596,7 @@ quickfeedback.app! It's totally free and easy to use!
 - Always provide the manual method first
 - Never post the tool link as its own post (this will be flagged as spam)
 - Only share in comments where it directly answers someone's question
-- Do not use URL shorteners or tracking links -- Reddit users distrust them
+- Do not use URL shorteners or tracking links - Reddit users distrust them
 - Be transparent: "I built this" is always better than pretending to be a random user who found it
 
 ---
@@ -621,7 +621,7 @@ quickfeedback.app! It's totally free and easy to use!
 | Wednesday | 3-5 helpful comments across Tier 1 subreddits |
 | Thursday | 3-5 helpful comments across Tier 2/3 subreddits, 1 value-add post to a different subreddit than Tuesday |
 | Friday | 3-5 helpful comments, check weekly self-promotion threads in r/Entrepreneur or r/startups |
-| Weekend | Light engagement -- 1-2 comments, upvote good content, observe trends |
+| Weekend | Light engagement - 1-2 comments, upvote good content, observe trends |
 
 ### Monthly Schedule
 
@@ -646,7 +646,7 @@ quickfeedback.app! It's totally free and easy to use!
 - Increase to 3-5 comments per day
 - Focus on being genuinely helpful
 - Start identifying the frequent posters and moderators
-- No posts yet -- just comments
+- No posts yet - just comments
 
 #### Days 31-60: Begin Posting
 - First value-add post in r/smallbusiness or r/sweatystartup
@@ -742,19 +742,19 @@ On a genuinely helpful post with no product mention.
 ```
 Fair enough, I get why it might look that way. I do work in
 reputation management, which is why I know this stuff. But there's
-no product link or pitch in the post -- just sharing what I've
+no product link or pitch in the post - just sharing what I've
 seen work. If any part of the advice doesn't hold up, I'm happy
 to discuss.
 ```
 
 **Why it works:** Acknowledges their concern without being defensive. Redirects to the value of the content.
 
-#### Scenario 2: "Check this guy's post history -- he's just marketing his product"
+#### Scenario 2: "Check this guy's post history - he's just marketing his product"
 After someone digs through your history and finds QuickFeedback mentions.
 
 **Response:**
 ```
-You're right that I built a review management tool -- I've been
+You're right that I built a review management tool - I've been
 open about that in threads where it's relevant. But I also try to
 give away as much useful information as I can without requiring
 anyone to buy anything. If the advice in this post is helpful, I
@@ -769,9 +769,9 @@ In a thread where someone asked "what tools exist for this?"
 
 **Response:**
 ```
-I disclosed that I built it -- trying to be transparent rather
+I disclosed that I built it - trying to be transparent rather
 than pretending to be a random user. I also listed [alternatives]
-in the same comment. But I hear you -- I'll keep the mentions to
+in the same comment. But I hear you - I'll keep the mentions to
 threads where people are specifically asking for tool
 recommendations.
 ```
@@ -836,10 +836,10 @@ recommendations.
 
 ### Tools for Monitoring
 
-- **F5Bot** (f5bot.com) -- Free. Monitors Reddit for keywords and sends email alerts. Set up alerts for "Google reviews," "review management," "QuickFeedback," and your name.
-- **Reddit Search** (reddit.com/search) -- Manual daily check for relevant threads.
-- **Google Analytics** -- Track reddit.com as a referral source. Look at pages per session and conversion rate for Reddit traffic specifically.
-- **A simple spreadsheet** -- Track posts, comments, karma earned, and any leads generated. Review monthly.
+- **F5Bot** (f5bot.com) - Free. Monitors Reddit for keywords and sends email alerts. Set up alerts for "Google reviews," "review management," "QuickFeedback," and your name.
+- **Reddit Search** (reddit.com/search) - Manual daily check for relevant threads.
+- **Google Analytics** - Track reddit.com as a referral source. Look at pages per session and conversion rate for Reddit traffic specifically.
+- **A simple spreadsheet** - Track posts, comments, karma earned, and any leads generated. Review monthly.
 
 ---
 
@@ -891,12 +891,12 @@ Someone accused you of spam?
 | Term | Meaning |
 |------|---------|
 | Karma | Reddit's reputation score (upvotes minus downvotes) |
-| AMA | Ask Me Anything -- a Q&A format post |
-| OP | Original Poster -- the person who created the thread |
-| TL;DR | Too Long; Didn't Read -- a summary at the end of long posts |
+| AMA | Ask Me Anything - a Q&A format post |
+| OP | Original Poster - the person who created the thread |
+| TL;DR | Too Long; Didn't Read - a summary at the end of long posts |
 | Flair | Tags/labels for posts or users within a subreddit |
-| Mod | Moderator -- volunteers who enforce subreddit rules |
+| Mod | Moderator - volunteers who enforce subreddit rules |
 | Cross-post | Sharing a post from one subreddit to another |
 | Gilded/Awards | When someone pays to highlight your post (signals high value) |
 | Shill | Derogatory term for someone secretly promoting a product |
-| Astroturfing | Fake grassroots promotion -- the worst accusation on Reddit |
+| Astroturfing | Fake grassroots promotion - the worst accusation on Reddit |
