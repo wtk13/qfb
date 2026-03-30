@@ -15,7 +15,7 @@ Schedule::command('outreach:daily-send --limit=15 --delay=30')->dailyAt('09:00')
 // Reddit marketing agent
 Schedule::command('reddit:scout')->everyTwoHours()->withoutOverlapping();
 Schedule::command('reddit:draft')->dailyAt('07:00')->withoutOverlapping();
-Schedule::command('reddit:publish')->everyFifteenMinutes()->withoutOverlapping();
+Schedule::command('reddit:publish')->everyFifteenMinutes()->withoutOverlapping()->runInBackground();
 Schedule::command('reddit:strategist')->weeklyOn(0, '10:00')->withoutOverlapping();
 
 // Reddit data retention cleanup (monthly)

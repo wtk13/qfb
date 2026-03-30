@@ -18,9 +18,9 @@ class EloquentRedditDraftRepository implements RedditDraftRepositoryInterface
         return $model ? $this->toDomain($model) : null;
     }
 
-    public function findByStatus(string $status, int $limit = 50): array
+    public function findByStatus(DraftStatus $status, int $limit = 50): array
     {
-        return RedditDraftModel::where('status', $status)
+        return RedditDraftModel::where('status', $status->value)
             ->orderBy('created_at', 'desc')
             ->limit($limit)
             ->get()

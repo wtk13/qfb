@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Reddit;
 
 use Domain\Reddit\Port\AiStrategistInterface;
@@ -47,6 +49,12 @@ PROMPT;
             return ['error' => 'Failed to generate report: '.$response->status()];
         }
 
-        return json_decode($response->json('content.0.text', '{}'), true) ?? [];
+        $text = $response->json('content.0.text', '{}');
+
+        // Strip markdown code fences if Claude wraps the JSON
+        $text = preg_replace('/^```(?:json)?\s*\n?/i', '', $text);
+        $text = preg_replace('/\n?```\s*$/i', '', $text);
+
+        return json_decode(trim($text), true) ?? [];
     }
 }

@@ -28,6 +28,15 @@
                         </select>
                     </div>
                     <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Subreddit</label>
+                        <select name="subreddit" class="rounded-lg border-gray-300 text-sm">
+                            <option value="">All</option>
+                            @foreach(\App\Infrastructure\Persistence\Eloquent\RedditSubredditModel::orderBy('name')->pluck('name', 'id') as $id => $name)
+                                <option value="{{ $id }}" @selected(request('subreddit') == $id)>r/{{ $name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
                         <label class="block text-xs font-medium text-gray-500 mb-1">Category</label>
                         <select name="content_category" class="rounded-lg border-gray-300 text-sm">
                             <option value="">All</option>

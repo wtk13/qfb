@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Command\Reddit;
 
 use Domain\Reddit\Port\RedditApiInterface;
@@ -35,7 +37,7 @@ class PublishApprovedDrafts
 
         $isDryRun = config('reddit.dry_run');
 
-        $drafts = $this->draftRepo->findByStatus(DraftStatus::Approved->value, 3);
+        $drafts = $this->draftRepo->findByStatus(DraftStatus::Approved, 3);
         $publishedCount = 0;
 
         foreach ($drafts as $draft) {
@@ -59,7 +61,6 @@ class PublishApprovedDrafts
             try {
                 if ($isDryRun) {
                     Log::info('Reddit dry run: would publish draft', ['draft_id' => $draft->id, 'type' => $draft->type->value]);
-                    $publishedCount++;
 
                     continue;
                 }

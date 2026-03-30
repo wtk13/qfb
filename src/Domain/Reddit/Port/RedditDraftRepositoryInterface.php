@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Domain\Reddit\Port;
 
 use Domain\Reddit\Entity\RedditDraft;
+use Domain\Reddit\ValueObject\DraftStatus;
 
 interface RedditDraftRepositoryInterface
 {
     public function findById(int $id): ?RedditDraft;
 
     /** @return RedditDraft[] */
-    public function findByStatus(string $status, int $limit = 50): array;
+    public function findByStatus(DraftStatus $status, int $limit = 50): array;
 
     public function save(RedditDraft $draft): RedditDraft;
 

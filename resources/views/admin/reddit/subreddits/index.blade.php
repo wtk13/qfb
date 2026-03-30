@@ -46,26 +46,26 @@
                                     @endphp
                                     <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full {{ $tierColor }}">Tier {{ $sub->tier }}</span>
                                 </td>
-                                <form method="POST" action="{{ route('admin.reddit.subreddits.update', $sub->id) }}">
-                                    @csrf
-                                    @method('PATCH')
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="number" name="max_posts_per_week" value="{{ $sub->max_posts_per_week }}" min="0" max="20" class="w-20 rounded-lg border-gray-300 text-sm" />
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="number" name="max_comments_per_week" value="{{ $sub->max_comments_per_week }}" min="0" max="50" class="w-20 rounded-lg border-gray-300 text-sm" />
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                        {{ $sub->published_this_week }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="hidden" name="is_active" value="0" />
-                                        <input type="checkbox" name="is_active" value="1" @checked($sub->is_active) class="rounded border-gray-300 text-indigo-600" />
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <input form="sub-{{ $sub->id }}" type="number" name="max_posts_per_week" value="{{ $sub->max_posts_per_week }}" min="0" max="20" class="w-20 rounded-lg border-gray-300 text-sm" />
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <input form="sub-{{ $sub->id }}" type="number" name="max_comments_per_week" value="{{ $sub->max_comments_per_week }}" min="0" max="50" class="w-20 rounded-lg border-gray-300 text-sm" />
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                    {{ $sub->published_this_week }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <input form="sub-{{ $sub->id }}" type="hidden" name="is_active" value="0" />
+                                    <input form="sub-{{ $sub->id }}" type="checkbox" name="is_active" value="1" @checked($sub->is_active) class="rounded border-gray-300 text-indigo-600" />
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <form id="sub-{{ $sub->id }}" method="POST" action="{{ route('admin.reddit.subreddits.update', $sub->id) }}" class="inline">
+                                        @csrf
+                                        @method('PATCH')
                                         <button type="submit" class="text-sm text-indigo-600 hover:underline">Save</button>
-                                    </td>
-                                </form>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>

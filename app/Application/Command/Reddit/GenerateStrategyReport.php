@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Command\Reddit;
 
 use Domain\Reddit\Entity\RedditStrategyReport;
@@ -24,7 +26,7 @@ class GenerateStrategyReport
 
         $contentRatio = $this->draftRepo->countByContentCategoryBetween($periodStart, $periodEnd);
 
-        $published = $this->draftRepo->findByStatus(DraftStatus::Published->value, 100);
+        $published = $this->draftRepo->findByStatus(DraftStatus::Published, 100);
         $thisWeekPublished = array_filter($published, fn ($d) => $d->createdAt >= $periodStart);
 
         $topPerforming = array_filter($thisWeekPublished, fn ($d) => $d->redditScore !== null);

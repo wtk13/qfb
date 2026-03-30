@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Command\Reddit;
 
 use Domain\Reddit\Entity\RedditThread;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Command\Reddit;
 
 use Domain\Reddit\Entity\RedditDraft;
@@ -61,10 +63,20 @@ class DraftResponses
                 $weekCounts['comments'],
             );
 
-            $draftType = DraftType::Comment;
+            $draftType = $phasePolicy->canPost() && $cadence->canPost()
+                ? DraftType::Post
+                : DraftType::Comment;
 
             if (! $cadence->canPublish($draftType)) {
-                continue;
+                // Fall back to comment if post cadence is full
+                if ($draftType === DraftType::Post) {
+                    $draftType = DraftType::Comment;
+                    if (! $cadence->canPublish($draftType)) {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
             }
 
             $contentCategory = $mixPolicy->suggestCategory();
