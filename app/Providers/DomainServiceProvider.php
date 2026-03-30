@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Infrastructure\Billing\CashierSubscriptionService;
+use App\Infrastructure\Reddit\ClaudeAiDrafter;
+use App\Infrastructure\Reddit\ClaudeAiStrategist;
+use App\Infrastructure\Reddit\RedditApiClient;
 use App\Infrastructure\Persistence\Repository\EloquentBusinessProfileRepository;
 use App\Infrastructure\Persistence\Repository\EloquentFeedbackRepository;
 use App\Infrastructure\Persistence\Repository\EloquentRatingRepository;
@@ -19,6 +22,9 @@ use Domain\Feedback\Port\FeedbackRepositoryInterface;
 use Domain\Feedback\Port\RatingRepositoryInterface;
 use Domain\Feedback\Service\RatingRoutingService;
 use Domain\Identity\Port\TenantRepositoryInterface;
+use Domain\Reddit\Port\AiDrafterInterface;
+use Domain\Reddit\Port\AiStrategistInterface;
+use Domain\Reddit\Port\RedditApiInterface;
 use Domain\Reddit\Port\RedditDraftRepositoryInterface;
 use Domain\Reddit\Port\RedditStrategyReportRepositoryInterface;
 use Domain\Reddit\Port\RedditSubredditRepositoryInterface;
@@ -38,6 +44,9 @@ class DomainServiceProvider extends ServiceProvider
         RedditThreadRepositoryInterface::class => EloquentRedditThreadRepository::class,
         RedditDraftRepositoryInterface::class => EloquentRedditDraftRepository::class,
         RedditStrategyReportRepositoryInterface::class => EloquentRedditStrategyReportRepository::class,
+        RedditApiInterface::class => RedditApiClient::class,
+        AiDrafterInterface::class => ClaudeAiDrafter::class,
+        AiStrategistInterface::class => ClaudeAiStrategist::class,
     ];
 
     public function register(): void
