@@ -12,6 +12,13 @@ class ScoutThreadsTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        config(['reddit.client_id' => 'test_id', 'reddit.client_secret' => 'test_secret']);
+    }
+
     public function test_scouts_and_saves_threads(): void
     {
         $sub = RedditSubredditModel::create([
