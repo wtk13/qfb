@@ -52,7 +52,7 @@ class ScoutThreadsTest extends TestCase
             ]);
 
         $scraper = $this->createMock(RedditPublicScraper::class);
-        $scraper->expects($this->never())->method('scrapeSubreddit');
+        $scraper->expects($this->never())->method('searchSubreddit');
 
         $command = new ScoutThreads($api, $subredditRepo, $threadRepo, $scraper);
         $count = $command->execute();
@@ -86,21 +86,23 @@ class ScoutThreadsTest extends TestCase
         $api->expects($this->never())->method('searchSubreddit');
 
         $scraper = $this->createMock(RedditPublicScraper::class);
-        $scraper->expects($this->once())
-            ->method('scrapeSubreddit')
-            ->with('smallbusiness', ['reviews', 'feedback'], 25)
-            ->willReturn([
-                [
-                    'id' => 't3_xyz',
-                    'title' => 'How to get customer feedback',
-                    'selftext' => 'New business owner here',
-                    'author' => 'newbie',
-                    'url' => 'https://reddit.com/r/smallbusiness/comments/xyz/feedback/',
-                    'score' => 10,
-                    'num_comments' => 4,
-                    'created_utc' => time() - 1800,
+        $scraper->expects($this->exactly(2))
+            ->method('searchSubreddit')
+            ->willReturnCallback(fn (string $sub, string $query) => match ($query) {
+                'reviews' => [
+                    [
+                        'id' => 't3_xyz',
+                        'title' => 'How to get customer feedback',
+                        'selftext' => 'New business owner here',
+                        'author' => 'newbie',
+                        'url' => 'https://reddit.com/r/smallbusiness/comments/xyz/feedback/',
+                        'score' => 10,
+                        'num_comments' => 4,
+                        'created_utc' => time() - 1800,
+                    ],
                 ],
-            ]);
+                default => [],
+            });
 
         $command = new ScoutThreads($api, $subredditRepo, $threadRepo, $scraper);
         $count = $command->execute();

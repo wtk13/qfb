@@ -10,15 +10,18 @@ use Illuminate\Support\Facades\Log;
 class RedditPublicScraper
 {
     /**
-     * @param  string[]  $keywords
      * @return array<array{id: string, title: string, selftext: string|null, author: string, url: string, score: int, num_comments: int, created_utc: int}>
      */
-    public function scrapeSubreddit(string $subreddit, array $keywords, int $limit = 25): array
+    public function searchSubreddit(string $subreddit, string $query, int $limit = 25): array
     {
         $response = Http::withHeaders([
             'User-Agent' => 'QuickFeedback:lurk-helper:v1.0',
-        ])->get("https://www.reddit.com/r/{$subreddit}/new.json", [
+        ])->get("https://www.reddit.com/r/{$subreddit}/search.json", [
+            'q' => $query,
+            'restrict_sr' => 'on',
+            'sort' => 'new',
             'limit' => $limit,
+            't' => 'day',
             'raw_json' => 1,
         ]);
 
@@ -33,7 +36,7 @@ class RedditPublicScraper
 
         $children = $response->json('data.children', []);
 
-        $posts = array_map(fn (array $child) => [
+        return array_map(fn (array $child) => [
             'id' => $child['data']['name'],
             'title' => $child['data']['title'],
             'selftext' => $child['data']['selftext'] ?? null,
@@ -43,23 +46,5 @@ class RedditPublicScraper
             'num_comments' => $child['data']['num_comments'],
             'created_utc' => (int) $child['data']['created_utc'],
         ], $children);
-
-        return array_values(array_filter($posts, fn (array $post) => $this->matchesKeywords($post, $keywords)));
-    }
-
-    /**
-     * @param  string[]  $keywords
-     */
-    private function matchesKeywords(array $post, array $keywords): bool
-    {
-        $text = strtolower($post['title'].' '.($post['selftext'] ?? ''));
-
-        foreach ($keywords as $keyword) {
-            if (str_contains($text, strtolower($keyword))) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

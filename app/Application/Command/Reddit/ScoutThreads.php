@@ -32,7 +32,7 @@ class ScoutThreads
 
             $results = $useApi
                 ? $this->searchViaApi($subreddit->name, $keywords)
-                : $this->publicScraper->scrapeSubreddit($subreddit->name, $keywords, 25);
+                : $this->searchViaScraper($subreddit->name, $keywords);
 
             foreach ($results as $result) {
                 if ($this->threadRepo->findByRedditId($result['id'])) {
@@ -88,6 +88,21 @@ class ScoutThreads
 
         foreach ($keywords as $keyword) {
             $results = array_merge($results, $this->redditApi->searchSubreddit($subredditName, $keyword));
+            usleep(500_000);
+        }
+
+        return $results;
+    }
+
+    /**
+     * @param  string[]  $keywords
+     */
+    private function searchViaScraper(string $subredditName, array $keywords): array
+    {
+        $results = [];
+
+        foreach ($keywords as $keyword) {
+            $results = array_merge($results, $this->publicScraper->searchSubreddit($subredditName, $keyword));
             usleep(500_000);
         }
 
