@@ -38,7 +38,7 @@ class RedditPublicScraper
             'title' => $child['data']['title'],
             'selftext' => $child['data']['selftext'] ?? null,
             'author' => $child['data']['author'],
-            'url' => 'https://reddit.com' . $child['data']['permalink'],
+            'url' => 'https://reddit.com'.$child['data']['permalink'],
             'score' => $child['data']['score'],
             'num_comments' => $child['data']['num_comments'],
             'created_utc' => (int) $child['data']['created_utc'],
@@ -52,7 +52,7 @@ class RedditPublicScraper
      */
     private function matchesKeywords(array $post, array $keywords): bool
     {
-        $text = strtolower($post['title'] . ' ' . ($post['selftext'] ?? ''));
+        $text = strtolower($post['title'].' '.($post['selftext'] ?? ''));
 
         foreach ($keywords as $keyword) {
             if (str_contains($text, strtolower($keyword))) {

@@ -19,7 +19,7 @@ class ScoutRedditThreads extends Command
             return self::SUCCESS;
         }
 
-        $mode = config('reddit.client_id') && config('reddit.client_secret')
+        $mode = $command->hasApiCredentials()
             ? 'API'
             : 'public scraper (no API credentials)';
 

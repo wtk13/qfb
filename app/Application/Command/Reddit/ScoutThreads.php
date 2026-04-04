@@ -74,7 +74,7 @@ class ScoutThreads
         return $newCount;
     }
 
-    private function hasApiCredentials(): bool
+    public function hasApiCredentials(): bool
     {
         return config('reddit.client_id') && config('reddit.client_secret');
     }
