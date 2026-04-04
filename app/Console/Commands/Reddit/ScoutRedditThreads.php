@@ -19,7 +19,11 @@ class ScoutRedditThreads extends Command
             return self::SUCCESS;
         }
 
-        $this->info('Scouting Reddit for new threads...');
+        $mode = config('reddit.client_id') && config('reddit.client_secret')
+            ? 'API'
+            : 'public scraper (no API credentials)';
+
+        $this->info("Scouting Reddit for new threads via {$mode}...");
 
         $count = $command->execute();
 
