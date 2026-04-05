@@ -7,6 +7,32 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @unless($onboarding['completed'])
+                <div x-data="{ dismissed: false }" x-show="!dismissed" x-transition class="mb-8 bg-indigo-50 border border-indigo-100 rounded-lg p-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-semibold text-indigo-900">Get started with QuickFeedback</h3>
+                            <p class="mt-1 text-sm text-indigo-700">Complete these steps to start collecting reviews.</p>
+                        </div>
+                        <button @click="dismissed = true" class="text-indigo-400 hover:text-indigo-600" aria-label="Dismiss">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <ul class="mt-4 space-y-3">
+                        @foreach($onboarding['steps'] as $step)
+                            <li class="flex items-center gap-3">
+                                @if($step['done'])
+                                    <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                    <span class="text-sm text-indigo-400 line-through">{{ $step['label'] }}</span>
+                                @else
+                                    <svg class="w-6 h-6 text-indigo-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/></svg>
+                                    <a href="{{ $step['url'] }}" class="text-sm font-medium text-indigo-700 hover:text-indigo-900 hover:underline">{{ $step['label'] }}</a>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endunless
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <a href="{{ route('business-profiles.index') }}" class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500">{{ __('dashboard.total_businesses') }}</div>
