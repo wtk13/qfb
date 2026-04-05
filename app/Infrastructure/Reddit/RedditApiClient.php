@@ -26,7 +26,7 @@ class RedditApiClient implements RedditApiInterface
                 'restrict_sr' => 'on',
                 'sort' => 'new',
                 'limit' => $limit,
-                't' => 'day',
+                't' => 'week',
             ]);
 
         if ($response->failed()) {

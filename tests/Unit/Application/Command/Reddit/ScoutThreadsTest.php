@@ -86,23 +86,21 @@ class ScoutThreadsTest extends TestCase
         $api->expects($this->never())->method('searchSubreddit');
 
         $scraper = $this->createMock(RedditPublicScraper::class);
-        $scraper->expects($this->exactly(2))
+        $scraper->expects($this->once())
             ->method('searchSubreddit')
-            ->willReturnCallback(fn (string $sub, string $query) => match ($query) {
-                'reviews' => [
-                    [
-                        'id' => 't3_xyz',
-                        'title' => 'How to get customer feedback',
-                        'selftext' => 'New business owner here',
-                        'author' => 'newbie',
-                        'url' => 'https://reddit.com/r/smallbusiness/comments/xyz/feedback/',
-                        'score' => 10,
-                        'num_comments' => 4,
-                        'created_utc' => time() - 1800,
-                    ],
+            ->with('smallbusiness', 'reviews OR feedback')
+            ->willReturn([
+                [
+                    'id' => 't3_xyz',
+                    'title' => 'How to get customer feedback',
+                    'selftext' => 'New business owner here',
+                    'author' => 'newbie',
+                    'url' => 'https://reddit.com/r/smallbusiness/comments/xyz/feedback/',
+                    'score' => 10,
+                    'num_comments' => 4,
+                    'created_utc' => time() - 1800,
                 ],
-                default => [],
-            });
+            ]);
 
         $command = new ScoutThreads($api, $subredditRepo, $threadRepo, $scraper);
         $count = $command->execute();

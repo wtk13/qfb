@@ -28,23 +28,44 @@ class ScoutThreads
         $newCount = 0;
 
         foreach ($subreddits as $subreddit) {
-            $keywords = $subreddit->keywordsJson ?? ['reviews', 'feedback', 'reputation'];
+            $keywords = $subreddit->keywordsJson ?? [
+                'get more reviews',
+                'ask for reviews',
+                'Google reviews',
+                'negative review',
+                'bad review',
+                'fake review',
+                'review management',
+                'reputation management',
+                'review software',
+                'testimonials',
+                'local SEO',
+                'Google Business',
+                'customer feedback',
+            ];
 
             $results = $useApi
                 ? $this->searchViaApi($subreddit->name, $keywords)
                 : $this->searchViaScraper($subreddit->name, $keywords);
 
+            $seen = [];
+
             foreach ($results as $result) {
+                if (isset($seen[$result['id']])) {
+                    continue;
+                }
+                $seen[$result['id']] = true;
+
                 if ($this->threadRepo->findByRedditId($result['id'])) {
                     continue;
                 }
 
-                if ($result['score'] < 2) {
+                if ($result['score'] < 1) {
                     continue;
                 }
 
                 $hoursSince = (time() - $result['created_utc']) / 3600;
-                if ($hoursSince > 24) {
+                if ($hoursSince > 72) {
                     continue;
                 }
 
@@ -81,13 +102,14 @@ class ScoutThreads
 
     /**
      * @param  string[]  $keywords
+     * @return list<array<string, mixed>>
      */
     private function searchViaApi(string $subredditName, array $keywords): array
     {
         $results = [];
 
-        foreach ($keywords as $keyword) {
-            $results = array_merge($results, $this->redditApi->searchSubreddit($subredditName, $keyword));
+        foreach ($this->batchKeywords($keywords) as $query) {
+            $results = array_merge($results, $this->redditApi->searchSubreddit($subredditName, $query));
             usleep(500_000);
         }
 
@@ -96,16 +118,29 @@ class ScoutThreads
 
     /**
      * @param  string[]  $keywords
+     * @return list<array<string, mixed>>
      */
     private function searchViaScraper(string $subredditName, array $keywords): array
     {
         $results = [];
 
-        foreach ($keywords as $keyword) {
-            $results = array_merge($results, $this->publicScraper->searchSubreddit($subredditName, $keyword));
-            usleep(500_000);
+        foreach ($this->batchKeywords($keywords) as $query) {
+            $results = array_merge($results, $this->publicScraper->searchSubreddit($subredditName, $query));
+            sleep(2);
         }
 
         return $results;
+    }
+
+    /**
+     * @param  string[]  $keywords
+     * @return string[]
+     */
+    private function batchKeywords(array $keywords, int $batchSize = 5): array
+    {
+        return array_map(
+            fn (array $batch) => implode(' OR ', $batch),
+            array_chunk($keywords, $batchSize),
+        );
     }
 }

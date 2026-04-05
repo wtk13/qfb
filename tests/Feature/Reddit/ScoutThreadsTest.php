@@ -70,7 +70,7 @@ class ScoutThreadsTest extends TestCase
                     'selftext' => null,
                     'author' => 'user',
                     'url' => 'https://reddit.com/r/test/low',
-                    'score' => 1,
+                    'score' => 0,
                     'num_comments' => 0,
                     'created_utc' => time() - 3600,
                 ],

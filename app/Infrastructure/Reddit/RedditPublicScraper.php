@@ -21,7 +21,7 @@ class RedditPublicScraper
             'restrict_sr' => 'on',
             'sort' => 'new',
             'limit' => $limit,
-            't' => 'day',
+            't' => 'week',
             'raw_json' => 1,
         ]);
 
