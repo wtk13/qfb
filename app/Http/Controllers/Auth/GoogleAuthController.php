@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -43,20 +44,25 @@ class GoogleAuthController extends Controller
             return redirect()->route('dashboard');
         }
 
-        $tenant = TenantModel::create([
-            'name' => $googleUser->getName(),
-            'slug' => Str::slug($googleUser->getName()).'-'.Str::random(6),
-            'trial_ends_at' => now()->addDays(14),
-        ]);
+        [$tenant, $user] = DB::transaction(function () use ($googleUser) {
+            $tenant = TenantModel::create([
+                'name' => $googleUser->getName(),
+                'slug' => Str::slug($googleUser->getName()).'-'.Str::random(6),
+                'trial_ends_at' => now()->addDays(14),
+            ]);
 
-        $user = User::create([
-            'name' => $googleUser->getName(),
-            'email' => $googleUser->getEmail(),
-            'google_id' => $googleUser->getId(),
-            'password' => null,
-            'tenant_id' => $tenant->id,
-            'email_verified_at' => now(),
-        ]);
+            $user = User::create([
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'google_id' => $googleUser->getId(),
+                'password' => null,
+                'tenant_id' => $tenant->id,
+            ]);
+
+            $user->markEmailAsVerified();
+
+            return [$tenant, $user];
+        });
 
         event(new Registered($user));
 

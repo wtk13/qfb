@@ -25,7 +25,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'tenant_id',
         'google_id',
-        'email_verified_at',
     ];
 
     public function isAdmin(): bool
