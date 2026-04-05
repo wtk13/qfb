@@ -216,7 +216,7 @@ Product Hunt is a launch platform for tech products. A "launch" is a single day 
 > I built this because I kept hearing the same problem from local business owners: "I know reviews matter, but I never remember to ask." They'd spend thousands on ads while sitting on a goldmine of happy customers who'd leave a review if someone just sent them a link.
 >
 > QuickFeedback does three things:
-> 1. Sends your Google review link to customers via email
+> 1. Sends your Google review link to customers via email or QR code (print it, stick it on the counter, or show it on your phone after a job)
 > 2. Routes happy customers (4-5 stars) straight to Google
 > 3. Catches unhappy customers privately so you can fix things before they go public
 >
