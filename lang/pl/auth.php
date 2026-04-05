@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'google_failed' => 'Unable to sign in with Google. Please try again.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Te dane uwierzytelniające nie pasują do naszych zapisów.',
+    'google_failed' => 'Nie udało się zalogować przez Google. Spróbuj ponownie.',
+    'password' => 'Podane hasło jest nieprawidłowe.',
+    'throttle' => 'Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.',
 
 ];
