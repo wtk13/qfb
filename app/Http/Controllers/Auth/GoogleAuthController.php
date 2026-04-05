@@ -45,7 +45,7 @@ class GoogleAuthController extends Controller
 
         $tenant = TenantModel::create([
             'name' => $googleUser->getName(),
-            'slug' => Str::slug($googleUser->getName()) . '-' . Str::random(6),
+            'slug' => Str::slug($googleUser->getName()).'-'.Str::random(6),
             'trial_ends_at' => now()->addDays(14),
         ]);
 
