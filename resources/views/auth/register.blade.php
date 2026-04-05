@@ -4,6 +4,17 @@
         <p class="mt-1 text-sm text-gray-500">No credit card required. Set up in under 5 minutes.</p>
     </div>
 
+    @include('auth.partials.google-button')
+
+    <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-200"></div></div>
+        <div class="relative flex justify-center text-sm"><span class="bg-white px-4 text-gray-500">or</span></div>
+    </div>
+
+    @if(session('error'))
+        <div class="mb-4 text-sm text-red-600">{{ session('error') }}</div>
+    @endif
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -52,7 +63,7 @@
             </li>
             <li class="flex items-center gap-2">
                 <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Cancel anytime &mdash; no contracts
+                Cancel anytime -- no contracts
             </li>
         </ul>
 

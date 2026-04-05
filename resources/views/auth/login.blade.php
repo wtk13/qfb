@@ -2,6 +2,17 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @include('auth.partials.google-button')
+
+    <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-200"></div></div>
+        <div class="relative flex justify-center text-sm"><span class="bg-white px-4 text-gray-500">or</span></div>
+    </div>
+
+    @if(session('error'))
+        <div class="mb-4 text-sm text-red-600">{{ session('error') }}</div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
