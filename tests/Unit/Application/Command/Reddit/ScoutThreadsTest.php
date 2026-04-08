@@ -52,7 +52,7 @@ class ScoutThreadsTest extends TestCase
             ]);
 
         $scraper = $this->createMock(RedditPublicScraper::class);
-        $scraper->expects($this->never())->method('searchSubreddit');
+        $scraper->expects($this->never())->method('fetchNewPosts');
 
         $command = new ScoutThreads($api, $subredditRepo, $threadRepo, $scraper);
         $count = $command->execute();
@@ -87,8 +87,8 @@ class ScoutThreadsTest extends TestCase
 
         $scraper = $this->createMock(RedditPublicScraper::class);
         $scraper->expects($this->once())
-            ->method('searchSubreddit')
-            ->with('smallbusiness', 'reviews OR feedback')
+            ->method('fetchNewPosts')
+            ->with('smallbusiness', ['reviews', 'feedback'])
             ->willReturn([
                 [
                     'id' => 't3_xyz',

@@ -46,7 +46,7 @@ class ScoutThreads
 
             $results = $useApi
                 ? $this->searchViaApi($subreddit->name, $keywords)
-                : $this->searchViaScraper($subreddit->name, $keywords);
+                : $this->publicScraper->fetchNewPosts($subreddit->name, $keywords);
 
             $seen = [];
 
@@ -111,22 +111,6 @@ class ScoutThreads
         foreach ($this->batchKeywords($keywords) as $query) {
             $results = array_merge($results, $this->redditApi->searchSubreddit($subredditName, $query));
             usleep(500_000);
-        }
-
-        return $results;
-    }
-
-    /**
-     * @param  string[]  $keywords
-     * @return list<array<string, mixed>>
-     */
-    private function searchViaScraper(string $subredditName, array $keywords): array
-    {
-        $results = [];
-
-        foreach ($this->batchKeywords($keywords) as $query) {
-            $results = array_merge($results, $this->publicScraper->searchSubreddit($subredditName, $query));
-            sleep(2);
         }
 
         return $results;

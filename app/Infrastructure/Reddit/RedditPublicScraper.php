@@ -10,18 +10,42 @@ use Illuminate\Support\Facades\Log;
 class RedditPublicScraper
 {
     /**
-     * @return array<array{id: string, title: string, selftext: string|null, author: string, url: string, score: int, num_comments: int, created_utc: int}>
+     * Fetch recent posts from a subreddit and filter locally by keywords.
+     *
+     * @param  string[]  $keywords
+     * @return list<array{id: string, title: string, selftext: string|null, author: string, url: string, score: int, num_comments: int, created_utc: int}>
      */
-    public function searchSubreddit(string $subreddit, string $query, int $limit = 25): array
+    public function fetchNewPosts(string $subreddit, array $keywords, int $limit = 100): array
     {
-        $response = Http::withHeaders([
-            'User-Agent' => 'QuickFeedback:lurk-helper:v1.0',
-        ])->get("https://www.reddit.com/r/{$subreddit}/search.json", [
-            'q' => $query,
-            'restrict_sr' => 'on',
-            'sort' => 'new',
+        if ($keywords === []) {
+            return [];
+        }
+
+        $posts = $this->fetchListing($subreddit, $limit);
+
+        if ($posts === []) {
+            return [];
+        }
+
+        $pattern = $this->buildKeywordPattern($keywords);
+
+        return array_values(array_filter($posts, function (array $post) use ($pattern) {
+            $haystack = $post['title'].' '.($post['selftext'] ?? '');
+
+            return preg_match($pattern, $haystack) === 1;
+        }));
+    }
+
+    /**
+     * @return list<array{id: string, title: string, selftext: string|null, author: string, url: string, score: int, num_comments: int, created_utc: int}>
+     */
+    private function fetchListing(string $subreddit, int $limit): array
+    {
+        $response = Http::timeout(15)->withHeaders([
+            'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+            'Accept' => 'application/json',
+        ])->get("https://old.reddit.com/r/{$subreddit}/new.json", [
             'limit' => $limit,
-            't' => 'week',
             'raw_json' => 1,
         ]);
 
@@ -46,5 +70,15 @@ class RedditPublicScraper
             'num_comments' => $child['data']['num_comments'],
             'created_utc' => (int) $child['data']['created_utc'],
         ], $children);
+    }
+
+    /**
+     * @param  string[]  $keywords
+     */
+    private function buildKeywordPattern(array $keywords): string
+    {
+        $escaped = array_map(fn (string $kw) => preg_quote($kw, '/'), $keywords);
+
+        return '/'.implode('|', $escaped).'/i';
     }
 }

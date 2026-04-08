@@ -8,10 +8,10 @@ use Tests\TestCase;
 
 class RedditPublicScraperTest extends TestCase
 {
-    public function test_searches_subreddit_via_public_endpoint(): void
+    public function test_fetches_new_posts_and_filters_by_keywords(): void
     {
         Http::fake([
-            'https://www.reddit.com/r/smallbusiness/search.json*' => Http::response([
+            'https://old.reddit.com/r/smallbusiness/new.json*' => Http::response([
                 'data' => [
                     'children' => [
                         [
@@ -26,6 +26,18 @@ class RedditPublicScraperTest extends TestCase
                                 'created_utc' => time() - 3600,
                             ],
                         ],
+                        [
+                            'data' => [
+                                'name' => 't3_def456',
+                                'title' => 'Best accounting software?',
+                                'selftext' => 'Looking for recommendations.',
+                                'author' => 'accountant99',
+                                'permalink' => '/r/smallbusiness/comments/def456/accounting/',
+                                'score' => 10,
+                                'num_comments' => 5,
+                                'created_utc' => time() - 7200,
+                            ],
+                        ],
                     ],
                 ],
             ]),
@@ -33,7 +45,7 @@ class RedditPublicScraperTest extends TestCase
 
         $scraper = new RedditPublicScraper;
 
-        $results = $scraper->searchSubreddit('smallbusiness', 'google reviews');
+        $results = $scraper->fetchNewPosts('smallbusiness', ['google reviews', 'feedback']);
 
         $this->assertCount(1, $results);
 
@@ -51,12 +63,42 @@ class RedditPublicScraperTest extends TestCase
     public function test_returns_empty_array_on_http_failure(): void
     {
         Http::fake([
-            'https://www.reddit.com/r/smallbusiness/search.json*' => Http::response('error', 429),
+            'https://old.reddit.com/r/smallbusiness/new.json*' => Http::response('error', 429),
         ]);
 
         $scraper = new RedditPublicScraper;
 
-        $results = $scraper->searchSubreddit('smallbusiness', 'reviews');
+        $results = $scraper->fetchNewPosts('smallbusiness', ['reviews']);
+
+        $this->assertSame([], $results);
+    }
+
+    public function test_returns_empty_when_no_keywords_match(): void
+    {
+        Http::fake([
+            'https://old.reddit.com/r/smallbusiness/new.json*' => Http::response([
+                'data' => [
+                    'children' => [
+                        [
+                            'data' => [
+                                'name' => 't3_nomatch',
+                                'title' => 'Best pizza in town',
+                                'selftext' => 'Where do you go for pizza?',
+                                'author' => 'foodie',
+                                'permalink' => '/r/smallbusiness/comments/nomatch/pizza/',
+                                'score' => 20,
+                                'num_comments' => 12,
+                                'created_utc' => time() - 1800,
+                            ],
+                        ],
+                    ],
+                ],
+            ]),
+        ]);
+
+        $scraper = new RedditPublicScraper;
+
+        $results = $scraper->fetchNewPosts('smallbusiness', ['reviews', 'reputation']);
 
         $this->assertSame([], $results);
     }
