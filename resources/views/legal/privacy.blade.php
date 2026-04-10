@@ -9,7 +9,8 @@
     <div class="prose prose-gray max-w-none space-y-8">
         <section>
             <h2 class="text-xl font-semibold mb-3">1. Introduction</h2>
-            <p class="text-gray-600 leading-relaxed">{{ config('app.name') }} ("we", "our", "us") operates the {{ config('app.name') }} platform. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service.</p>
+            <p class="text-gray-600 leading-relaxed">The {{ config('app.name') }} platform ("the Service") is operated by {{ config('company.legal_name') }}, NIP {{ config('company.nip') }}, REGON {{ config('company.regon') }}, based in {{ config('company.city') }}, {{ config('company.country') }} ("we", "our", "us"). We are the data controller for personal data processed through the Service within the meaning of the EU General Data Protection Regulation (GDPR).</p>
+            <p class="text-gray-600 leading-relaxed mt-3">This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Service. To exercise your data protection rights or contact the controller, email us at <a href="mailto:privacy@quickfeedback.app" class="text-indigo-600 hover:underline">privacy@quickfeedback.app</a>.</p>
         </section>
 
         <section>

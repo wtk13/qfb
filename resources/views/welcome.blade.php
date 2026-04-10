@@ -535,8 +535,9 @@
                     </ul>
                 </nav>
             </div>
-            <div class="border-t border-gray-200 pt-6 text-sm text-gray-400 text-center">
-                <span>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</span>
+            <div class="border-t border-gray-200 pt-6 text-sm text-gray-400 text-center space-y-1">
+                <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>
+                <p>{{ config('company.legal_name') }} &middot; NIP {{ config('company.nip') }} &middot; {{ config('company.city') }}, {{ config('company.country') }}</p>
             </div>
         </div>
     </footer>
@@ -567,9 +568,16 @@
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
         'name' => config('app.name'),
+        'legalName' => config('company.legal_name'),
+        'taxID' => config('company.nip'),
         'url' => url('/'),
         'logo' => asset('favicon.svg'),
         'description' => 'Review management software for local businesses. Automate Google review collection with smart routing.',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'addressLocality' => config('company.city'),
+            'addressCountry' => config('company.country_code'),
+        ],
         'contactPoint' => [
             '@type' => 'ContactPoint',
             'email' => 'support@quickfeedback.app',

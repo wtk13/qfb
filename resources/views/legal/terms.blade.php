@@ -9,7 +9,7 @@
     <div class="prose prose-gray max-w-none space-y-8">
         <section>
             <h2 class="text-xl font-semibold mb-3">1. Acceptance of Terms</h2>
-            <p class="text-gray-600 leading-relaxed">By accessing or using {{ config('app.name') }} ("the Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
+            <p class="text-gray-600 leading-relaxed">{{ config('app.name') }} ("the Service") is operated by {{ config('company.legal_name') }}, NIP {{ config('company.nip') }}, REGON {{ config('company.regon') }}, based in {{ config('company.city') }}, {{ config('company.country') }} ("we", "us", "our"). By accessing or using the Service, you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
         </section>
 
         <section>

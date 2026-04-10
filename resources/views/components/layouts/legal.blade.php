@@ -30,9 +30,12 @@
     </main>
 
     <footer class="py-8 border-t border-gray-100">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center gap-6 text-sm text-gray-400">
-            <a href="{{ route('privacy') }}" class="hover:text-gray-600">Privacy Policy</a>
-            <a href="{{ route('terms') }}" class="hover:text-gray-600">Terms of Service</a>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-400 text-center space-y-3">
+            <div class="flex items-center justify-center gap-6">
+                <a href="{{ route('privacy') }}" class="hover:text-gray-600">Privacy Policy</a>
+                <a href="{{ route('terms') }}" class="hover:text-gray-600">Terms of Service</a>
+            </div>
+            <p>{{ config('company.legal_name') }} &middot; NIP {{ config('company.nip') }} &middot; {{ config('company.city') }}, {{ config('company.country') }}</p>
         </div>
     </footer>
 
