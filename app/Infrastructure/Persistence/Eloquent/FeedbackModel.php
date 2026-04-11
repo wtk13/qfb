@@ -23,4 +23,9 @@ class FeedbackModel extends Model
     {
         return $this->belongsTo(RatingModel::class, 'rating_id');
     }
+
+    public function triage(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(FeedbackTriageModel::class, 'feedback_id');
+    }
 }
