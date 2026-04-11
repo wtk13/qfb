@@ -28,7 +28,7 @@ class EloquentFeedbackRepository implements FeedbackRepositoryInterface
         return FeedbackModel::whereHas('rating', function ($q) use ($businessProfileId) {
             $q->where('business_profile_id', $businessProfileId);
         })
-            ->with('rating')
+            ->with(['rating', 'triage'])
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(fn (FeedbackModel $m) => $this->toDomain($m))
@@ -57,12 +57,28 @@ class EloquentFeedbackRepository implements FeedbackRepositoryInterface
 
     private function toDomain(FeedbackModel $model): Feedback
     {
+        $triage = null;
+
+        if ($model->relationLoaded('triage') && $model->triage) {
+            $triage = new \Domain\Feedback\Entity\FeedbackTriage(
+                id: $model->triage->id,
+                feedbackId: $model->triage->feedback_id,
+                category: \Domain\Feedback\ValueObject\TriageCategory::from($model->triage->category),
+                urgency: \Domain\Feedback\ValueObject\TriageUrgency::from($model->triage->urgency),
+                suggestedResponse: $model->triage->suggested_response,
+                rawLlmResponse: $model->triage->raw_llm_response,
+                modelUsed: $model->triage->model_used,
+                triagedAt: new \DateTimeImmutable($model->triage->triaged_at->toDateTimeString()),
+            );
+        }
+
         return new Feedback(
             id: $model->id,
             ratingId: $model->rating_id,
             comment: $model->comment,
             contactEmail: $model->contact_email ? new Email($model->contact_email) : null,
             score: $model->relationLoaded('rating') ? (int) $model->rating?->score : null,
+            triage: $triage,
         );
     }
 }

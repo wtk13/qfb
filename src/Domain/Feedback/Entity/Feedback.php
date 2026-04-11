@@ -14,5 +14,6 @@ final class Feedback
         public readonly string $comment,
         public readonly ?Email $contactEmail = null,
         public readonly ?int $score = null,
+        public readonly ?FeedbackTriage $triage = null,
     ) {}
 }
