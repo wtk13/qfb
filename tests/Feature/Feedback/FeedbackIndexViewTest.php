@@ -16,6 +16,7 @@ class FeedbackIndexViewTest extends TestCase
     use RefreshDatabase;
 
     private User $user;
+
     private BusinessProfileModel $profile;
 
     protected function setUp(): void

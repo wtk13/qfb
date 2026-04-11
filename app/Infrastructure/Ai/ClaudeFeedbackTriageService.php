@@ -50,7 +50,7 @@ PROMPT;
                 'status' => $response->status(),
                 'body' => $response->body(),
             ]);
-            throw new \RuntimeException('Failed to triage feedback: ' . $response->status());
+            throw new \RuntimeException('Failed to triage feedback: '.$response->status());
         }
 
         $text = $response->json('content.0.text', '{}');

@@ -31,6 +31,7 @@ class TriageNegativeFeedback implements ShouldQueue
 
             if (! $feedback) {
                 Log::warning('Feedback not found for triage', ['feedbackId' => $event->feedbackId]);
+
                 return;
             }
 

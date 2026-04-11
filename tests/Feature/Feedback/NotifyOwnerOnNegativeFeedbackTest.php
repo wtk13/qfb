@@ -18,7 +18,9 @@ class NotifyOwnerOnNegativeFeedbackTest extends TestCase
     use RefreshDatabase;
 
     private TenantModel $tenant;
+
     private BusinessProfileModel $profile;
+
     private User $owner;
 
     protected function setUp(): void
