@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Infrastructure\Ai\ClaudeFeedbackTriageService;
 use App\Infrastructure\Billing\CashierSubscriptionService;
 use App\Infrastructure\Persistence\Repository\EloquentBusinessProfileRepository;
 use App\Infrastructure\Persistence\Repository\EloquentFeedbackRepository;
@@ -21,6 +22,7 @@ use Domain\Business\Port\BusinessProfileRepositoryInterface;
 use Domain\Campaign\Port\ReviewRequestRepositoryInterface;
 use Domain\Feedback\Port\FeedbackRepositoryInterface;
 use Domain\Feedback\Port\FeedbackTriageRepositoryInterface;
+use Domain\Feedback\Port\FeedbackTriageServiceInterface;
 use Domain\Feedback\Port\RatingRepositoryInterface;
 use Domain\Feedback\Service\RatingRoutingService;
 use Domain\Identity\Port\TenantRepositoryInterface;
@@ -42,6 +44,7 @@ class DomainServiceProvider extends ServiceProvider
         RatingRepositoryInterface::class => EloquentRatingRepository::class,
         FeedbackRepositoryInterface::class => EloquentFeedbackRepository::class,
         FeedbackTriageRepositoryInterface::class => EloquentFeedbackTriageRepository::class,
+        FeedbackTriageServiceInterface::class => ClaudeFeedbackTriageService::class,
         SubscriptionServiceInterface::class => CashierSubscriptionService::class,
         RedditSubredditRepositoryInterface::class => EloquentRedditSubredditRepository::class,
         RedditThreadRepositoryInterface::class => EloquentRedditThreadRepository::class,
