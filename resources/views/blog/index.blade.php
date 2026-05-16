@@ -22,6 +22,18 @@
 
     <div class="space-y-6">
         <article>
+            <a href="{{ route('blog.show', 'how-to-respond-to-positive-google-reviews') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-600">Templates</span>
+                    <time datetime="2026-05-16" class="text-sm text-gray-400">May 16, 2026</time>
+                </div>
+                <h2 class="text-xl font-bold group-hover:text-indigo-600 transition">Responding to 5-Star Reviews: 8 Templates That Don't Sound Like a Bot Wrote Them</h2>
+                <p class="text-gray-500 mt-2 leading-relaxed">Most positive review responses are copy-pasted and generic. Here are eight scenario-specific templates organized by what the reviewer actually wrote - so your replies look like a real person read them.</p>
+                <span class="inline-flex items-center mt-4 text-sm font-medium text-indigo-600 group-hover:gap-2 gap-1 transition-all">Read article <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'review-request-timing-customer-journey') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="inline-flex items-center rounded-full bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">Deep Dive</span>
