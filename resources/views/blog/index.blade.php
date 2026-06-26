@@ -22,6 +22,18 @@
 
     <div class="space-y-6">
         <article>
+            <a href="{{ route('blog.show', 'competitor-google-reviews-intelligence') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-600">Listicle</span>
+                    <time datetime="2026-06-26" class="text-sm text-gray-400">June 26, 2026</time>
+                </div>
+                <h2 class="text-xl font-bold group-hover:text-indigo-600 transition">5 Things Your Competitors' Google Reviews Are Telling You Right Now</h2>
+                <p class="text-gray-500 mt-2 leading-relaxed">Your competitors' Google reviews are sitting in public and telling you exactly what customers in your market value and complain about. Here is how to read that intelligence and turn it into decisions for your own business.</p>
+                <span class="inline-flex items-center mt-4 text-sm font-medium text-indigo-600 group-hover:gap-2 gap-1 transition-all">Read article <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'google-star-rating-how-it-works') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="inline-flex items-center rounded-full bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600">Deep Dive</span>
