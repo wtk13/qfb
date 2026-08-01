@@ -22,6 +22,18 @@
 
     <div class="space-y-6">
         <article>
+            <a href="{{ route('blog.show', 'google-business-profile-myths') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="inline-flex items-center rounded-full bg-rose-50 px-3 py-1 text-xs font-medium text-rose-600">Myth-busting</span>
+                    <time datetime="2026-08-01" class="text-sm text-gray-400">August 1, 2026</time>
+                </div>
+                <h2 class="text-xl font-bold group-hover:text-indigo-600 transition">5 Google Business Profile Myths That Are Quietly Working Against You</h2>
+                <p class="text-gray-500 mt-2 leading-relaxed">Five common GBP beliefs that sound reasonable but actively work against local rankings - covering business names, categories, the completeness score, Q&A management, and why a profile set up once doesn't stay competitive.</p>
+                <span class="inline-flex items-center mt-4 text-sm font-medium text-indigo-600 group-hover:gap-2 gap-1 transition-all">Read article <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'repurposing-google-reviews-as-marketing') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-xs font-medium text-sky-600">Listicle</span>
