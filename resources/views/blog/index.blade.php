@@ -22,6 +22,18 @@
 
     <div class="space-y-6">
         <article>
+            <a href="{{ route('blog.show', 'qr-codes-vs-direct-review-requests') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="inline-flex items-center rounded-full bg-purple-50 px-3 py-1 text-xs font-medium text-purple-600">Comparison</span>
+                    <time datetime="2026-08-21" class="text-sm text-gray-400">August 21, 2026</time>
+                </div>
+                <h2 class="text-xl font-bold group-hover:text-indigo-600 transition">QR Codes vs. Direct Review Requests: What Each Method Actually Delivers</h2>
+                <p class="text-gray-500 mt-2 leading-relaxed">Two methods, two different conversion profiles. A practical comparison of QR code passive collection and active post-service outreach - when each one works, where each one quietly fails, and why most businesses end up needing both.</p>
+                <span class="inline-flex items-center mt-4 text-sm font-medium text-indigo-600 group-hover:gap-2 gap-1 transition-all">Read article <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'google-review-response-mistakes') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="inline-flex items-center rounded-full bg-rose-50 px-3 py-1 text-xs font-medium text-rose-600">Myth-busting</span>
