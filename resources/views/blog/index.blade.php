@@ -22,6 +22,18 @@
 
     <div class="space-y-6">
         <article>
+            <a href="{{ route('blog.show', 'how-to-respond-to-3-star-google-reviews') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">Templates</span>
+                    <time datetime="2026-09-11" class="text-sm text-gray-400">September 11, 2026</time>
+                </div>
+                <h2 class="text-xl font-bold group-hover:text-indigo-600 transition">How to Respond to a 3-Star Google Review (7 Templates for the Review That's Hardest to Answer)</h2>
+                <p class="text-gray-500 mt-2 leading-relaxed">Five-star and one-star reviews have clear response playbooks. Three-star reviews don't - and most owners either default to generic language or give up. Here are seven scenario-specific templates for the middle-ground review.</p>
+                <span class="inline-flex items-center mt-4 text-sm font-medium text-indigo-600 group-hover:gap-2 gap-1 transition-all">Read article <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+            </a>
+        </article>
+
+        <article>
             <a href="{{ route('blog.show', 'first-90-days-google-reviews') }}" class="group block rounded-xl border border-gray-100 bg-white p-6 shadow-sm hover:shadow-md hover:border-indigo-100 transition-all duration-200">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">Workflow</span>
