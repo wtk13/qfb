@@ -46,6 +46,15 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        @if(\App\Http\Rules\Turnstile::enabled())
+            <!-- Bot protection -->
+            <div class="mt-4">
+                <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-size="flexible"></div>
+                <x-input-error :messages="$errors->get('cf-turnstile-response')" class="mt-2" />
+            </div>
+            <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        @endif
+
         <div class="mt-6">
             <x-primary-button class="w-full justify-center py-3">
                 Try It Free for 14 Days

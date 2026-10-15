@@ -46,6 +46,11 @@ return [
         ],
     ],
 
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY'),
+        'secret_key' => env('TURNSTILE_SECRET_KEY'),
+    ],
+
     'anthropic' => [
         'api_key' => env('ANTHROPIC_API_KEY'),
         'triage_model' => env('ANTHROPIC_TRIAGE_MODEL', 'claude-haiku-4-5-20251001'),

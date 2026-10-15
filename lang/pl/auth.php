@@ -17,5 +17,6 @@ return [
     'google_failed' => 'Nie udało się zalogować przez Google. Spróbuj ponownie.',
     'password' => 'Podane hasło jest nieprawidłowe.',
     'throttle' => 'Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.',
+    'turnstile_failed' => 'Nie udało się potwierdzić, że nie jesteś botem. Spróbuj ponownie.',
 
 ];

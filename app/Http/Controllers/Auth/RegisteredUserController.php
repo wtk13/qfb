@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Rules\Turnstile;
 use App\Infrastructure\Persistence\Eloquent\TenantModel;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -23,10 +24,18 @@ class RegisteredUserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ];
+
+        if (Turnstile::enabled()) {
+            $rules['cf-turnstile-response'] = ['bail', 'required', 'string', new Turnstile];
+        }
+
+        $request->validate($rules, [
+            'cf-turnstile-response.required' => __('auth.turnstile_failed'),
         ]);
 
         $tenant = TenantModel::create([
