@@ -177,4 +177,9 @@ Route::post('/webhooks/resend', ResendWebhookController::class)
     ->middleware('throttle:60,1')
     ->name('webhooks.resend');
 
+Route::post('/webhooks/review-requests/{token}', \App\Http\Controllers\Webhook\ReviewRequestWebhookController::class)
+    ->where('token', '[A-Za-z0-9]{40}')
+    ->middleware('throttle:60,1')
+    ->name('webhooks.review-requests');
+
 require __DIR__.'/auth.php';

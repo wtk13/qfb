@@ -20,5 +20,11 @@ return [
     'download_qr' => 'Pobierz kod QR',
     'review_link_toolkit' => 'Zestaw narzędzi do opinii',
     'review_link_toolkit_description' => 'Użyj naszego darmowego narzędzia, aby wygenerować bezpośredni link do opinii Google.',
+    'automate_title' => 'Wysyłaj prośby automatycznie',
+    'automate_description' => 'Połącz narzędzie, którego już używasz (system rezerwacji, CRM, kalendarz), a każda zakończona usługa sama wyśle prośbę o opinię. Klienci poproszeni w ciągu ostatnich 30 dni są pomijani.',
+    'automate_url_label' => 'Twój prywatny adres webhooka (nie udostępniaj go)',
+    'automate_zapier_steps' => 'Przez Zapier: ustaw wyzwalacz "zakończona usługa" w swoim narzędziu, dodaj akcję "Webhooks by Zapier", wybierz POST, wklej ten adres i przypisz email klienta do pola o nazwie email.',
+    'copy' => 'Kopiuj',
+    'copied' => 'Skopiowano',
     'open_review_link_generator' => 'Otwórz generator linków',
 ];

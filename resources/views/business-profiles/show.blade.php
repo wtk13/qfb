@@ -93,6 +93,21 @@
                 </a>
             </div>
 
+            <!-- Automation webhook -->
+            <div class="mt-6 bg-white overflow-hidden shadow-sm sm:rounded-lg p-6" x-data="{ copied: false }">
+                <h3 class="text-lg font-semibold mb-2">{{ __('business.automate_title') }}</h3>
+                <p class="text-sm text-gray-500 mb-4">{{ __('business.automate_description') }}</p>
+                <x-input-label for="webhook_url" :value="__('business.automate_url_label')" />
+                <div class="mt-1 flex items-center gap-2">
+                    <input id="webhook_url" type="text" readonly value="{{ $webhookUrl }}" class="block w-full border-gray-300 rounded-md shadow-sm text-sm font-mono" onclick="this.select()">
+                    <button type="button" @click="navigator.clipboard.writeText(@js($webhookUrl)).then(() => { copied = true; setTimeout(() => copied = false, 2000) })" class="shrink-0 px-3 py-2 text-xs font-semibold uppercase tracking-widest rounded-md bg-indigo-100 text-indigo-700 hover:bg-indigo-200">
+                        <span x-show="!copied">{{ __('business.copy') }}</span>
+                        <span x-show="copied" x-cloak>{{ __('business.copied') }}</span>
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">{{ __('business.automate_zapier_steps') }}</p>
+            </div>
+
             <!-- QR Code & Feedback -->
             <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">

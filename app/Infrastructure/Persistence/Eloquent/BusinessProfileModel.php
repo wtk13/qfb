@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class BusinessProfileModel extends Model
 {
@@ -23,6 +24,14 @@ class BusinessProfileModel extends Model
         'logo_path',
         'locale',
     ];
+
+    protected static function booted(): void
+    {
+        // Secret for the review request webhook (Zapier etc.); it's the only credential the caller sends.
+        static::creating(function (self $profile) {
+            $profile->webhook_token ??= Str::random(40);
+        });
+    }
 
     public function tenant(): BelongsTo
     {

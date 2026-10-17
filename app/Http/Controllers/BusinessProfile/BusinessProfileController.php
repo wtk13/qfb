@@ -8,6 +8,7 @@ use App\Application\Command\UpdateBusinessProfile;
 use App\Application\Query\GetBusinessProfile;
 use App\Application\Query\GetBusinessProfiles;
 use App\Http\Controllers\Controller;
+use App\Infrastructure\Persistence\Eloquent\BusinessProfileModel;
 use App\Infrastructure\QrCode\SimpleQrCodeAdapter;
 use Domain\Business\Port\BusinessProfileRepositoryInterface;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class BusinessProfileController extends Controller
             now()->addDay(),
             fn () => $this->qrCodeAdapter->generateSvg($data['qrUrl']),
         );
+        $data['webhookUrl'] = route('webhooks.review-requests', BusinessProfileModel::whereKey($profile->id)->value('webhook_token'));
 
         return view('business-profiles.show', $data);
     }

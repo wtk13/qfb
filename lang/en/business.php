@@ -20,5 +20,11 @@ return [
     'download_qr' => 'Download QR Code',
     'review_link_toolkit' => 'Review Link Toolkit',
     'review_link_toolkit_description' => 'Use our free tool to generate your direct Google review link instantly.',
+    'automate_title' => 'Send requests automatically',
+    'automate_description' => 'Connect the tool you already use (Jobber, Housecall Pro, Square, Calendly, a booking system) and every finished job sends a review request on its own. Customers asked in the last 30 days are skipped.',
+    'automate_url_label' => 'Your private webhook URL (keep it secret)',
+    'automate_zapier_steps' => 'With Zapier: trigger "job completed" (or "appointment finished") in your tool, then add the "Webhooks by Zapier" action, choose POST, paste this URL and map the customer\'s email to a field named email.',
+    'copy' => 'Copy',
+    'copied' => 'Copied',
     'open_review_link_generator' => 'Open Review Link Generator',
 ];
