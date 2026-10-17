@@ -134,7 +134,7 @@ class OutreachWeeklyRotation extends Command
 
         // Step 2: Verify emails
         $this->info('[2/3] Verifying emails via MX lookup...');
-        $verified = $this->verifyEmails($category, $city);
+        $verified = $this->verifyEmails();
         $this->info("  Verified: {$verified['valid']}, Invalid: {$verified['invalid']}, No email: {$verified['no_email']}");
 
         // Step 3: Update campaign stats from source of truth
@@ -259,10 +259,7 @@ class OutreachWeeklyRotation extends Command
                 }
             }
 
-            // Fall back to info@ guess if scraping found nothing
-            if (! $email) {
-                $email = $this->guessEmail($website);
-            }
+            // No info@ guessing: guessed addresses bounced ~50% of the time and hurt sender reputation
 
             OutreachLeadModel::create([
                 'business_name' => $detail['name'] ?? '',
@@ -312,11 +309,11 @@ class OutreachWeeklyRotation extends Command
         return false;
     }
 
-    private function verifyEmails(string $category, string $city): array
+    // Verifies every pending lead, not just this run's niche: leads re-scraped by
+    // outreach:rescrape-emails would otherwise stay pending forever.
+    private function verifyEmails(): array
     {
-        $leads = OutreachLeadModel::where('category', $category)
-            ->where('city', $city)
-            ->where('email_status', 'pending')
+        $leads = OutreachLeadModel::where('email_status', 'pending')
             ->whereNotNull('email')
             ->get();
 
@@ -484,27 +481,5 @@ class OutreachWeeklyRotation extends Command
         $data = $response->json();
 
         return ($data['status'] ?? '') === 'OK' ? ($data['result'] ?? null) : null;
-    }
-
-    private function guessEmail(string $website): string
-    {
-        if (empty($website)) {
-            return '';
-        }
-
-        $host = parse_url($website, PHP_URL_HOST);
-        if (! $host) {
-            return '';
-        }
-
-        $host = preg_replace('/^www\./', '', $host);
-
-        foreach (WebsiteEmailScraper::GENERIC_DOMAINS as $generic) {
-            if (str_contains($host, $generic)) {
-                return '';
-            }
-        }
-
-        return "info@{$host}";
     }
 }
