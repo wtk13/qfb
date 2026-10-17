@@ -9,6 +9,7 @@ return [
     'contact_email' => 'Your Email (optional)',
     'email_optional' => 'Leave your email if you\'d like us to follow up.',
     'submit' => 'Submit Feedback',
+    'prefer_public' => 'Prefer to share your experience publicly?',
     'view_all' => 'View All Feedback',
     'no_feedback' => 'No feedback received yet.',
     'contact' => 'Contact',

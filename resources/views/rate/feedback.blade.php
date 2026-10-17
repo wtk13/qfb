@@ -39,6 +39,13 @@
                     {{ __('feedback.submit', [], $profile->locale) }}
                 </button>
             </form>
+
+            @if($googleLink)
+                <p class="text-sm text-gray-500 mt-6 text-center">
+                    {{ __('feedback.prefer_public', [], $profile->locale) }}
+                    <a href="{{ $googleLink }}" class="text-indigo-600 hover:text-indigo-900 underline">{{ __('rating.leave_google_review', [], $profile->locale) }}</a>
+                </p>
+            @endif
         </div>
     </div>
 </body>

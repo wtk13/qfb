@@ -84,6 +84,45 @@ class RatingFlowTest extends TestCase
         ]);
     }
 
+    public function test_negative_rating_feedback_page_still_offers_google_review(): void
+    {
+        $reviewRequest = ReviewRequestModel::create([
+            'business_profile_id' => $this->profile->id,
+            'recipient_email' => 'customer@example.com',
+            'status' => 'clicked',
+            'token' => 'test-token-negative-google',
+        ]);
+
+        $response = $this->followingRedirects()
+            ->post("/rate/{$this->profile->slug}/{$reviewRequest->token}", ['score' => 1]);
+
+        $response->assertStatus(200);
+        $response->assertSee('name="comment"', false);
+        $response->assertSee('href="https://www.google.com/maps/place/test"', false);
+    }
+
+    public function test_thank_you_after_private_feedback_offers_google_review_without_redirect(): void
+    {
+        $reviewRequest = ReviewRequestModel::create([
+            'business_profile_id' => $this->profile->id,
+            'recipient_email' => 'customer@example.com',
+            'status' => 'clicked',
+            'token' => 'test-token-feedback-google',
+        ]);
+
+        $this->post("/rate/{$this->profile->slug}/{$reviewRequest->token}", ['score' => 3]);
+        $rating = \App\Infrastructure\Persistence\Eloquent\RatingModel::first();
+
+        $response = $this->post("/rate/{$this->profile->slug}/{$reviewRequest->token}/feedback", [
+            'rating_id' => $rating->id,
+            'comment' => 'Waited too long.',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertSee('href="https://www.google.com/maps/place/test"', false);
+        $response->assertDontSee('http-equiv="refresh"', false);
+    }
+
     public function test_can_submit_feedback(): void
     {
         $reviewRequest = ReviewRequestModel::create([

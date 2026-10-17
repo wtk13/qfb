@@ -27,6 +27,7 @@ class FeedbackController
             'profile' => $profile,
             'token' => $token,
             'ratingId' => $request->query('rating_id'),
+            'googleLink' => $profile->googleReviewLink?->value,
         ]);
     }
 
@@ -50,9 +51,12 @@ class FeedbackController
             contactEmail: $validated['contact_email'] ?? null,
         );
 
+        // Unhappy customers must still be able to post publicly (Google bans review gating),
+        // so offer the link, but don't push them there automatically.
         return view('rate.thank-you', [
             'profile' => $profile,
-            'googleRedirect' => null,
+            'googleLink' => $profile->googleReviewLink?->value,
+            'autoRedirect' => false,
         ]);
     }
 

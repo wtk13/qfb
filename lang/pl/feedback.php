@@ -9,6 +9,7 @@ return [
     'contact_email' => 'Twój email (opcjonalnie)',
     'email_optional' => 'Zostaw email, jeśli chcesz, żebyśmy się z Tobą skontaktowali.',
     'submit' => 'Wyślij opinię',
+    'prefer_public' => 'Wolisz podzielić się opinią publicznie?',
     'view_all' => 'Zobacz wszystkie opinie',
     'no_feedback' => 'Brak otrzymanych opinii.',
     'contact' => 'Kontakt',

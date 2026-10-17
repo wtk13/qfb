@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ __('rating.thank_you_title', [], $profile->locale) }}</title>
-    @if($googleRedirect)
-        <meta http-equiv="refresh" content="3;url={{ $googleRedirect }}">
+    @if($googleLink && $autoRedirect)
+        <meta http-equiv="refresh" content="3;url={{ $googleLink }}">
     @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,9 +20,11 @@
             <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ __('rating.thank_you', [], $profile->locale) }}</h1>
             <p class="text-gray-600">{{ __('rating.thank_you_message', ['business' => $profile->name], $profile->locale) }}</p>
 
-            @if($googleRedirect)
-                <p class="text-sm text-gray-400 mt-4">{{ __('rating.redirecting_google', [], $profile->locale) }}</p>
-                <a href="{{ $googleRedirect }}" class="inline-block mt-2 text-indigo-600 hover:text-indigo-900">
+            @if($googleLink)
+                <p class="text-sm text-gray-400 mt-4">
+                    {{ $autoRedirect ? __('rating.redirecting_google', [], $profile->locale) : __('rating.also_share_on_google', [], $profile->locale) }}
+                </p>
+                <a href="{{ $googleLink }}" class="inline-block mt-2 text-indigo-600 hover:text-indigo-900">
                     {{ __('rating.leave_google_review', [], $profile->locale) }}
                 </a>
             @endif

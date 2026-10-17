@@ -11,4 +11,5 @@ return [
     'thank_you_message' => 'Your feedback for :business has been recorded.',
     'redirecting_google' => 'Redirecting you to leave a Google review...',
     'leave_google_review' => 'Leave a Google Review',
+    'also_share_on_google' => 'You are also welcome to share your experience on Google.',
 ];

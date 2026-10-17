@@ -69,7 +69,8 @@ class RatingController
         if ($result['route'] === RatingRoutingService::ROUTE_GOOGLE) {
             return view('rate.thank-you', [
                 'profile' => $profile,
-                'googleRedirect' => $profile->googleReviewLink?->value,
+                'googleLink' => $profile->googleReviewLink?->value,
+                'autoRedirect' => true,
             ]);
         }
 

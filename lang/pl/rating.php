@@ -11,4 +11,5 @@ return [
     'thank_you_message' => 'Twoja opinia dla :business została zapisana.',
     'redirecting_google' => 'Przekierowujemy Cię do wystawienia opinii Google...',
     'leave_google_review' => 'Wystaw opinię Google',
+    'also_share_on_google' => 'Możesz też podzielić się swoją opinią w Google.',
 ];
