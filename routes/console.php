@@ -8,9 +8,9 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-// Outreach pipeline: scrape new niche Mon/Wed/Fri, send daily
+// Outreach pipeline: scrape new niche Mon/Wed/Fri, send on weekdays at 14:00 UTC (10:00 US Eastern)
 Schedule::command('outreach:weekly')->days([1, 3, 5])->at('06:00')->withoutOverlapping();
-Schedule::command('outreach:daily-send --limit=20 --delay=30')->dailyAt('09:00')->withoutOverlapping();
+Schedule::command('outreach:daily-send --limit=20 --delay=30')->weekdays()->dailyAt('14:00')->withoutOverlapping();
 
 // One reminder for review requests nobody opened after 3 days
 Schedule::command('reviews:send-reminders')->hourly()->withoutOverlapping();

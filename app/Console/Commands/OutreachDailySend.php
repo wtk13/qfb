@@ -94,8 +94,9 @@ class OutreachDailySend extends Command
         $failed = 0;
 
         foreach ($leads as $i => $lead) {
-            $subject = $this->generateSubject($lead->business_name, $lead->reviews);
-            $body = $this->generateBody($lead, $senderName, $senderTitle);
+            $competitors = $this->competitorsFor($lead);
+            $subject = $this->generateSubject($lead, $competitors);
+            $body = $this->generateBody($lead, $competitors, $senderName, $senderTitle);
 
             $this->line(sprintf(
                 '  [%d/%d] %s → %s',
@@ -163,67 +164,86 @@ class OutreachDailySend extends Command
         return self::SUCCESS;
     }
 
-    private function generateSubject(string $businessName, int $reviews): string
+    /**
+     * Review counts of the top Google results for the lead's niche, or [] when there is
+     * nothing honest to compare with (no data yet, or the lead already ranks in the top 3).
+     *
+     * @return int[]
+     */
+    private function competitorsFor(OutreachLeadModel $lead): array
     {
-        return match (true) {
-            $reviews === 0 => "{$businessName}'s Google profile — one thing I noticed",
-            $reviews < 10 => "{$businessName} — quick thought on your Google reviews",
-            default => "Idea for {$businessName} to get more 5-star reviews",
-        };
+        $top = OutreachCampaignModel::where('category', $lead->category)
+            ->where('city', $lead->city)
+            ->value('top_competitors');
+
+        $top = is_string($top) ? json_decode($top, true) : $top;
+
+        if (empty($top) || in_array($lead->place_id, array_column($top, 'place_id'), true)) {
+            return [];
+        }
+
+        $counts = array_column($top, 'reviews');
+
+        return count($counts) >= 2 ? $counts : [];
     }
 
-    private function generateBody(OutreachLeadModel $lead, string $senderName, string $senderTitle): string
+    private function generateSubject(OutreachLeadModel $lead, array $competitors): string
     {
-        $competitorPhrase = $this->buildCompetitorPhrase($lead->category, $lead->city);
+        if ($competitors) {
+            return sprintf('Google reviews: %s vs. the top %d in %s', $lead->business_name, count($competitors), $lead->city);
+        }
 
-        $reviewLine = match (true) {
-            $lead->reviews === 0 => "I came across {$lead->business_name} on Google and noticed you don't have any reviews yet. That's actually a huge opportunity — most customers check reviews before calling, so even a handful puts you ahead of the pack.",
-            $lead->reviews < 10 => "I came across {$lead->business_name} on Google Maps — {$lead->reviews} reviews at {$lead->rating} stars. Looking at {$competitorPhrase}, most have 30-50+. The gap is almost never about service quality. It's that most customers need a nudge.",
-            default => "I was looking at {$lead->business_name}'s Google profile — {$lead->reviews} reviews at {$lead->rating} stars is solid. But {$competitorPhrase} have significantly more, which pushes them higher in local search results.",
+        return "Quick question about {$lead->business_name}'s Google reviews";
+    }
+
+    private function generateBody(OutreachLeadModel $lead, array $competitors, string $senderName, string $senderTitle): string
+    {
+        $opening = match (true) {
+            (bool) $competitors => sprintf(
+                'I searched "%s in %s" on Google. The top %d results have %s reviews. %s has %s.',
+                $lead->category,
+                $lead->city,
+                count($competitors),
+                $this->joinCounts($competitors),
+                $lead->business_name,
+                number_format($lead->reviews),
+            ),
+            $lead->reviews === 0 => "I came across {$lead->business_name} on Google Maps and noticed you don't have any reviews yet.",
+            default => "I came across {$lead->business_name} on Google Maps: {$lead->reviews} reviews at {$lead->rating} stars.",
         };
+
+        $why = $competitors
+            ? 'That gap is rarely about the service.'
+            : 'Getting more reviews is rarely about the service.';
 
         $landingUrl = route('outreach.landing', ['placeId' => $lead->place_id]);
 
         return <<<EMAIL
-{$reviewLine}
+Hi,
 
-I put together a quick review snapshot for {$lead->business_name} — it shows where you stand and includes your direct Google review link (customers tap it and they're immediately writing a review, no extra steps):
+{$opening}
+
+{$why} Happy customers just don't think to leave a review unless someone asks at the right moment.
+
+I built QuickFeedback to do the asking for you: after each job your customer gets a short rating request by email or QR code, happy customers land right on your Google review page, and you hear privately about anyone who had a bad experience.
+
+Here's a quick snapshot for {$lead->business_name}, with your direct Google review link:
 
 {$landingUrl}
 
-Give it a look and let me know if it helps.
+If you want, I'll set it up for you for free this week so you can see if it works. Interested?
 
 {$senderName}
 {$senderTitle}
-https://quickfeedback.app
 EMAIL;
     }
 
-    private function buildCompetitorPhrase(?string $category, ?string $city): string
+    /** @param int[] $counts */
+    private function joinCounts(array $counts): string
     {
-        $plural = match (strtolower($category ?? '')) {
-            'dentist' => 'dentists',
-            'plumber' => 'plumbers',
-            'restaurant' => 'restaurants',
-            'salon' => 'salons',
-            'chiropractor' => 'chiropractors',
-            'veterinarian' => 'vets',
-            'gym' => 'gyms',
-            'auto repair' => 'auto shops',
-            'electrician' => 'electricians',
-            'cleaning company' => 'cleaning companies',
-            'accountant' => 'accountants',
-            'real estate' => 'realtors',
-            'landscaper' => 'landscapers',
-            'roofer' => 'roofers',
-            'hvac' => 'HVAC companies',
-            default => 'similar businesses',
-        };
+        $formatted = array_map(fn (int $n) => number_format($n), $counts);
+        $last = array_pop($formatted);
 
-        if ($category && $city) {
-            return "other {$plural} in {$city}";
-        }
-
-        return 'your competitors in the area';
+        return implode(', ', $formatted).' and '.$last;
     }
 }

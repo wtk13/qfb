@@ -44,44 +44,39 @@
             <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8">
                 <h2 class="text-xl font-bold mb-4">Where you stand</h2>
 
-                <!-- Visual comparison bar -->
-                <div class="mb-6">
-                    <div class="flex items-center justify-between text-sm text-gray-500 mb-2">
-                        <span>Your reviews</span>
-                        <span>Top 3 local benchmark (50)</span>
-                    </div>
-                    <div class="relative h-4 bg-gray-100 rounded-full overflow-hidden">
-                        <div class="absolute inset-y-0 left-0 bg-indigo-600 rounded-full transition-all duration-500" style="width: {{ min(($lead->reviews / 50) * 100, 100) }}%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-gray-400 mt-1">
-                        <span>{{ $lead->reviews }}</span>
-                        <span>50</span>
-                    </div>
-                </div>
-
-                <p class="text-gray-600 mb-4">Businesses ranking in Google's top 3 local results typically have <strong>30&ndash;50+ reviews</strong>.</p>
-
-                @if($lead->reviews == 0)
-                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                        <p class="text-amber-800 font-medium">You don't have any reviews yet — that's actually a huge opportunity.</p>
-                        <p class="text-amber-700 text-sm mt-1">Every review you collect from here moves the needle. Your competitors may have a head start, but customers trust businesses that actively collect fresh reviews.</p>
-                    </div>
-                @elseif($lead->reviews < 10)
-                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                        <p class="text-blue-800 font-medium">You're close to breaking through.</p>
-                        <p class="text-blue-700 text-sm mt-1">A few more reviews could change your visibility in local search. Businesses that cross the 10-review mark see a noticeable bump in trust and click-through rates.</p>
-                    </div>
-                @elseif($lead->reviews <= 30)
-                    <div class="bg-green-50 border border-green-200 rounded-xl p-4">
-                        <p class="text-green-800 font-medium">You have a solid foundation.</p>
-                        <p class="text-green-700 text-sm mt-1">Consistent new reviews will push you higher in local rankings. Google rewards businesses that collect reviews steadily over time, not just in bursts.</p>
+                @if(count($competitors) > 0)
+                    @php($maxReviews = max(array_merge(array_column($competitors, 'reviews'), [$lead->reviews, 1])))
+                    <p class="text-sm text-gray-500 mb-4">Top Google results for &ldquo;{{ $lead->category }} in {{ $lead->city }}&rdquo;, compared with you.</p>
+                    <div class="space-y-3 mb-6">
+                        @foreach($competitors as $competitor)
+                            <div>
+                                <div class="flex items-center justify-between text-sm text-gray-600 mb-1">
+                                    <span class="truncate pr-4">{{ $competitor['name'] }}</span>
+                                    <span class="shrink-0">{{ number_format($competitor['reviews']) }}</span>
+                                </div>
+                                <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-gray-400 rounded-full" style="width: {{ round($competitor['reviews'] / $maxReviews * 100) }}%"></div>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div>
+                            <div class="flex items-center justify-between text-sm font-semibold text-gray-900 mb-1">
+                                <span class="truncate pr-4">{{ $lead->business_name }} (you)</span>
+                                <span class="shrink-0">{{ number_format($lead->reviews) }}</span>
+                            </div>
+                            <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-600 rounded-full" style="width: {{ max(round($lead->reviews / $maxReviews * 100), 1) }}%"></div>
+                            </div>
+                        </div>
                     </div>
                 @else
-                    <div class="bg-green-50 border border-green-200 rounded-xl p-4">
-                        <p class="text-green-800 font-medium">You're in great shape — now it's about staying ahead.</p>
-                        <p class="text-green-700 text-sm mt-1">Your competitors are collecting reviews too. Automating your review requests keeps you consistently at the top of local search results.</p>
-                    </div>
+                    <p class="text-gray-600 mb-6">{{ $lead->business_name }} has <strong>{{ $lead->reviews }} {{ Str::plural('review', $lead->reviews) }}</strong> at {{ $lead->rating }} stars on Google.</p>
                 @endif
+
+                <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+                    <p class="text-indigo-900 font-medium">More reviews is rarely about better service.</p>
+                    <p class="text-indigo-800 text-sm mt-1">Most happy customers simply never get asked at the right moment. A direct link that opens your Google review form, sent right after the visit, removes every extra step.</p>
+                </div>
             </div>
         </div>
     </section>

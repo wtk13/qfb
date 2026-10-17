@@ -12,7 +12,8 @@ class OutreachWeeklyRotation extends Command
 {
     protected $signature = 'outreach:weekly
         {--max-results=60 : Max places to scrape per niche}
-        {--max-reviews=30 : Only businesses with fewer reviews than this}';
+        {--min-reviews=10 : Skip businesses with fewer reviews (often inactive)}
+        {--max-reviews=150 : Only businesses with fewer reviews than this}';
 
     protected $description = 'Weekly automated rotation: scrape new niches, verify emails, prepare leads for daily sending';
 
@@ -107,6 +108,7 @@ class OutreachWeeklyRotation extends Command
         }
 
         $maxResults = min((int) $this->option('max-results'), 60);
+        $minReviews = (int) $this->option('min-reviews');
         $maxReviews = (int) $this->option('max-reviews');
 
         // Pick the next niche that hasn't been scraped or was scraped longest ago
@@ -129,7 +131,7 @@ class OutreachWeeklyRotation extends Command
 
         // Step 1: Scrape
         $this->info('[1/3] Scraping Google Places...');
-        $places = $this->scrapeLeads($query, $maxResults, $maxReviews, $category, $city);
+        $places = $this->scrapeLeads($query, $maxResults, $minReviews, $maxReviews, $category, $city);
         $this->info("  Scraped {$places['total']} places, {$places['new']} new leads stored.");
 
         // Step 2: Verify emails
@@ -212,7 +214,7 @@ class OutreachWeeklyRotation extends Command
         return null;
     }
 
-    private function scrapeLeads(string $query, int $maxResults, int $maxReviews, string $category, string $city): array
+    private function scrapeLeads(string $query, int $maxResults, int $minReviews, int $maxReviews, string $category, string $city): array
     {
         $emailScraper = app(WebsiteEmailScraper::class);
 
@@ -220,6 +222,7 @@ class OutreachWeeklyRotation extends Command
         $knownPlaceIds = OutreachLeadModel::pluck('place_id')->flip();
 
         $places = $this->searchPlaces($query, $maxResults, $knownPlaceIds);
+        $this->storeTopCompetitors($places, $category, $city);
         $total = count($places);
         $new = 0;
         $skipped = 0;
@@ -238,13 +241,18 @@ class OutreachWeeklyRotation extends Command
                 continue;
             }
 
+            // Search results already carry the review count: skip out-of-range businesses before the paid details call
+            if (isset($place['user_ratings_total']) && ! $this->inReviewRange((int) $place['user_ratings_total'], $minReviews, $maxReviews)) {
+                continue;
+            }
+
             $detail = $this->getPlaceDetails($place['place_id']);
             if (! $detail) {
                 continue;
             }
 
             $reviewCount = $detail['user_ratings_total'] ?? 0;
-            if ($reviewCount >= $maxReviews) {
+            if (! $this->inReviewRange($reviewCount, $minReviews, $maxReviews)) {
                 continue;
             }
 
@@ -291,6 +299,30 @@ class OutreachWeeklyRotation extends Command
         }
 
         return ['total' => $total, 'new' => $new];
+    }
+
+    private function inReviewRange(int $reviews, int $min, int $max): bool
+    {
+        return $reviews >= $min && $reviews < $max;
+    }
+
+    // The first results are what a customer sees for this search: real numbers to compare leads against.
+    private function storeTopCompetitors(array $places, string $category, string $city): void
+    {
+        if (empty($places)) {
+            return;
+        }
+
+        $top = array_map(fn (array $place) => [
+            'place_id' => $place['place_id'],
+            'name' => $place['name'] ?? '',
+            'reviews' => (int) ($place['user_ratings_total'] ?? 0),
+        ], array_slice($places, 0, 3));
+
+        OutreachCampaignModel::updateOrCreate(
+            ['category' => $category, 'city' => $city],
+            ['top_competitors' => $top],
+        );
     }
 
     private function isGenericDomain(string $website): bool

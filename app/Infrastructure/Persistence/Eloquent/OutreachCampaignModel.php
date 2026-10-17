@@ -14,6 +14,7 @@ class OutreachCampaignModel extends Model
     protected $fillable = [
         'category',
         'city',
+        'top_competitors',
         'leads_scraped',
         'emails_found',
         'emails_verified',
@@ -31,6 +32,7 @@ class OutreachCampaignModel extends Model
             'scraped_at' => 'datetime',
             'last_sent_at' => 'datetime',
             'new_leads_last_scrape' => 'integer',
+            'top_competitors' => 'array',
         ];
     }
 

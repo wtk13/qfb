@@ -55,7 +55,15 @@ Route::get('/for/{placeId}', function (string $placeId) {
 
     $lead->increment('landing_clicks');
 
-    return view('outreach.landing', ['lead' => $lead]);
+    $competitors = \App\Infrastructure\Persistence\Eloquent\OutreachCampaignModel::where('category', $lead->category)
+        ->where('city', $lead->city)
+        ->value('top_competitors');
+    $competitors = collect(is_string($competitors) ? json_decode($competitors, true) : $competitors)
+        ->reject(fn (array $c) => $c['place_id'] === $lead->place_id)
+        ->values()
+        ->all();
+
+    return view('outreach.landing', ['lead' => $lead, 'competitors' => $competitors]);
 })->where('placeId', '[A-Za-z0-9_-]+')->middleware('throttle:30,1')->name('outreach.landing');
 
 Route::match(['get', 'post'], '/outreach/unsubscribe', function (\Illuminate\Http\Request $request) {
