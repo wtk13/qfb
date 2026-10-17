@@ -6,11 +6,11 @@
     <meta name="robots" content="index, follow">
     <title>Get More Google Reviews | {{ config('app.name') }} &mdash; Review Management Software</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
-    <meta name="description" content="Get more Google reviews for your local business. QuickFeedback routes happy customers to Google and unhappy ones to private feedback. QR codes, email campaigns, smart review routing. Try free for 14 days.">
+    <meta name="description" content="Get more Google reviews for your local business. QuickFeedback asks every customer for a Google review by email or QR code, and alerts you privately when someone had a bad experience. Try free for 14 days.">
     <meta name="theme-color" content="#4F46E5">
     <link rel="canonical" href="{{ url('/') }}">
     <meta property="og:title" content="{{ config('app.name') }} — Get More Google Reviews for Your Local Business">
-    <meta property="og:description" content="Review management software that routes happy customers to Google and unhappy ones to private feedback. More 5-star reviews, fewer public complaints.">
+    <meta property="og:description" content="Ask every customer for a Google review and hear about bad experiences privately, in time to make them right.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:image" content="{{ asset('images/hero-bg.jpg') }}">
@@ -21,7 +21,7 @@
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ config('app.name') }} — Get More Google Reviews for Your Local Business">
-    <meta name="twitter:description" content="Review management software that routes happy customers to Google and unhappy ones to private feedback. More 5-star reviews, fewer public complaints.">
+    <meta name="twitter:description" content="Ask every customer for a Google review and hear about bad experiences privately, in time to make them right.">
     <meta name="twitter:image" content="{{ asset('images/hero-bg.jpg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>[x-cloak] { display: none !important; }</style>
@@ -86,7 +86,7 @@
                     <span class="text-indigo-400">Let's Fix That.</span>
                 </h1>
                 <p class="mt-6 text-lg sm:text-xl text-gray-400 max-w-2xl">
-                    Send a quick rating after every job. Happy customers go straight to Google. Unhappy ones send you private feedback instead. More 5-star reviews, fewer public complaints &mdash; <span class="text-white font-semibold">$29/mo</span>.
+                    Send a quick rating request after every job. Happy customers go straight to your Google review page. If someone had a bad experience, you hear about it privately first, so you can make it right. <span class="text-white font-semibold">$29/mo</span>.
                 </p>
                 <div class="mt-10 flex flex-col sm:flex-row items-start gap-4">
                     <a href="{{ route('register') }}" class="inline-flex items-center px-8 py-3.5 bg-indigo-600 text-white text-lg font-semibold rounded-xl hover:bg-indigo-500 transition">
@@ -106,16 +106,16 @@
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 id="how-it-works-heading" class="text-3xl sm:text-4xl font-bold">Simple system. Serious results.</h2>
-                <p class="mt-4 text-gray-600 text-lg">Most review tools just send emails. QuickFeedback also decides where customers end&nbsp;up.</p>
+                <p class="mt-4 text-gray-600 text-lg">Most review tools just send emails. QuickFeedback also tells you when a customer is&nbsp;unhappy.</p>
             </div>
 
             <div class="grid md:grid-cols-5 gap-5">
 
-                <!-- ROUTE — the big card (3 cols) -->
+                <!-- RECOVER — the big card (3 cols) -->
                 <div class="md:col-span-3 bg-gray-900 rounded-3xl p-8 text-white order-first">
-                    <p class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-3">Route</p>
-                    <h3 class="text-2xl font-bold mb-2">The part competitors skip</h3>
-                    <p class="text-gray-400 mb-8 max-w-md">A 4-star customer and a 2-star customer walk into your review funnel. Only the happy one ends up on Google. The other one talks to you&nbsp;first.</p>
+                    <p class="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-3">Recover</p>
+                    <h3 class="text-2xl font-bold mb-2">Hear it before it goes public</h3>
+                    <p class="text-gray-400 mb-8 max-w-md">A happy customer lands right on your Google review page. An unhappy one gets a private way to tell you what went wrong, and can still post on Google if they want. You get an alert either&nbsp;way.</p>
 
                     <!-- Fork diagram -->
                     <div class="grid grid-cols-2 gap-4">
@@ -160,7 +160,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-semibold">Private Feedback</p>
-                                    <p class="text-xs text-orange-400">Only you see this</p>
+                                    <p class="text-xs text-orange-400">You get an alert</p>
                                 </div>
                             </div>
                         </div>
@@ -202,81 +202,6 @@
                     </div>
 
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof -->
-    <section aria-labelledby="social-proof-heading" class="py-16">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-600 mb-3">Results</p>
-                <h2 id="social-proof-heading" class="text-3xl sm:text-4xl font-bold">Businesses like yours are already winning</h2>
-            </div>
-
-            <!-- Stats bar -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto mb-14">
-                <div class="text-center">
-                    <p class="text-3xl sm:text-4xl font-extrabold text-gray-900">4.2x</p>
-                    <p class="text-sm text-gray-500 mt-1">more Google reviews</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl sm:text-4xl font-extrabold text-gray-900">83%</p>
-                    <p class="text-sm text-gray-500 mt-1">go to Google, not complaints</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-3xl sm:text-4xl font-extrabold text-gray-900">&lt;2 min</p>
-                    <p class="text-sm text-gray-500 mt-1">to set up</p>
-                </div>
-            </div>
-
-            <!-- Testimonials -->
-            <div class="grid md:grid-cols-3 gap-5">
-                <blockquote class="bg-gray-50 rounded-3xl p-6">
-                    <div class="flex items-center gap-1 mb-4">
-                        <span class="sr-only">5 out of 5 stars</span>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-4">&ldquo;We went from 12 to 47 Google reviews in two months. The routing is genius &mdash; unhappy customers message us directly instead of leaving a 1-star review.&rdquo;</p>
-                    <footer>
-                        <p class="font-semibold text-sm text-gray-900">Sarah Mitchell</p>
-                        <p class="text-xs text-gray-500">Owner, Bright Smile Dental</p>
-                    </footer>
-                </blockquote>
-                <blockquote class="bg-gray-50 rounded-3xl p-6">
-                    <div class="flex items-center gap-1 mb-4">
-                        <span class="sr-only">5 out of 5 stars</span>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-4">&ldquo;I was paying $279/mo for a review tool that did less. QuickFeedback is $29 and my Google rating went from 3.8 to 4.6 in three months.&rdquo;</p>
-                    <footer>
-                        <p class="font-semibold text-sm text-gray-900">James Kowalski</p>
-                        <p class="text-xs text-gray-500">Owner, JK Plumbing Services</p>
-                    </footer>
-                </blockquote>
-                <blockquote class="bg-gray-50 rounded-3xl p-6">
-                    <div class="flex items-center gap-1 mb-4">
-                        <span class="sr-only">5 out of 5 stars</span>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="text-gray-700 text-sm leading-relaxed mb-4">&ldquo;Set it up in 5 minutes. Now I just hand customers a QR code after every cleaning and the reviews roll in. Easiest marketing I've ever done.&rdquo;</p>
-                    <footer>
-                        <p class="font-semibold text-sm text-gray-900">Lisa Torres</p>
-                        <p class="text-xs text-gray-500">Owner, Sparkle Clean Co.</p>
-                    </footer>
-                </blockquote>
             </div>
         </div>
     </section>
@@ -323,7 +248,7 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <span>Smart routing &mdash; happy to Google, unhappy to you</span>
+                        <span>Private alerts when a customer is unhappy</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-indigo-600 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -360,7 +285,7 @@
                 </div>
                 <blockquote>
                     <p class="text-lg text-gray-700 leading-relaxed italic">
-                        &ldquo;I built QuickFeedback because I ran a service business and couldn't justify paying $300/month just to send review request emails. This tool does the one thing that actually matters &mdash; getting more Google reviews &mdash; without the bloat or the price tag.&rdquo;
+                        &ldquo;I built QuickFeedback for my wife's service business. The review tools out there cost around $300/month just to send review request emails, and we couldn't justify that. QuickFeedback does the one thing that actually matters, getting more Google reviews, without the bloat or the price tag.&rdquo;
                     </p>
                     <footer class="mt-4 text-sm font-semibold text-gray-900">Wojtek, Founder</footer>
                 </blockquote>
@@ -378,11 +303,11 @@
             <div class="space-y-3" x-data="{ open: null }">
                 <div class="bg-gray-50 rounded-2xl overflow-hidden">
                     <button id="faq-btn-1" @click="open = open === 1 ? null : 1" :aria-expanded="open === 1" aria-controls="faq-1" class="w-full flex items-center justify-between px-6 py-5 text-left">
-                        <span class="font-semibold text-gray-900">How does the review routing work?</span>
+                        <span class="font-semibold text-gray-900">What happens after a customer rates us?</span>
                         <svg class="w-5 h-5 text-indigo-400 transition-transform shrink-0 ml-4" :class="{ 'rotate-180': open === 1 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div id="faq-1" x-show="open === 1" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" role="region" aria-labelledby="faq-btn-1" class="px-6 pb-5 text-gray-600 text-sm leading-relaxed">
-                        When a customer rates you 4 or 5 stars, they're automatically redirected to your Google Reviews page. Customers who rate 1-3 stars are shown a private feedback form instead, so you can address their concerns before they go public.
+                        Customers who rate you 4 or 5 stars are taken straight to your Google review page. Customers who rate 1-3 stars can tell you privately what went wrong, and they still see a link to post on Google if they prefer. You get an alert, so you can make it right.
                     </div>
                 </div>
                 <div class="bg-gray-50 rounded-2xl overflow-hidden">
@@ -409,7 +334,7 @@
                         <svg class="w-5 h-5 text-indigo-400 transition-transform shrink-0 ml-4" :class="{ 'rotate-180': open === 4 }" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div id="faq-4" x-show="open === 4" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" role="region" aria-labelledby="faq-btn-4" class="px-6 pb-5 text-gray-600 text-sm leading-relaxed">
-                        No. We don't filter or gate reviews &mdash; all customers can leave a Google review. We simply ask for a quick rating first and route unhappy customers to private feedback. Asking for reviews is encouraged by Google.
+                        No. Every customer can leave a Google review: we never hide that option from anyone, including customers who had a bad experience. Asking customers for reviews is encouraged by Google.
                     </div>
                 </div>
                 <div class="bg-gray-50 rounded-2xl overflow-hidden">
@@ -550,7 +475,7 @@
         'url' => url('/'),
         'applicationCategory' => 'BusinessApplication',
         'operatingSystem' => 'Web',
-        'description' => 'Review management software for local businesses. Get more Google reviews with smart routing — happy customers go to Google, unhappy ones send private feedback.',
+        'description' => 'Review management software for local businesses. Ask every customer for a Google review and get private alerts when someone had a bad experience.',
         'offers' => [
             '@type' => 'Offer',
             'price' => '29',
@@ -572,7 +497,7 @@
         'taxID' => config('company.nip'),
         'url' => url('/'),
         'logo' => asset('favicon.svg'),
-        'description' => 'Review management software for local businesses. Automate Google review collection with smart routing.',
+        'description' => 'Review management software for local businesses. Automate Google review requests by email and QR code.',
         'address' => [
             '@type' => 'PostalAddress',
             'addressLocality' => config('company.city'),
@@ -594,10 +519,10 @@
         '@context' => 'https://schema.org',
         '@type' => 'FAQPage',
         'mainEntity' => [
-            ['@type' => 'Question', 'name' => 'How does the review routing work?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'When a customer rates you 4 or 5 stars, they\'re automatically redirected to your Google Reviews page. Customers who rate 1-3 stars are shown a private feedback form instead, so you can address their concerns before they go public.']],
+            ['@type' => 'Question', 'name' => 'What happens after a customer rates us?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Customers who rate you 4 or 5 stars are taken straight to your Google review page. Customers who rate 1-3 stars can tell you privately what went wrong, and they still see a link to post on Google if they prefer. You get an alert, so you can make it right.']],
             ['@type' => 'Question', 'name' => 'What\'s a QR code used for?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Each business profile gets a unique QR code. Print it and place it at your counter, on receipts, or on table cards. Customers scan it with their phone and can leave a rating instantly — no email needed.']],
             ['@type' => 'Question', 'name' => 'Can I manage multiple locations?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes! You can create up to 5 business profiles, each with its own Google Review link, QR code, branding, and customer language settings. Perfect for multi-location businesses.']],
-            ['@type' => 'Question', 'name' => 'Is this against Google\'s terms of service?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. We don\'t filter or gate reviews — all customers can leave a Google review. We simply ask for a quick rating first and route unhappy customers to private feedback. Asking for reviews is encouraged by Google.']],
+            ['@type' => 'Question', 'name' => 'Is this against Google\'s terms of service?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'No. Every customer can leave a Google review: we never hide that option from anyone, including customers who had a bad experience. Asking customers for reviews is encouraged by Google.']],
             ['@type' => 'Question', 'name' => 'Can I cancel anytime?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. No contracts, no commitments. Start with a 14-day free trial, and cancel anytime if it\'s not for you.']],
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>

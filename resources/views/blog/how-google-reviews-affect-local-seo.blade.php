@@ -288,7 +288,7 @@
         <div class="not-prose my-12 bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-2xl p-8 text-center">
             <h3 class="text-2xl font-bold text-gray-900 mb-3">Stop losing customers to competitors with more reviews</h3>
             <p class="text-gray-600 mb-6 max-w-xl mx-auto">
-                QuickFeedback automatically sends your Google review link to every customer, follows up with non-responders, and routes unhappy customers to private feedback instead of public reviews.
+                QuickFeedback sends your Google review link to customers by email or QR code, and alerts you privately when someone had a bad experience, so you can make it right.
             </p>
             <a href="{{ route('register') }}" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-500 transition">
                 Start Your Free 14-Day Trial

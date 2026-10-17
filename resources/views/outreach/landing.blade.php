@@ -123,7 +123,7 @@
         <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-indigo-600 rounded-2xl p-8 sm:p-10 text-center">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white">Want to automate this?</h2>
-                <p class="text-indigo-100 mt-4 max-w-lg mx-auto">{{ config('app.name') }} sends your review link to every customer automatically, follows up with non-responders, and routes unhappy customers to private feedback instead of a public review.</p>
+                <p class="text-indigo-100 mt-4 max-w-lg mx-auto">{{ config('app.name') }} sends your review link to customers by email or QR code, and alerts you privately when someone had a bad experience, so you can make it right.</p>
                 <a href="{{ route('register') }}" class="mt-6 inline-flex items-center px-8 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 transition shadow-lg">
                     Start Your Free 14-Day Trial
                     <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
