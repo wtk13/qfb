@@ -22,4 +22,7 @@ return [
     'country' => 'Poland',
     'country_code' => 'PL',
 
+    // Replies to founder emails (welcome, trial ending) land here; it must route to a real inbox.
+    'support_email' => env('SUPPORT_EMAIL', 'support@quickfeedback.app'),
+
 ];

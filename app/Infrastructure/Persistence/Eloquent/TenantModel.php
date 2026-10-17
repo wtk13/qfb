@@ -13,12 +13,13 @@ class TenantModel extends Model
 
     protected $table = 'tenants';
 
-    protected $fillable = ['id', 'name', 'slug', 'trial_ends_at'];
+    protected $fillable = ['id', 'name', 'slug', 'trial_ends_at', 'trial_reminder_sent_at'];
 
     protected function casts(): array
     {
         return [
             'trial_ends_at' => 'datetime',
+            'trial_reminder_sent_at' => 'datetime',
         ];
     }
 
