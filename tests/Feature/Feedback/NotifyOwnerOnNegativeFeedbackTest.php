@@ -73,6 +73,29 @@ class NotifyOwnerOnNegativeFeedbackTest extends TestCase
         });
     }
 
+    public function test_dispatched_event_notifies_owner_exactly_once(): void
+    {
+        Mail::fake();
+
+        $rating = RatingModel::create([
+            'business_profile_id' => $this->profile->id,
+            'score' => 1,
+            'source' => 'qr_code',
+        ]);
+        $feedback = FeedbackModel::create([
+            'rating_id' => $rating->id,
+            'comment' => 'Nobody answered the phone.',
+        ]);
+
+        event(new FeedbackTriaged(
+            feedbackId: $feedback->id,
+            triageId: null,
+            businessProfileId: $this->profile->id,
+        ));
+
+        Mail::assertSent(\App\Mail\NegativeFeedbackMail::class, 1);
+    }
+
     public function test_sends_fallback_email_when_triage_is_null(): void
     {
         Mail::fake();
