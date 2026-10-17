@@ -62,6 +62,48 @@ class ReviewRequestTest extends TestCase
         $rr->markAsRated();
     }
 
+    private function sentDaysAgo(int $days, ReviewRequestStatus $status = ReviewRequestStatus::Sent): ReviewRequest
+    {
+        return new ReviewRequest(
+            id: 'rr-1',
+            businessProfileId: 'bp-1',
+            recipientEmail: new Email('test@example.com'),
+            status: $status,
+            token: new ReviewToken,
+            sentAt: new \DateTimeImmutable("-{$days} days"),
+        );
+    }
+
+    public function test_unanswered_request_needs_a_reminder_after_three_days(): void
+    {
+        $now = new \DateTimeImmutable;
+
+        $this->assertFalse($this->sentDaysAgo(2)->needsReminder($now));
+        $this->assertTrue($this->sentDaysAgo(4)->needsReminder($now));
+    }
+
+    public function test_clicked_or_rated_request_needs_no_reminder(): void
+    {
+        $now = new \DateTimeImmutable;
+
+        $this->assertFalse($this->sentDaysAgo(4, ReviewRequestStatus::Clicked)->needsReminder($now));
+        $this->assertFalse($this->sentDaysAgo(4, ReviewRequestStatus::Rated)->needsReminder($now));
+    }
+
+    public function test_old_request_needs_no_reminder(): void
+    {
+        $this->assertFalse($this->sentDaysAgo(15)->needsReminder(new \DateTimeImmutable));
+    }
+
+    public function test_reminder_is_sent_only_once(): void
+    {
+        $rr = $this->sentDaysAgo(4);
+        $rr->markReminderSent();
+
+        $this->assertNotNull($rr->reminderSentAt);
+        $this->assertFalse($rr->needsReminder(new \DateTimeImmutable));
+    }
+
     public function test_cannot_mark_as_sent_from_clicked(): void
     {
         $rr = $this->makeReviewRequest(ReviewRequestStatus::Clicked);

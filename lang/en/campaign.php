@@ -10,6 +10,7 @@ return [
     'upload' => 'Upload & Send',
     'bulk_sent' => ':count review requests sent successfully.',
     'email_subject' => 'How was your experience with :business?',
+    'reminder_subject' => 'Quick reminder: how was your experience with :business?',
     'email_heading' => 'How was your experience with :business?',
     'email_body' => 'We would love to hear about your experience with :business. Your feedback helps us improve!',
     'email_cta' => 'Rate Your Experience',

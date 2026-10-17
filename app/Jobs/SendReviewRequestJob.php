@@ -19,6 +19,7 @@ class SendReviewRequestJob implements ShouldQueue
 
     public function __construct(
         public string $reviewRequestId,
+        public bool $isReminder = false,
     ) {}
 
     public function handle(): void
@@ -33,8 +34,14 @@ class SendReviewRequestJob implements ShouldQueue
                 businessName: $business->name,
                 ratingUrl: $ratingUrl,
                 logoPath: $business->logo_path,
+                isReminder: $this->isReminder,
             )
         );
+
+        // A reminder keeps the original status and sent_at; reminder_sent_at is set when it's queued.
+        if ($this->isReminder) {
+            return;
+        }
 
         $model->update([
             'status' => ReviewRequestStatus::Sent->value,

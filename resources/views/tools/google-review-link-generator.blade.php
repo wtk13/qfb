@@ -47,7 +47,7 @@
             ['@type' => 'Question', 'name' => 'What is a Google Place ID?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'A Google Place ID is a unique identifier for any place in Google\'s database. It looks like a string of letters and numbers (e.g., ChIJN1t_tDeuEmsRUsoyG83frY4). You need it to generate your direct Google review link.']],
             ['@type' => 'Question', 'name' => 'Is this tool really free?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes, completely free. No signup, no email required, no limits. Generate as many review links as you need.']],
             ['@type' => 'Question', 'name' => 'How do I use my Google review link?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Share it via email, SMS, your website, or social media. When someone clicks the link, they land directly on your Google review form.']],
-            ['@type' => 'Question', 'name' => 'Can I automate sending this link to customers?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. QuickFeedback sends your Google review link to customers by email or QR code, and alerts you privately when someone had a bad experience.']],
+            ['@type' => 'Question', 'name' => 'Can I automate sending this link to customers?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. QuickFeedback sends your Google review link to customers by email or QR code, reminds the ones who don\'t respond, and alerts you privately when someone had a bad experience.']],
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 </head>
@@ -164,7 +164,7 @@
                 <!-- CTA -->
                 <div class="bg-indigo-600 rounded-2xl p-8 text-center">
                     <h3 class="text-2xl font-bold text-white">You have the link. Now automate sending it.</h3>
-                    <p class="text-indigo-100 mt-2 max-w-lg mx-auto">{{ config('app.name') }} sends your review link to customers by email or QR code, and alerts you privately when someone had a bad experience.</p>
+                    <p class="text-indigo-100 mt-2 max-w-lg mx-auto">{{ config('app.name') }} sends your review link to customers by email or QR code, reminds the ones who don't respond, and alerts you privately when someone had a bad experience.</p>
                     <a href="{{ route('register') }}" class="mt-6 inline-flex items-center px-8 py-3 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-indigo-50 transition shadow-lg">
                         Start Your Free 14-Day Trial
                         <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -213,7 +213,7 @@
                         <svg class="w-5 h-5 text-gray-400 transition-transform" :class="{ 'rotate-180': open === 4 }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
                     <div x-show="open === 4" x-cloak id="faq-4" role="region" class="px-6 pb-4 text-gray-600">
-                        Yes — that's exactly what <a href="{{ route('register') }}" class="text-indigo-600 underline hover:text-indigo-500">{{ config('app.name') }}</a> does. It sends your review link to customers by email (one by one or as a CSV upload) or QR code, and alerts you privately when someone had a bad experience, so you can make it right.
+                        Yes — that's exactly what <a href="{{ route('register') }}" class="text-indigo-600 underline hover:text-indigo-500">{{ config('app.name') }}</a> does. It sends your review link to customers by email (one by one or as a CSV upload) or QR code, reminds the ones who don't respond, and alerts you privately when someone had a bad experience, so you can make it right.
                     </div>
                 </div>
             </div>

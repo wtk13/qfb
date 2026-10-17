@@ -45,6 +45,7 @@ class EloquentReviewRequestRepository implements ReviewRequestRepositoryInterfac
                 'status' => $reviewRequest->status->value,
                 'token' => $reviewRequest->token->value,
                 'sent_at' => $reviewRequest->sentAt,
+                'reminder_sent_at' => $reviewRequest->reminderSentAt,
             ]
         );
     }
@@ -52,6 +53,16 @@ class EloquentReviewRequestRepository implements ReviewRequestRepositoryInterfac
     public function countByBusinessProfileId(string $businessProfileId): int
     {
         return ReviewRequestModel::where('business_profile_id', $businessProfileId)->count();
+    }
+
+    public function findAwaitingReminder(\DateTimeImmutable $sentAfter): array
+    {
+        return ReviewRequestModel::where('status', ReviewRequestStatus::Sent->value)
+            ->whereNull('reminder_sent_at')
+            ->where('sent_at', '>', $sentAfter)
+            ->get()
+            ->map(fn (ReviewRequestModel $m) => $this->toDomain($m))
+            ->all();
     }
 
     private function toDomain(ReviewRequestModel $model): ReviewRequest
@@ -63,6 +74,7 @@ class EloquentReviewRequestRepository implements ReviewRequestRepositoryInterfac
             status: ReviewRequestStatus::from($model->status),
             token: new ReviewToken($model->token),
             sentAt: $model->sent_at ? \DateTimeImmutable::createFromMutable($model->sent_at) : null,
+            reminderSentAt: $model->reminder_sent_at ? \DateTimeImmutable::createFromMutable($model->reminder_sent_at) : null,
         );
     }
 }

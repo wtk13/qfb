@@ -16,12 +16,13 @@ class ReviewRequestMail extends Mailable
         public string $businessName,
         public string $ratingUrl,
         public ?string $logoPath = null,
+        public bool $isReminder = false,
     ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('campaign.email_subject', ['business' => $this->businessName]),
+            subject: __($this->isReminder ? 'campaign.reminder_subject' : 'campaign.email_subject', ['business' => $this->businessName]),
         );
     }
 

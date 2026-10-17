@@ -19,12 +19,14 @@ class ReviewRequestModel extends Model
         'status',
         'token',
         'sent_at',
+        'reminder_sent_at',
     ];
 
     protected function casts(): array
     {
         return [
             'sent_at' => 'datetime',
+            'reminder_sent_at' => 'datetime',
         ];
     }
 

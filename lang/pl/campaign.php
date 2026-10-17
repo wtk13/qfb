@@ -10,6 +10,7 @@ return [
     'upload' => 'Wgraj i wyślij',
     'bulk_sent' => 'Wysłano :count próśb o opinię.',
     'email_subject' => 'Jak oceniasz :business?',
+    'reminder_subject' => 'Krótkie przypomnienie: jak oceniasz :business?',
     'email_heading' => 'Jak oceniasz :business?',
     'email_body' => 'Chcielibyśmy poznać Twoją opinię o :business. Twoja opinia pomaga nam się rozwijać!',
     'email_cta' => 'Oceń swoje doświadczenie',

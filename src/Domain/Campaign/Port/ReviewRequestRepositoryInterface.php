@@ -17,4 +17,7 @@ interface ReviewRequestRepositoryInterface
     public function save(ReviewRequest $reviewRequest): void;
 
     public function countByBusinessProfileId(string $businessProfileId): int;
+
+    /** @return ReviewRequest[] sent after $sentAfter, still unopened and never reminded */
+    public function findAwaitingReminder(\DateTimeImmutable $sentAfter): array;
 }

@@ -12,6 +12,9 @@ Artisan::command('inspire', function () {
 Schedule::command('outreach:weekly')->days([1, 3, 5])->at('06:00')->withoutOverlapping();
 Schedule::command('outreach:daily-send --limit=20 --delay=30')->dailyAt('09:00')->withoutOverlapping();
 
+// One reminder for review requests nobody opened after 3 days
+Schedule::command('reviews:send-reminders')->hourly()->withoutOverlapping();
+
 // Trial ending reminders (15:00 UTC = morning in the US)
 Schedule::command('trial:send-reminders')->dailyAt('15:00')->withoutOverlapping();
 
